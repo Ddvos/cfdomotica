@@ -13,6 +13,17 @@ const posts = require('./routes/api/posts');
 
 app.use('/api/posts', posts);
 
+// Handle production
+if(process.env.NODE_ENV === 'production'){
+
+    //static folder
+    app.use(express.static(__dirname + '/public'));
+
+    //handle SPA
+    app.get(/.*/, (req,res) =>res.sendFile(__dirname + '/public/index.html'));
+
+}
+
 
 const port = process.env.PORT || 5000;
 
@@ -26,5 +37,70 @@ mongoose.connect(mongodb_URI || 'mongodb://localhost/circusfamily',{
 mongoose.connection.on('connected',()=>{
     console.log('MonogDB is connected');
 });
+
+/// OSC websocket//
+//--------------------------------------------------
+//  Bi-Directional OSC messaging Websocket <-> UDP
+//--------------------------------------------------
+var osc = require("osc"),
+WebSocket = require("ws");
+
+var getIPAddresses = function () {
+    var os = require("os"),
+    interfaces = os.networkInterfaces(),
+    ipAddresses = [];
+
+    for (var deviceName in interfaces){
+        var addresses = interfaces[deviceName];
+
+        for (var i = 0; i < addresses.length; i++) {
+            var addressInfo = addresses[i];
+
+            if (addressInfo.family === "IPv4" && !addressInfo.internal) {
+                ipAddresses.push(addressInfo.address);
+            }
+        }
+    }
+
+    return ipAddresses;
+};
+
+var udp = new osc.UDPPort({
+    localAddress: "0.0.0.0",
+    localPort: 5000,
+    remoteAddress: "127.0.0.1",
+    remotePort: 7500
+});
+
+udp.on("ready", function () {
+    var ipAddresses = getIPAddresses();
+    console.log("Listening for OSC over UDP.");
+    ipAddresses.forEach(function (address) {
+        console.log(" Host:", address + ", Port:", udp.options.localPort);
+    });
+    console.log("Broadcasting OSC over UDP to", udp.options.remoteAddress + ", Port:", udp.options.remotePort);
+});
+
+udp.open();
+
+var wss = new WebSocket.Server({
+    port: 8083
+});
+
+wss.on("connection", function (socket) {
+    console.log("A Web Socket connection has been established!");
+    var socketPort = new osc.WebSocketPort({
+        socket: socket
+    });
+
+    var relay = new osc.Relay(udp, socketPort, {
+        raw: true
+    });
+});
+
+
+
+
+// end OSC websocket 
 
 app.listen(port,()=>console.log(`Server started on port ${port}`));
