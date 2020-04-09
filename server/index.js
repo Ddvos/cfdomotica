@@ -65,38 +65,38 @@ var getIPAddresses = function () {
     return ipAddresses;
 };
 
-var udp = new osc.UDPPort({
-    localAddress: "178.62.209.37",
-    localPort: 5000,
-    remoteAddress: "178.62.209.37", // local 127.0.0.1 online server 178.62.209.37
-    remotePort: 7500
-});
+// var udp = new osc.UDPPort({
+//     localAddress: "178.62.209.37",
+//     localPort: 5000,
+//     remoteAddress: "178.62.209.37", // local 127.0.0.1 online server 178.62.209.37
+//     remotePort: 7500
+// });
 
-udp.on("ready", function () {
-    var ipAddresses = getIPAddresses();
-    console.log("Listening for OSC over UDP.");
-    ipAddresses.forEach(function (address) {
-        console.log(" Host:", address + ", Port:", udp.options.localPort);
-    });
-    console.log("Broadcasting OSC over UDP to", udp.options.remoteAddress + ", Port:", udp.options.remotePort);
-});
+// udp.on("ready", function () {
+//     var ipAddresses = getIPAddresses();
+//     console.log("Listening for OSC over UDP.");
+//     ipAddresses.forEach(function (address) {
+//         console.log(" Host:", address + ", Port:", udp.options.localPort);
+//     });
+//     console.log("Broadcasting OSC over UDP to", udp.options.remoteAddress + ", Port:", udp.options.remotePort);
+// });
 
-udp.open();
+// udp.open();
 
-var wss = new WebSocket.Server({
-    port: 8083
-});
+// var wss = new WebSocket.Server({
+//     port: 8083
+// });
 
-wss.on("connection", function (socket) {
-    console.log("A Web Socket connection has been established!");
-    var socketPort = new osc.WebSocketPort({
-        socket: socket
-    });
+// wss.on("connection", function (socket) {
+//     console.log("A Web Socket connection has been established!");
+//     var socketPort = new osc.WebSocketPort({
+//         socket: socket
+//     });
 
-    var relay = new osc.Relay(udp, socketPort, {
-        raw: true
-    });
-});
+//     var relay = new osc.Relay(udp, socketPort, {
+//         raw: true
+//     });
+// });
 
 
 
