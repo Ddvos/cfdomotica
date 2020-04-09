@@ -66,7 +66,7 @@ var getIPAddresses = function () {
 };
 
 var udp = new osc.UDPPort({
-    localAddress: "0.0.0.0",
+    localAddress: "178.62.209.37",
     localPort: 5000,
     remoteAddress: "178.62.209.37", // local 127.0.0.1 online server 178.62.209.37
     remotePort: 7500
