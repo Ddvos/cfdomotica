@@ -66,9 +66,9 @@ var getIPAddresses = function () {
 };
 
 var udp = new osc.UDPPort({
-    localAddress: "178.62.209.37",
+    localAddress: "0.0.0.0", // this is the server side /0.0.0.0.0
     localPort: 5000,
-    remoteAddress: "62.238.120.14", // local 127.0.0.1 online server 178.62.209.37
+    remoteAddress: "62.238.120.14", // local 127.0.0.1 online Ip where the OSC data should be sended to 
     remotePort: 7500
 });
 
