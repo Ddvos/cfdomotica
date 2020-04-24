@@ -17,6 +17,8 @@
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.6",
     "osc": "^2.4.0",
+    "socket.io": "^2.3.0",
+    "uws": "^100.0.1",
     "ws": "^7.2.3"
   },
   "devDependencies": {
