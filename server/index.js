@@ -68,7 +68,7 @@ var getIPAddresses = function () {
 var udp = new osc.UDPPort({
     localAddress: "0.0.0.0", // this is the server side /0.0.0.0.0
     localPort: 5000,
-    remoteAddress: "94.168.120.14", // local 127.0.0.1 online Ip where the OSC data should be sended to thuis 62.238.120.14 studio 94.168.120.14
+    remoteAddress: "62.238.120.14", // local 127.0.0.1 online Ip where the OSC data should be sended to thuis 62.238.120.14 studio 94.168.120.14
     remotePort: 7500
 });
 
