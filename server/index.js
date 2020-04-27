@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const http = require("http");
 
 const app = express();
 
@@ -26,46 +25,8 @@ if(process.env.NODE_ENV === 'production'){
 }
 
 
-const port = process.env.PORT || 5000; //general port for receiving OSC data
+const port = process.env.PORT || 5000;
 
-///////////////////////////////////////
-            // webRTC socket.io broadcasting
-////////////////////////////////////////
-// broadcasting video on port 4000
-const server = http.createServer(app);
-let broadcaster;
-const socketPort = 4000;
-const io = require("socket.io")(server);
-
-io.sockets.on("error", e => console.log(e));
-io.sockets.on("connection", socket => {
-  socket.on("broadcaster", () => {
-    broadcaster = socket.id;
-    socket.broadcast.emit("broadcaster");
-  });
-  socket.on("watcher", () => {
-    socket.to(broadcaster).emit("watcher", socket.id);
-  });
-  socket.on("offer", (id, message) => {
-    socket.to(id).emit("offer", socket.id, message);
-  });
-  socket.on("answer", (id, message) => {
-    socket.to(id).emit("answer", socket.id, message);
-  });
-  socket.on("candidate", (id, message) => {
-    socket.to(id).emit("candidate", socket.id, message);
-  });
-  socket.on("disconnect", () => {
-    socket.to(broadcaster).emit("disconnectPeer", socket.id);
-  });
-});
-server.listen(socketPort, () => console.log(`socket.io Server is running on port ${socketPort}`));
-
-
-
-///////////////////////////////////////
-            // Database
-////////////////////////////////////////
 const mongodb_URI = 'mongodb+srv://CircusFamily:mYIz6bPl1ZRfhbtF@cluster0-7znii.mongodb.net/test?retryWrites=true&w=majority'
 
 mongoose.connect(mongodb_URI || 'mongodb://localhost/circusfamily',{
