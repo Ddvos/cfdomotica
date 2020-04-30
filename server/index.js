@@ -132,7 +132,7 @@ udp.on("ready", function () {
 udp.open();
 
 var wss = new WebSocket.Server({
-    //port: 8083
+    port: 8083
 });
 
 wss.on("connection", function (socket) {
