@@ -81,9 +81,9 @@ mongoose.connection.on('connected',()=>{
  
  //});
 
-  https.listen(4000, function () {
-     console.log('WebRTC socket.io is listining on port: 4000');
-  });
+  //https.listen(4000, function () {
+   //  console.log('WebRTC socket.io is listining on port: 4000');
+  //});
  
 
 /// OSC websocket//
