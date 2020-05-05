@@ -45,7 +45,7 @@ mongoose.connection.on('connected',()=>{
 });
 
  //Socket.io stream
-  io.on('connection', function (liveSocket) {
+ // io.on('connection', function (liveSocket) {
 
    // socket.on('broadcaster', function () {
         //id of the broadcaster
@@ -79,7 +79,7 @@ mongoose.connection.on('connected',()=>{
 //         broadcaster && socket.to(broadcaster).emit('bye', socket.id);
 //      });
  
- });
+ //});
 
   https.listen(4000, function () {
      console.log('WebRTC socket.io is listining on port: 4000');
