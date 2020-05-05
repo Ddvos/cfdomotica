@@ -45,12 +45,12 @@ mongoose.connection.on('connected',()=>{
 });
 
  //Socket.io stream
-  io.on('connection', function (socket) {
+  io.on('connection', function (liveSocket) {
 
-     socket.on('broadcaster', function () {
+    liveSocket.on('broadcaster', function () {
         //id of the broadcaster
-      broadcaster = socket.id;
-         socket.broadcast.emit('broadcaster');
+      broadcaster = liveSocket.id;
+      liveSocket.broadcast.emit('broadcaster');
       });
 //      //Default room
 //     // Each Socket in Socket.IO is identified by a random, unguessable, unique identifier Socket#id. 
