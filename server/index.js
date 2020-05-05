@@ -45,13 +45,13 @@ mongoose.connection.on('connected',()=>{
 });
 
  //Socket.io stream
-//  io.on('connection', function (socket) {
+  io.on('connection', function (socket) {
 
-//     socket.on('broadcaster', function () {
-//         //id of the broadcaster
-//         broadcaster = socket.id;
-//         socket.broadcast.emit('broadcaster');
-//      });
+     socket.on('broadcaster', function () {
+        //id of the broadcaster
+      broadcaster = socket.id;
+         socket.broadcast.emit('broadcaster');
+      });
 //      //Default room
 //     // Each Socket in Socket.IO is identified by a random, unguessable, unique identifier Socket#id. 
 //      //For your convenience, each socket automatically joins a room identified by this id.
@@ -79,7 +79,7 @@ mongoose.connection.on('connected',()=>{
 //         broadcaster && socket.to(broadcaster).emit('bye', socket.id);
 //      });
  
-//   });
+  });
 
   https.listen(4000, function () {
      console.log('WebRTC socket.io is listining on port: 4000');
