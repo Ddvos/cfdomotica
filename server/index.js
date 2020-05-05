@@ -6,8 +6,8 @@ const cors = require('cors');
 const app = express();
 
 //socket.io 
-//var https = require('https').Server(app);
-//var io = require('socket.io')(https);
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 
 // middleware
@@ -81,9 +81,9 @@ mongoose.connection.on('connected',()=>{
  
  //});
 
-  //https.listen(4000, function () {
-   //  console.log('WebRTC socket.io is listining on port: 4000');
-  //});
+  http.listen(4000, function () {
+     console.log('WebRTC socket.io is listining on port: 4000');
+  });
  
 
 /// OSC websocket//
