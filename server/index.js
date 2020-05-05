@@ -6,8 +6,8 @@ const cors = require('cors');
 const app = express();
 
 //socket.io 
-var https = require('https').Server(app);
-var io = require('socket.io')(https);
+//var https = require('https').Server(app);
+//var io = require('socket.io')(https);
 
 
 // middleware
