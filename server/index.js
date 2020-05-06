@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-const socketApp = express(); // for socoket.io
+//const socketApp = express(); // for socoket.io
 
 
 
@@ -49,9 +49,9 @@ mongoose.connection.on('connected',()=>{
 
  //Socket.io stream
 
- var http = require('http').Server(socketApp);
-var io = require('socket.io')(http);
- io.sockets.on('error', e => console.log(e)); //socket.io
+ //var http = require('http').Server(socketApp);
+//var io = require('socket.io')(6500);
+ //io.sockets.on('error', e => console.log(e)); //socket.io
  //io.on('connection', function (liveSocket) {
 
    // liveSocket.on('broadcaster', function () {
@@ -85,9 +85,9 @@ var io = require('socket.io')(http);
 //      socket.on('disconnect', function () {
 //         broadcaster && socket.to(broadcaster).emit('bye', socket.id);
 //      });
-http.listen(3000, function () {
-    console.log('listening on *:3000');
- });
+//http.listen(3000, function () {
+  //  console.log('listening on *:3000');
+ //});
  //});
 
  
@@ -155,11 +155,22 @@ wss.on("connection", function (socket) {
     });
 });
 
-
-
-
 // end OSC websocket 
 
+//
+  // websocket conection 
+//
+var io = new WebSocket.Server({
+    port: 4000
+})
 
+io.on('connection', function (liveSocket) {
 
+    liveSocket.on('broadcaster', function () {
+         //id of the broadcaster
+       broadcaster = iveSocket.id;
+       liveSocket.broadcast.emit('broadcaster');
+      });
+
+    });
 app.listen(port,()=>console.log(`Server started on port ${port}`));
