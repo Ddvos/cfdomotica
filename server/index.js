@@ -11,7 +11,7 @@ WebSocket = require("ws");
 
 //socket.io 
 var http = require('http').Server(socketApp);
-//var io = require('socket.io')(http);
+var io = require('socket.io')(http);
 
 
 // middleware
@@ -27,9 +27,11 @@ if(process.env.NODE_ENV === 'production'){
 
     //static folder
     app.use(express.static(__dirname + '/public'));
+    socketApp.use(express.static(__dirname + '/public'))  //socket.io
 
     //handle SPA
     app.get(/.*/, (req,res) =>res.sendFile(__dirname + '/public/index.html'));
+    socketApp.get(/.*/, (req,res) =>res.sendFile(__dirname + '/public/index.html')); //socket.io
 
 }
 
@@ -49,6 +51,7 @@ mongoose.connection.on('connected',()=>{
 });
 
  //Socket.io stream
+ io.sockets.on('error', e => console.log(e)); //socket.io
  //io.on('connection', function (liveSocket) {
 
    // liveSocket.on('broadcaster', function () {
