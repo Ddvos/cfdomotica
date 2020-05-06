@@ -10,7 +10,7 @@ var osc = require("osc"),
 WebSocket = require("ws");
 
 //socket.io 
-var http = require('http').Server(socketApp);
+var https = require('https').Server(socketApp);
 //var io = require('socket.io')(http);
 
 
@@ -88,7 +88,7 @@ mongoose.connection.on('connected',()=>{
  
  //});
 
-  http.listen(4000, function () {
+  https.listen(4000, function () {
      console.log('WebRTC socket.io is listining on port: 4000');
   });
  
