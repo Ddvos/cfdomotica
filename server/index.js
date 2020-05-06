@@ -4,13 +4,11 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-//const socketApp = express(); // for socoket.io
+const socketApp = express(); // for socoket.io
 
 
 
-//socket.io 
-//var https = require('https').Server(socketApp);
-var io = require('socket.io')(3000);
+
 
 
 // middleware
@@ -50,7 +48,10 @@ mongoose.connection.on('connected',()=>{
 });
 
  //Socket.io stream
- //io.sockets.on('error', e => console.log(e)); //socket.io
+
+ var http = require('http').Server(socketApp);
+var io = require('socket.io')(http);
+ io.sockets.on('error', e => console.log(e)); //socket.io
  //io.on('connection', function (liveSocket) {
 
    // liveSocket.on('broadcaster', function () {
@@ -84,7 +85,9 @@ mongoose.connection.on('connected',()=>{
 //      socket.on('disconnect', function () {
 //         broadcaster && socket.to(broadcaster).emit('bye', socket.id);
 //      });
-console.log('WebRTC socket.io is listining on port: 4000');
+http.listen(3000, function () {
+    console.log('listening on *:3000');
+ });
  //});
 
  
