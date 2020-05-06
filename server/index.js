@@ -11,7 +11,7 @@ WebSocket = require("ws");
 
 //socket.io 
 var http = require('http').Server(socketApp);
-var io = require('socket.io')(http);
+//var io = require('socket.io')(http);
 
 
 // middleware
@@ -49,13 +49,13 @@ mongoose.connection.on('connected',()=>{
 });
 
  //Socket.io stream
- io.on('connection', function (liveSocket) {
+// io.on('connection', function (liveSocket) {
 
-    liveSocket.on('broadcaster', function () {
+ //   liveSocket.on('broadcaster', function () {
         //id of the broadcaster
-      broadcaster = socket.id;
-      liveSocket.broadcast.emit('broadcaster');
-      });
+ //     broadcaster = socket.id;
+ //     liveSocket.broadcast.emit('broadcaster');
+ //     });
 //      //Default room
 //     // Each Socket in Socket.IO is identified by a random, unguessable, unique identifier Socket#id. 
 //      //For your convenience, each socket automatically joins a room identified by this id.
@@ -83,7 +83,7 @@ mongoose.connection.on('connected',()=>{
 //         broadcaster && socket.to(broadcaster).emit('bye', socket.id);
 //      });
  
- });
+// });
 
   http.listen(4000, function () {
      console.log('WebRTC socket.io is listining on port: 4000');
