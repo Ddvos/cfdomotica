@@ -6,8 +6,7 @@ const cors = require('cors');
 const app = express();
 //const socketApp = express(); // for socoket.io
 
-var osc = require("osc"),
-WebSocket = require("ws");
+
 
 
 
@@ -88,7 +87,8 @@ console.log('WebRTC socket.io is listining on port: 4000');
 
  
      
- 
+ var osc = require("osc"),
+WebSocket = require("ws");
  
 
 /// OSC websocket//
@@ -157,6 +157,6 @@ wss.on("connection", function (socket) {
 
 //socket.io 
 //var https = require('https').Server(socketApp);
-var io = require('socket.io');
+var io = require('socket.io')(3000);
 
 app.listen(port,()=>console.log(`Server started on port ${port}`));
