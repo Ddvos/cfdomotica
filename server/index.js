@@ -6,9 +6,12 @@ const cors = require('cors');
 const app = express();
 const socketApp = express(); // for socoket.io
 
+var osc = require("osc"),
+WebSocket = require("ws");
+
 //socket.io 
 var http = require('http').Server(socketApp);
-//var io = require('socket.io')(https);
+var io = require('socket.io')(https);
 
 
 // middleware
@@ -46,13 +49,13 @@ mongoose.connection.on('connected',()=>{
 });
 
  //Socket.io stream
- // io.on('connection', function (liveSocket) {
+ io.on('connection', function (liveSocket) {
 
-   // socket.on('broadcaster', function () {
+    socket.on('broadcaster', function () {
         //id of the broadcaster
-    //  broadcaster = socket.id;
-    //  socket.broadcast.emit('broadcaster');
-    //  });
+      broadcaster = socket.id;
+      socket.broadcast.emit('broadcaster');
+      });
 //      //Default room
 //     // Each Socket in Socket.IO is identified by a random, unguessable, unique identifier Socket#id. 
 //      //For your convenience, each socket automatically joins a room identified by this id.
@@ -80,7 +83,7 @@ mongoose.connection.on('connected',()=>{
 //         broadcaster && socket.to(broadcaster).emit('bye', socket.id);
 //      });
  
- //});
+ });
 
   http.listen(4000, function () {
      console.log('WebRTC socket.io is listining on port: 4000');
@@ -91,8 +94,7 @@ mongoose.connection.on('connected',()=>{
 //--------------------------------------------------
 //  Bi-Directional OSC messaging Websocket <-> UDP
 //--------------------------------------------------
-var osc = require("osc"),
-WebSocket = require("ws");
+
 
 var getIPAddresses = function () {
     var os = require("os"),
