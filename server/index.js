@@ -7,8 +7,8 @@ const app = express();
 const socketApp = express(); // for socoket.io
 
 //socket.io 
-var https = require('https').Server(socketApp);
-var io = require('socket.io')(https);
+var http = require('http').Server(socketApp);
+//var io = require('socket.io')(https);
 
 
 // middleware
@@ -82,7 +82,7 @@ mongoose.connection.on('connected',()=>{
  
  //});
 
-  https.listen(4000, function () {
+  http.listen(4000, function () {
      console.log('WebRTC socket.io is listining on port: 4000');
   });
  
