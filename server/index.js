@@ -164,13 +164,43 @@ var io = new WebSocket.Server({
     port: 4000
 })
 
+//io.sockets.on('error', e => console.log(e));
+
 io.on('connection', function (liveSocket) {
 
     liveSocket.on('broadcaster', function () {
-         //id of the broadcaster
-       broadcaster = iveSocket.id;
-       liveSocket.broadcast.emit('broadcaster');
-      });
+      //id of the broadcaster
+      broadcaster = liveSocket.id;
+      liveSocket.broadcast.emit('broadcaster');
+   });
+   //Default room
+   // Each Socket in Socket.IO is identified by a random, unguessable, unique identifier Socket#id. 
+   //For your convenience, each socket automatically joins a room identified by this id.
+   broadcaster =0;
+   liveSocket.on('watcher', function () {
+      //tell to broadcast there is a watcher
+      broadcaster && liveSocket.to(broadcaster).emit('watcher', liveSocket.id);
+   });
 
-    });
+   //send sdp to the client
+   liveSocket.on('offer', function (id /* of the watcher */, message) {
+    liveSocket.to(id).emit('offer', liveSocket.id /* of the broadcaster */, message);
+   });
+   //send sdp of the client to broad caster
+   liveSocket.on('answer', function (id /* of the broadcaster */, message) {
+    liveSocket.to(id).emit('answer', liveSocket.id /* of the watcher */, message);
+   });
+
+   //exchange ice candidate
+   liveSocket.on('candidate', function (id, message) {
+    liveSocket.to(id).emit('candidate', liveSocket.id, message);
+   });
+
+   liveSocket.on('disconnect', function () {
+      broadcaster && liveSocket.to(broadcaster).emit('bye', liveSocket.id);
+   });
+
+});
+
+// end websocket conecting to webRTC live stream
 app.listen(port,()=>console.log(`Server started on port ${port}`));
