@@ -11,7 +11,7 @@ WebSocket = require("ws");
 
 //socket.io 
 //var https = require('https').Server(socketApp);
-var io = require('socket.io')(3000);
+var io = require('socket.io').listen(3000);
 
 
 // middleware
@@ -51,7 +51,20 @@ mongoose.connection.on('connected',()=>{
 });
 
  //Socket.io stream
- io.sockets.on('error', e => console.log(e)); //socket.io
+ io.sockets.on('connection', function (sockett) {
+    sockett.on('set nickname', function (name) {
+      sockett.set('nickname', name, function () {
+        sockett.emit('ready');
+      });
+    });
+   
+    sockett.on('msg', function () {
+      sockett.get('nickname', function (err, name) {
+        console.log('Chat message by ', name);
+      });
+    });
+  });
+ //io.sockets.on('error', e => console.log(e)); //socket.io
  //io.on('connection', function (liveSocket) {
 
    // liveSocket.on('broadcaster', function () {
