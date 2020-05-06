@@ -11,7 +11,7 @@ WebSocket = require("ws");
 
 //socket.io 
 var http = require('http').Server(socketApp);
-var io = require('socket.io')(https);
+var io = require('socket.io')(http);
 
 
 // middleware
