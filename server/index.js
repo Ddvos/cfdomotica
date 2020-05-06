@@ -51,19 +51,6 @@ mongoose.connection.on('connected',()=>{
 });
 
  //Socket.io stream
- io.sockets.on('connection', function (sockett) {
-    sockett.on('set nickname', function (name) {
-      sockett.set('nickname', name, function () {
-        sockett.emit('ready');
-      });
-    });
-   
-    sockett.on('msg', function () {
-      sockett.get('nickname', function (err, name) {
-        console.log('Chat message by ', name);
-      });
-    });
-  });
  //io.sockets.on('error', e => console.log(e)); //socket.io
  //io.on('connection', function (liveSocket) {
 
