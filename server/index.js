@@ -8,7 +8,7 @@ const socketApp = express(); // for socoket.io
 
 //socket.io 
 var http = require('http').Server(socketApp);
-var io = require('socket.io')(http);
+//var io = require('socket.io')(http);
 
 
 // middleware
