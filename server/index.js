@@ -9,9 +9,7 @@ const app = express();
 var osc = require("osc"),
 WebSocket = require("ws");
 
-//socket.io 
-//var https = require('https').Server(socketApp);
-//var io = require('socket.io');
+
 
 
 // middleware
@@ -156,5 +154,9 @@ wss.on("connection", function (socket) {
 
 
 // end OSC websocket 
+
+//socket.io 
+//var https = require('https').Server(socketApp);
+var io = require('socket.io');
 
 app.listen(port,()=>console.log(`Server started on port ${port}`));
