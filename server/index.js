@@ -4,9 +4,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
+const socketApp = express(); // for socoket.io
 
 //socket.io 
-var http = require('http').Server(app);
+var http = require('http').Server(socketApp);
 var io = require('socket.io')(http);
 
 
