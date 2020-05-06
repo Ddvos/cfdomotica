@@ -4,14 +4,14 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-const socketApp = express(); // for socoket.io
+//const socketApp = express(); // for socoket.io
 
 var osc = require("osc"),
 WebSocket = require("ws");
 
 //socket.io 
-var https = require('https').Server(socketApp);
-var io = require('socket.io')(https);
+//var https = require('https').Server(socketApp);
+var io = require('socket.io')(3000);
 
 
 // middleware
@@ -27,11 +27,11 @@ if(process.env.NODE_ENV === 'production'){
 
     //static folder
     app.use(express.static(__dirname + '/public'));
-    socketApp.use(express.static(__dirname + '/public'))  //socket.io
+    //socketApp.use(express.static(__dirname + '/public'))  //socket.io
 
     //handle SPA
     app.get(/.*/, (req,res) =>res.sendFile(__dirname + '/public/index.html'));
-    socketApp.get(/.*/, (req,res) =>res.sendFile(__dirname + '/public/index.html')); //socket.io
+    //socketApp.get(/.*/, (req,res) =>res.sendFile(__dirname + '/public/index.html')); //socket.io
 
 }
 
@@ -85,12 +85,12 @@ mongoose.connection.on('connected',()=>{
 //      socket.on('disconnect', function () {
 //         broadcaster && socket.to(broadcaster).emit('bye', socket.id);
 //      });
- 
+console.log('WebRTC socket.io is listining on port: 4000');
  //});
 
-  https.listen(4000, function () {
-     console.log('WebRTC socket.io is listining on port: 4000');
-  });
+ 
+     
+ 
  
 
 /// OSC websocket//
