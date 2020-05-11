@@ -7,11 +7,6 @@ const app = express();
 //const socketApp = express(); // for socoket.io
 
 
-var https = require('https').Server(app);
-var io = require('socket.io')(https);
-
-
-
 // middleware
 app.use(bodyParser.json());
 app.use(cors());
@@ -48,52 +43,140 @@ mongoose.connection.on('connected',()=>{
     console.log('MonogDB is connected');
 });
 
- //Socket.io stream
 
- 
-io.sockets.on('error', e => console.log(e));
+////////////////////////////////////
+       // begin livestream test
+//////////////////////////////////
+const debug = require('debug');
+const http = require('http');
+const WebSocket = require('ws');
 
-io.on('connection', function (socket) {
+const info = debug('app:server:info');
+const warn = debug('app:server:warn');
 
-   socket.on('broadcaster', function () {
-      //id of the broadcaster
-      broadcaster = socket.id;
-      socket.broadcast.emit('broadcaster');
-   });
-   //Default room
-   // Each Socket in Socket.IO is identified by a random, unguessable, unique identifier Socket#id. 
-   //For your convenience, each socket automatically joins a room identified by this id.
-   broadcaster =0;
-   socket.on('watcher', function () {
-      //tell to broadcast there is a watcher
-      broadcaster && socket.to(broadcaster).emit('watcher', socket.id);
-   });
 
-   //send sdp to the client
-   socket.on('offer', function (id /* of the watcher */, message) {
-      socket.to(id).emit('offer', socket.id /* of the broadcaster */, message);
-   });
-   //send sdp of the client to broad caster
-   socket.on('answer', function (id /* of the broadcaster */, message) {
-      socket.to(id).emit('answer', socket.id /* of the watcher */, message);
-   });
+const wsport = 4083;
+const server = http.createServer(app);
 
-   //exchange ice candidate
-   socket.on('candidate', function (id, message) {
-      socket.to(id).emit('candidate', socket.id, message);
-   });
+const sockets = new Map();
+const cameras = new Set();
+const screens = new Set();
+const setByType = {
+  camera: cameras,
+  screen: screens,
+};
 
-   socket.on('disconnect', function () {
-      broadcaster && socket.to(broadcaster).emit('bye', socket.id);
-   });
+server.listen(
+    wsport,
+  () => info(`listening on port ${wsport}`)
+);
 
+const wsServer = new WebSocket.Server({ server });
+
+wsServer.on('connection', (socket) => {
+  let peerId;
+
+  const onMessage = (e) => {
+    const msg = JSON.parse(e);
+
+    if (msg.type === 'register') {
+      peerId = msg.peerId;
+      const { peerType } = msg;
+
+      info(`${peerType} registered, id: ${peerId}`);
+
+      setByType[peerType].add(peerId);
+      sockets.set(peerId, socket);
+
+      if (peerType === 'camera') {
+        socket.send(JSON.stringify({
+          type: 'screens',
+          screens: Array.from(screens),
+        }));
+      }
+
+      if (peerType === 'screen') {
+        for (let cameraId of cameras) {
+          const cameraSocket = sockets.get(cameraId);
+          cameraSocket.send(JSON.stringify({
+            type: 'screens',
+            screens: [ peerId ],
+          }));
+        }
+      }
+    }
+
+    if (msg.type === 'offer') {
+      info(`camera ${msg.from} sent offer to screen ${msg.to}`);
+      if (!screens.has(msg.to)) {
+        warn(`offer sent to screen ${msg.to} that's not registered`);
+        return;
+      }
+
+      const socket = sockets.get(msg.to);
+      socket.send(e);
+    }
+
+    if (msg.type === 'answer') {
+      info(`screen ${msg.from} sent answer to camera ${msg.to}`);
+      if (!cameras.has(msg.to)) {
+        warn(`offer sent to camera ${msg.to} that's not registered`);
+        return;
+      }
+
+      const socket = sockets.get(msg.to);
+      socket.send(e);
+    }
+
+    if (msg.type === 'candidate') {
+      info(`ice candidate from ${msg.from} to ${msg.to}`);
+      const socketTo = sockets.get(msg.to);
+
+      if (!socketTo) {
+        warn(`candidate sent to ${msg.to}, that's not registered`);
+        return;
+      }
+
+      socketTo.send(e);
+    }
+  };
+
+
+  const onClose = () => {
+    info(`socket closed ${peerId}`);
+
+    let sendDisconnectTo;
+    if (screens.has(peerId)) {
+      sendDisconnectTo = cameras;
+    }
+
+    if (cameras.has(peerId)) {
+      sendDisconnectTo = screens;
+    }
+
+    for (let targetId of sendDisconnectTo) {
+      sockets.get(targetId).send(JSON.stringify({
+        type: 'disconnect',
+        from: peerId
+      }));
+    }
+
+    socket.off('message', onMessage);
+    socket.off('close', onClose);
+
+    cameras.delete(peerId);
+    screens.delete(peerId);
+    sockets.delete(peerId);
+  };
+
+  socket.on('message', onMessage);
+  socket.on('close', onClose);
 });
 
-https.listen(3000, function () {
-   console.log('listening on *:3000');
-});
 
- 
+////////////////////////////////////
+       // einde live stream test
+//////////////////////////////////
      
 //var osc = require("osc"),
 //WebSocket = require("ws");
