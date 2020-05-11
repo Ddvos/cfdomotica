@@ -178,7 +178,7 @@ wsServer.on('connection', (socket) => {
        // einde live stream test
 //////////////////////////////////
      
-//var osc = require("osc"),
+var osc = require("osc");
 //WebSocket = require("ws");
  
 
@@ -188,60 +188,58 @@ wsServer.on('connection', (socket) => {
 //--------------------------------------------------
 
 
-// var getIPAddresses = function () {
-//     var os = require("os"),
-//     interfaces = os.networkInterfaces(),
-//     ipAddresses = [];
+ var getIPAddresses = function () {
+     var os = require("os"),
+     interfaces = os.networkInterfaces(),
+     ipAddresses = [];
 
-//     for (var deviceName in interfaces){
-//         var addresses = interfaces[deviceName];
+     for (var deviceName in interfaces){
+         var addresses = interfaces[deviceName];
 
-//         for (var i = 0; i < addresses.length; i++) {
-//             var addressInfo = addresses[i];
+         for (var i = 0; i < addresses.length; i++) {
+             var addressInfo = addresses[i];
 
-//             if (addressInfo.family === "IPv4" && !addressInfo.internal) {
-//                 ipAddresses.push(addressInfo.address);
-//             }
-//         }
-//     }
+             if (addressInfo.family === "IPv4" && !addressInfo.internal) {
+                 ipAddresses.push(addressInfo.address);
+             }
+         }
+     }
 
-//     return ipAddresses;
-// };
+     return ipAddresses;
+ };
 
-// var udp = new osc.UDPPort({
-//     localAddress: "0.0.0.0", // this is the server side /0.0.0.0.0
-//     localPort: 5000,
-//     remoteAddress: "94.168.120.14", // local 127.0.0.1 online Ip where the OSC data should be sended to thuis 62.238.120.14 studio 94.168.120.14
-//     remotePort: 7500
-// });
+ var udp = new osc.UDPPort({
+     localAddress: "0.0.0.0", // this is the server side /0.0.0.0.0
+     localPort: 5000,
+     remoteAddress: "94.168.120.14", // local 127.0.0.1 online Ip where the OSC data should be sended to thuis 62.238.120.14 studio 94.168.120.14
+     remotePort: 7500
+ });
 
-// udp.on("ready", function () {
-//     var ipAddresses = getIPAddresses();
-//     console.log("Listening for OSC over UDP.");
-//     ipAddresses.forEach(function (address) {
-//         console.log(" Host:", address + ", Port:", udp.options.localPort);
-//     });
-//     console.log("Broadcasting OSC over UDP to", udp.options.remoteAddress + ", Port:", udp.options.remotePort);
-// });
+ udp.on("ready", function () {
+     var ipAddresses = getIPAddresses();
+     console.log("Listening for OSC over UDP.");
+     ipAddresses.forEach(function (address) {
+         console.log(" Host:", address + ", Port:", udp.options.localPort);
+     });
+     console.log("Broadcasting OSC over UDP to", udp.options.remoteAddress + ", Port:", udp.options.remotePort);
+ });
 
-// udp.open();
+ udp.open();
 
-// var wss = new WebSocket.Server({
-//     port: 8083
-// });
+ var wss = new WebSocket.Server({
+     port: 8083
+ });
 
-// wss.on("connection", function (socket) {
-//     console.log("A Web Socket connection has been established!");
-//     var socketPort = new osc.WebSocketPort({
-//         socket: socket
-//     });
+ wss.on("connection", function (socket) {
+     console.log("A Web Socket connection has been established!");
+     var socketPort = new osc.WebSocketPort({
+         socket: socket
+     });
 
-//     var relay = new osc.Relay(udp, socketPort, {
-//         raw: true
-//     });
-// });
+     var relay = new osc.Relay(udp, socketPort, {
+         raw: true
+     });
+});
 
 // end OSC websocket 
-
-// end websocket conecting to webRTC live stream
 app.listen(port,()=>console.log(`Server started on port ${port}`));
