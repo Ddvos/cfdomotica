@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
+const WebSocket = require('ws');
 
 const app = express();
 //const socketApp = express(); // for socoket.io
@@ -43,19 +45,48 @@ mongoose.connection.on('connected',()=>{
     console.log('MonogDB is connected');
 });
 
+//////////////////////////////////
+    //timelapse upload esp32-cam
+/////////////////////////////////////
+
+const WS_PORT  = 6500;
+
+const wsUploadServer = new WebSocket.Server({port: WS_PORT}, ()=> console.log(`WS upload Server is listening at ${WS_PORT}`));
+
+let connectedClients = [];
+wsUploadServer.on('connection', (ws, req)=>{
+    console.log('Connected');
+    connectedClients.push(ws);
+
+    ws.on('message', data => {
+        connectedClients.forEach((ws,i)=>{
+            if(ws.readyState === ws.OPEN){
+                ws.send(data);
+            }else{
+                connectedClients.splice(i ,1);
+            }
+        })
+    });
+});
+
+app.get('/client',(req,res)=>res.sendFile(path.resolve(__dirname, './client.html')));
+  
+//////////////////////////////////////
+    // end timelapse upload esp32-cam
+//////////////////////////////////////////
+
 
 ////////////////////////////////////
        // begin livestream test
 //////////////////////////////////
 const debug = require('debug');
 const http = require('http');
-const WebSocket = require('ws');
 
 const info = debug('app:server:info');
 const warn = debug('app:server:warn');
 
 
-const wsport = 4083;
+const wsport = 4083; // live stream port
 const server = http.createServer(app);
 
 const sockets = new Map();
