@@ -49,7 +49,7 @@ mongoose.connection.on('connected',()=>{
     //timelapse upload esp32-cam
 /////////////////////////////////////
 
-const WS_PORT  = 6500;
+const WS_PORT  = 6083;
 
 const wsUploadServer = new WebSocket.Server({port: WS_PORT}, ()=> console.log(`WS upload Server is listening at ${WS_PORT}`));
 
