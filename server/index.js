@@ -2,10 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const path = require('path');
+//const path = require('path');
 const WebSocket = require('ws');
-var FileSaver = require('file-saver');
-let img = '';
+//var FileSaver = require('file-saver');
+//let img = '';
 
 
 const app = express();
