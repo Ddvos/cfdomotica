@@ -63,15 +63,15 @@ wsUploadServer.on('connection', (ws, req)=>{
 
     ws.on('message', data => {
 
-      img = data;
+      //img = data;
 
-      fs.writeFile("database/img1.jpg", img, function(err) {
-        if(err) {
-          console.log("err", err);
-        } else {
-          return res.json({'status': 'success'});
-        }
-      });
+      // fs.writeFile("database/img1.jpg", img, function(err) {
+      //   if(err) {
+      //     console.log("err", err);
+      //   } else {
+      //     return res.json({'status': 'success'});
+      //   }
+      // });
     
         connectedClients.forEach((ws,i)=>{
             if(ws.readyState === ws.OPEN){
