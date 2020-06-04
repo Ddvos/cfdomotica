@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 const WebSocket = require('ws');
+var FileSaver = require('file-saver');
+let img = '';
+
 
 const app = express();
 //const socketApp = express(); // for socoket.io
@@ -59,6 +62,17 @@ wsUploadServer.on('connection', (ws, req)=>{
     connectedClients.push(ws);
 
     ws.on('message', data => {
+
+      img = data;
+
+      fs.writeFile("database/img1.jpg", img, function(err) {
+        if(err) {
+          console.log("err", err);
+        } else {
+          return res.json({'status': 'success'});
+        }
+      });
+    
         connectedClients.forEach((ws,i)=>{
             if(ws.readyState === ws.OPEN){
                 ws.send(data);
@@ -69,7 +83,7 @@ wsUploadServer.on('connection', (ws, req)=>{
     });
 });
 
-app.get('/client',(req,res)=>res.sendFile(path.resolve(__dirname, './client.html')));
+//app.get('/client',(req,res)=>res.sendFile(path.resolve(__dirname, './client.html')));
   
 //////////////////////////////////////
     // end timelapse upload esp32-cam
