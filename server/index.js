@@ -58,7 +58,7 @@ const wsUploadServer = new WebSocket.Server({port: WS_PORT}, ()=> console.log(`W
 
 let connectedClients = [];
 wsUploadServer.on('connection', (ws, req)=>{
-  console.log("url: ", ws.upgradeReq.url);
+  console.log("url: ", wsUploadServer.upgradeReq.url);
     //const ip = req.socket.remoteAddress;
     connectedClients.push(ws);
 
