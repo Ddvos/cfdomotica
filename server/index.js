@@ -59,14 +59,14 @@ const wsUploadServer = new WebSocket.Server({port: WS_PORT}, ()=> console.log(`W
 let connectedClients = [];
 wsUploadServer.on('connection', (ws, req)=>{
     console.log('Connected');
-    const ip = req.socket.remoteAddress;
+    //const ip = req.socket.remoteAddress;
     connectedClients.push(ws);
 
     ws.on('message', data => {
     
         connectedClients.forEach((ws,i)=>{
             if(ws.readyState === ws.OPEN){
-                ws.send(data,ip);
+                ws.send(data);
             }else{
                 connectedClients.splice(i ,1);
             }
