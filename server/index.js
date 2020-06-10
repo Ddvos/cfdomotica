@@ -67,11 +67,12 @@ wsUploadServer.on('connection', (ws, req)=>{
     //const ip = req.socket.remoteAddress;
     
     //console.log(connectedClients);
+
    
      ws.on('message', data => {
         connectedClients.forEach((ws,i)=>{
              if(ws.readyState === ws.OPEN){
-              ws.send(connectedClients);
+              ws.send(data);
              
              
              }else{
