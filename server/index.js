@@ -64,9 +64,9 @@ wsUploadServer.on('connection', (ws, req)=>{
   urlParameter = req.url;
     //const ip = req.socket.remoteAddress;
     connectedClients.push(ws);
+    console.log(req.url);
    
     ws.on('message', data => {
-      ws.send("dit is een test car1");
         connectedClients.forEach((ws,i)=>{
             if(ws.readyState === ws.OPEN){
              ws.send(data);
@@ -77,6 +77,7 @@ wsUploadServer.on('connection', (ws, req)=>{
             }
         })
     });
+    
 });
 
 //app.get('/client',(req,res)=>res.sendFile(path.resolve(__dirname, './client.html')));
