@@ -72,6 +72,7 @@ wsUploadServer.on('connection', (ws, req)=>{
              ws.send(data);
              
              
+             
             }else{
                 connectedClients.splice(i ,1);
             }
