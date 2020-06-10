@@ -64,18 +64,20 @@ wsUploadServer.on('connection', (ws, req)=>{
   urlParameter = req.url;
     //const ip = req.socket.remoteAddress;
     connectedClients.push(ws);
+
+    ws.send("dit is een test car1");
    
-    ws.on('message', data => {
-        connectedClients.forEach((ws,i)=>{
-            if(ws.readyState === ws.OPEN){
-             ws.send([data,"dit is een test car1"]);
+    // ws.on('message', data => {
+    //     connectedClients.forEach((ws,i)=>{
+    //         if(ws.readyState === ws.OPEN){
+    //          ws.send([data,"dit is een test car1"]);
              
              
-            }else{
-                connectedClients.splice(i ,1);
-            }
-        })
-    });
+    //         }else{
+    //             connectedClients.splice(i ,1);
+    //         }
+    //     })
+    // });
 });
 
 //app.get('/client',(req,res)=>res.sendFile(path.resolve(__dirname, './client.html')));
