@@ -69,7 +69,8 @@ wsUploadServer.on('connection', (ws, req)=>{
     
         connectedClients.forEach((ws,i)=>{
             if(ws.readyState === ws.OPEN){
-             // ws.send(urlParameter);
+              data = urlParameter
+             ws.send(data);
              
              
             }else{
