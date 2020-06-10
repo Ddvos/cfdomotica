@@ -57,8 +57,11 @@ const WS_PORT  = 6083;
 const wsUploadServer = new WebSocket.Server({port: WS_PORT}, ()=> console.log(`WS upload Server is listening at ${WS_PORT}`));
 
 let connectedClients = [];
+let urlParameter = '';
 wsUploadServer.on('connection', (ws, req)=>{
+  
   console.log(req.url);
+  urlParameter = req.url;
     //const ip = req.socket.remoteAddress;
     connectedClients.push(ws);
 
@@ -66,7 +69,7 @@ wsUploadServer.on('connection', (ws, req)=>{
     
         connectedClients.forEach((ws,i)=>{
             if(ws.readyState === ws.OPEN){
-                ws.send(data);
+                ws.send(data,urlParameter);
             }else{
                 connectedClients.splice(i ,1);
             }
