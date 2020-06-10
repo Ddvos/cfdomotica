@@ -64,7 +64,7 @@ wsUploadServer.on('connection', (ws, req)=>{
   urlParameter = req.url;
     //const ip = req.socket.remoteAddress;
     connectedClients.push(ws);
-    console.log(req.url);
+    console.log(connectedClients);
    
     ws.on('message', data => {
         connectedClients.forEach((ws,i)=>{
