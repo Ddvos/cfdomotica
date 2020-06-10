@@ -62,23 +62,23 @@ wsUploadServer.on('connection', (ws, req)=>{
 
   console.log(req.url);
   connectedClients.push(ws);
-   ws.send(connectedClients);
+   //ws.send(connectedClients);
   //urlParameter = req.url;
     //const ip = req.socket.remoteAddress;
     
     //console.log(connectedClients);
    
-    // ws.on('message', data => {
-    //     connectedClients.forEach((ws,i)=>{
-    //         if(ws.readyState === ws.OPEN){
-    //          ws.send(data);
+     ws.on('message', data => {
+        connectedClients.forEach((ws,i)=>{
+             if(ws.readyState === ws.OPEN){
+              ws.send(connectedClients);
              
              
-    //         }else{
-    //             connectedClients.splice(i ,1);
-    //         }
-    //     })
-    // });
+             }else{
+                 connectedClients.splice(i ,1);
+             }
+         })
+     });
     
 });
 
