@@ -66,10 +66,9 @@ wsUploadServer.on('connection', (ws, req)=>{
     connectedClients.push(ws);
    
     ws.on('message', data => {
-      ws.send("dit is een test car1");
         connectedClients.forEach((ws,i)=>{
             if(ws.readyState === ws.OPEN){
-             ws.send(data);
+             ws.send([data,"dit is een test car1"]);
              
              
             }else{
