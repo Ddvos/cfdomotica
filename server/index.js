@@ -61,7 +61,7 @@ let urlParameter = '';
 wsUploadServer.on('connection', (ws, req)=>{
 
   //console.log(req.url);
-  //connectedClients.push(ws);
+  connectedClients.push(ws);
    //ws.send(connectedClients);
   //urlParameter = req.url;
     //const ip = req.socket.remoteAddress;
@@ -70,7 +70,7 @@ wsUploadServer.on('connection', (ws, req)=>{
 
    
      ws.on('message', data => {
-      console.log(req.url);
+      //console.log(req.url);
         connectedClients.forEach((ws,i)=>{
              if(ws.readyState === ws.OPEN){
               ws.send(data);
