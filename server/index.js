@@ -57,23 +57,14 @@ const WS_PORT  = 6083;
 const wsUploadServer = new WebSocket.Server({port: WS_PORT}, ()=> console.log(`WS upload Server is listening at ${WS_PORT}`));
 
 let connectedClients = [];
-let urlParameter = '';
 
-var id = 0;
-var lookup = {};
 
 wsUploadServer.on('connection', (ws, req)=>{
 
   //console.log(req.url);
   var cameraURL =req.url
-  connectedClients.push({cameraURL, ws});
+  connectedClients.push( ws);
 
-  //userID = parseInt(req.url.substring(4), 10); // make from example "/car1" only 1
-  ///console.log('userID: ' + userID);
-  //ws.id = id++;
-  //lookup[ws.id] = ws;
- 
-  //console.log('connected: ' + ws.id + ' in ' + Object.getOwnPropertyNames(lookup))
   
 console.log(connectedClients);
    
