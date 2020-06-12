@@ -73,7 +73,7 @@ wsUploadServer.on('connection', (ws, req)=>{
  
   console.log('connected: ' + userID + ' in ' + Object.getOwnPropertyNames(lookup))
   
-console.log(lookup)
+console.log(lookup[userID]);
    
   ws.on('message', data => {
       //console.log(req.url);
