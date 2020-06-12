@@ -62,11 +62,17 @@ let connectedClients = [];
 wsUploadServer.on('connection', (ws, req)=>{
 
   //console.log(req.url);
-  var cameraURL =req.url
-  connectedClients.push( ws);
+  var webURL =req.url
+  connectedClients.push({webURL, ws});
+
 
   
 console.log(connectedClients);
+
+connectedClients.forEach((obj,) => {
+
+  console.log(obj.webURL);
+ });
    
   ws.on('message', data => {
       //var cameraURL =req.url
