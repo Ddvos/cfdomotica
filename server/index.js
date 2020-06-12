@@ -59,7 +59,7 @@ const wsUploadServer = new WebSocket.Server({port: WS_PORT}, ()=> console.log(`W
 let connectedClients = [];
 let urlParameter = '';
 
-
+var id = 0;
 var lookup = {};
 
 wsUploadServer.on('connection', (ws, req)=>{
