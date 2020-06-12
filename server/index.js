@@ -80,7 +80,7 @@ wsUploadServer.on('connection', (ws, req)=>{
       if(lookup[userID] == parseInt(req.url.substring(4), 10)){
         connectedClients.forEach((ws,i)=>{
              if(ws.readyState === ws.OPEN){
-              ws.send(data);
+              lookup[userID].send(data);
              
              
              }else{
