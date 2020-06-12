@@ -73,11 +73,11 @@ wsUploadServer.on('connection', (ws, req)=>{
  
   console.log('connected: ' + userID + ' in ' + Object.getOwnPropertyNames(lookup))
   
-
+console.log(lookup)
    
   ws.on('message', data => {
       //console.log(req.url);
-      if(lookup[userID] == parseInt(req.url.substring(4), 10)){
+   
         connectedClients.forEach((ws,i)=>{
              if(ws.readyState === ws.OPEN){
               lookup[userID].send(data);
@@ -87,7 +87,7 @@ wsUploadServer.on('connection', (ws, req)=>{
                  connectedClients.splice(i ,1);
              }
          })
-        }
+        
      });
     
 });
