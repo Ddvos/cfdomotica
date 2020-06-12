@@ -74,14 +74,14 @@ wsUploadServer.on('connection', (ws, req)=>{
  
   console.log('connected: ' + ws.id + ' in ' + Object.getOwnPropertyNames(lookup))
   
-console.log(lookup[userID]);
+//console.log(lookup[userID]);
    
   ws.on('message', data => {
       //console.log(req.url);
    
         connectedClients.forEach((ws,i)=>{
              if(ws.readyState === ws.OPEN){
-              lookup[userID].send(data);
+              ws.send(data);
              
              
              }else{
