@@ -64,28 +64,30 @@ var lookup = {};
 
 wsUploadServer.on('connection', (ws, req)=>{
 
-  console.log(req.url);
+  //console.log(req.url);
   connectedClients.push(ws);
 
   userID = parseInt(req.url.substring(4), 10); // make from example "/car1" only 1
-  console.log('userID: ' + userID);
+  ///console.log('userID: ' + userID);
   lookup[userID] = ws;
  
   console.log('connected: ' + userID + ' in ' + Object.getOwnPropertyNames(lookup))
   
 
    
-     ws.on('message', data => {
+  ws.on('message', data => {
       //console.log(req.url);
+      if(lookup[userID] == parseInt(req.url.substring(4), 10)){
         connectedClients.forEach((ws,i)=>{
              if(ws.readyState === ws.OPEN){
-              lookup[userID].send(data);
+              ws.send(data);
              
              
              }else{
                  connectedClients.splice(i ,1);
              }
          })
+        }
      });
     
 });
