@@ -77,10 +77,10 @@ connectedClients.forEach((obj,) => {
   ws.on('message', data => {
       //var cameraURL =req.url
    
-        connectedClients.forEach((ws,i)=>{
-             if(ws.readyState === ws.OPEN){
+        connectedClients.forEach((obj,i)=>{
+             if(obj.ws.readyState === obj.ws.OPEN){
 
-              ws.send(data);
+              obj.ws.send(data);
              
              
              }else{
