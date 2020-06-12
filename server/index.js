@@ -58,19 +58,24 @@ const wsUploadServer = new WebSocket.Server({port: WS_PORT}, ()=> console.log(`W
 
 let connectedClients = [];
 let urlParameter = '';
+
+
+var lookup = {};
+
 wsUploadServer.on('connection', (ws, req)=>{
 
   //console.log(req.url);
   connectedClients.push(ws);
-   //ws.send(connectedClients);
-  //urlParameter = req.url;
-    //const ip = req.socket.remoteAddress;
-    
-    //console.log(connectedClients);
+
+  userID = parseInt(req.url.substr(1), 10);
+  lookup[userID] = ws;
+ 
+  console.log('connected: ' + userID + ' in ' + Object.getOwnPropertyNames(lookup))
+  
 
    
      ws.on('message', data => {
-      console.log(req.url);
+      //console.log(req.url);
         connectedClients.forEach((ws,i)=>{
              if(ws.readyState === ws.OPEN){
               ws.send(data);
