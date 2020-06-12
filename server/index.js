@@ -65,7 +65,8 @@ var lookup = {};
 wsUploadServer.on('connection', (ws, req)=>{
 
   //console.log(req.url);
-  connectedClients.push(req.url, ws);
+  var cameraURL =req.url
+  connectedClients.push({cameraURL, ws});
 
   //userID = parseInt(req.url.substring(4), 10); // make from example "/car1" only 1
   ///console.log('userID: ' + userID);
@@ -77,11 +78,11 @@ wsUploadServer.on('connection', (ws, req)=>{
 console.log(connectedClients);
    
   ws.on('message', data => {
-      //console.log(req.url);
+      //var cameraURL =req.url
    
         connectedClients.forEach((ws,i)=>{
              if(ws.readyState === ws.OPEN){
-               ws
+
               ws.send(data);
              
              
