@@ -64,10 +64,11 @@ var lookup = {};
 
 wsUploadServer.on('connection', (ws, req)=>{
 
-  //console.log(req.url);
+  console.log(req.url);
   connectedClients.push(ws);
 
-  userID = parseInt(req.url.substr(3), 10); // make from example "car1" only 1
+  userID = parseInt(req.url.substring(3), 10); // make from example "car1" only 1
+  console.log('userID: ' + userID);
   lookup[userID] = ws;
  
   console.log('connected: ' + userID + ' in ' + Object.getOwnPropertyNames(lookup))
