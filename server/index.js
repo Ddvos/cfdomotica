@@ -67,7 +67,7 @@ wsUploadServer.on('connection', (ws, req)=>{
 
 
   
-console.log(connectedClients);
+//console.log(connectedClients);
 
 connectedClients.forEach((obj,) => {
 
@@ -75,13 +75,13 @@ connectedClients.forEach((obj,) => {
  });
    
   ws.on('message', data => {
-      //var cameraURL =req.url
+      var cameraURL =req.url
    
         connectedClients.forEach((obj,i)=>{
-             if(obj.ws.readyState === obj.ws.OPEN){
-
-              obj.ws.send(data);
-             
+             if(obj.ws.readyState === obj.ws.OPEN){ //controleerd of er een verbinding is
+              if(obj.webURL == cameraURL){ // vergelijkt de huidige camera web url van de dat en kijkt of gelijk is aan client url
+                  obj.ws.send(data);
+              }
              
              }else{
                  connectedClients.splice(i ,1);
