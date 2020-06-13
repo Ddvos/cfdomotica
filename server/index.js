@@ -81,6 +81,8 @@ connectedClients.forEach((obj,) => {
              if(obj.ws.readyState === obj.ws.OPEN){ //controleerd of er een verbinding is
               if(obj.webURL == cameraURL){ // vergelijkt de huidige camera web url van de dat en kijkt of gelijk is aan client url
                   obj.ws.send(data);
+
+                  console.log(obj.webURL+"is gelijk aan inkomnde video: "+ cameraURL);
               }
              
              }else{
