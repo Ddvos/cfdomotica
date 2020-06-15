@@ -85,8 +85,8 @@ connectedClients.forEach((obj,) => {
                   //console.log(obj.webURL+"is gelijk aan inkomnde video: "+ cameraURL);
               }
               if(obj.webURL == "/overview"){
-                console.log(obj.webURL);
-                ws.send(data); 
+                //console.log(obj.webURL);
+                obj.ws.send(data); 
               }
              
              }else{
