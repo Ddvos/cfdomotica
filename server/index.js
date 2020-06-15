@@ -79,10 +79,14 @@ connectedClients.forEach((obj,) => {
    
         connectedClients.forEach((obj,i)=>{
              if(obj.ws.readyState === obj.ws.OPEN){ //controleerd of er een verbinding is
-              if(obj.webURL == cameraURL){ // vergelijkt de huidige camera web url van de dat en kijkt of gelijk is aan client url
-                  obj.ws.send(data);
+              if(obj.webURL == cameraURL){ // kijkt of de webURL uit de array overeen komt met de inkomende url data (camera beeld url)
+                  obj.ws.send(data); // send img to 
 
                   //console.log(obj.webURL+"is gelijk aan inkomnde video: "+ cameraURL);
+              }
+              if(obj.webURL == "overview"){
+                console.log(obj.webURL);
+                ws.send(data); 
               }
              
              }else{
