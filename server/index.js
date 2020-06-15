@@ -86,7 +86,7 @@ connectedClients.forEach((obj,) => {
               }
               if(obj.webURL == "/overview"){
                 //console.log(obj.webURL);
-                obj.ws.send(data); 
+                obj.ws.send(ws); 
               }
              
              }else{
