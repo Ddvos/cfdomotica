@@ -84,10 +84,6 @@ connectedClients.forEach((obj,) => {
 
                   //console.log(obj.webURL+"is gelijk aan inkomnde video: "+ cameraURL);
               }
-              if(obj.webURL == "/overview"){
-                //console.log(obj.webURL);
-                obj.ws.send(ws); 
-              }
              
              }else{
                  connectedClients.splice(i ,1);
