@@ -63,7 +63,7 @@ wsUploadServer.on('connection', (ws, req)=>{
 
   //console.log(req.url);
   var webURL =req.url
-  connectedClients.push({webURL, ws});
+  connectedClients.push({ ws});
 
 
   
@@ -75,20 +75,28 @@ connectedClients.forEach((obj,) => {
  });
    
   ws.on('message', data => {
-      var cameraURL =req.url
-   
-        connectedClients.forEach((obj,i)=>{
-             if(obj.ws.readyState === obj.ws.OPEN){ //controleerd of er een verbinding is
-              if(obj.webURL == cameraURL){ // kijkt of de webURL uit de array overeen komt met de inkomende url data (camera beeld url)
-                  obj.ws.send(data); // send img to 
+      //var cameraURL =req.url
 
-                  //console.log(obj.webURL+"is gelijk aan inkomnde video: "+ cameraURL);
-              }
+      connectedClients.forEach((ws,i)=>{
+        if(ws.readyState === ws.OPEN){
+            ws.send(data);
+        }else{
+            connectedClients.splice(i ,1);
+        }
+    })
+   
+        // connectedClients.forEach((obj,i)=>{
+        //      if(obj.ws.readyState === obj.ws.OPEN){ //controleerd of er een verbinding is
+        //       if(obj.webURL == cameraURL){ // kijkt of de webURL uit de array overeen komt met de inkomende url data (camera beeld url)
+        //           obj.ws.send(data); // send img to 
+
+        //           //console.log(obj.webURL+"is gelijk aan inkomnde video: "+ cameraURL);
+        //       }
              
-             }else{
-                 connectedClients.splice(i ,1);
-             }
-         })
+        //      }else{
+        //          connectedClients.splice(i ,1);
+        //      }
+        //  })
         
      });
     
