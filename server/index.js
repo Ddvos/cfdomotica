@@ -146,11 +146,20 @@ wsServer.on('connection', (socket,req) => {
 
  
 
+  var webURL =req.url
+  connectedClientss.push( ws,webURL);
+
+ connectedClients.forEach((obj,) => {
+
+  console.log(obj);
+ });
+   
+
 
   const onMessage = (e) => {
     const msg = JSON.parse(e);
 
-    connectedClients.push(msg);
+    
 
       console.log(connectedClients);
     if (msg.type === 'register') {
