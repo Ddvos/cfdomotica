@@ -147,7 +147,7 @@ wsServer.on('connection', (socket) => {
 
    connectedClients.forEach((obj,) => {
 
-    console.log(obj.webURL);
+    console.log(obj.url);
  });
 
 
