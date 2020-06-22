@@ -143,19 +143,13 @@ const wsServer = new WebSocket.Server({ server });
 wsServer.on('connection', (socket,req) => {
   let peerId;
 
-  var webURL =req.url
-  console.log(webURL);
-  connectedClients.push( socket);
-
-   connectedClients.forEach((obj,) => {
-
-    //console.log(obj.webURL);
- });
+ 
 
 
   const onMessage = (e) => {
     const msg = JSON.parse(e);
 
+      console.log(msg);
     if (msg.type === 'register') {
       peerId = msg.peerId;
       const { peerType } = msg;
