@@ -143,6 +143,14 @@ const wsServer = new WebSocket.Server({ server });
 wsServer.on('connection', (socket) => {
   let peerId;
 
+  connectedClients.push( socket);
+
+   connectedClients.forEach((obj,) => {
+
+    console.log(obj);
+ });
+
+
   const onMessage = (e) => {
     const msg = JSON.parse(e);
 
