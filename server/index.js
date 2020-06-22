@@ -147,7 +147,7 @@ wsServer.on('connection', (socket,req) => {
  
 
   var webURL =req.url
-  connectedClientss.push( ws,webURL);
+  connectedClientss.push( socket,webURL);
 
  connectedClients.forEach((obj,) => {
 
