@@ -140,14 +140,16 @@ server.listen(
 
 const wsServer = new WebSocket.Server({ server });
 
-wsServer.on('connection', (socket) => {
+wsServer.on('connection', (socket,req) => {
   let peerId;
 
+  var webURL =req.url
+  console.log(webURL);
   connectedClients.push( socket);
 
    connectedClients.forEach((obj,) => {
 
-    console.log(obj.url);
+    //console.log(obj.webURL);
  });
 
 
