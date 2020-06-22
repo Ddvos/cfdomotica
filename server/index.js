@@ -56,14 +56,14 @@ const WS_PORT  = 6083;
 
 const wsUploadServer = new WebSocket.Server({port: WS_PORT}, ()=> console.log(`WS upload Server is listening at ${WS_PORT}`));
 
-let connectedClients = [];
+let connectedClientss = [];
 
 
 wsUploadServer.on('connection', (ws, req)=>{
 
   //console.log(req.url);
   //var webURL =req.url
-  connectedClients.push( ws);
+  connectedClientss.push( ws);
 
 
   
@@ -78,11 +78,11 @@ wsUploadServer.on('connection', (ws, req)=>{
      //var cameraURL =req.url
 
 
-     connectedClients.forEach((ws,i)=>{
+     connectedClientss.forEach((ws,i)=>{
       if(ws.readyState === ws.OPEN){
           ws.send(data);
       }else{
-          connectedClients.splice(i ,1);
+          connectedClientss.splice(i ,1);
       }
      })
 
@@ -140,6 +140,7 @@ server.listen(
 
 const wsServer = new WebSocket.Server({ server });
 
+let connectedClients = [];
 wsServer.on('connection', (socket,req) => {
   let peerId;
 
@@ -149,7 +150,9 @@ wsServer.on('connection', (socket,req) => {
   const onMessage = (e) => {
     const msg = JSON.parse(e);
 
-      console.log(msg);
+    connectedClients.push(msg);
+
+      console.log(connectedClients);
     if (msg.type === 'register') {
       peerId = msg.peerId;
       const { peerType } = msg;
