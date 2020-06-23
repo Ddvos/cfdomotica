@@ -155,7 +155,7 @@ wsServer.on('connection', (socket,req) => {
 
   const onMessage = (e) => {
     //console.log(e);
-      var cameraURL =req.url
+      //var cameraURL =req.url
          // console.log(cameraURL);
       //  connectedClients.forEach((obj,i)=>{
       //          if(obj.socket.readyState === obj.socket.OPEN){ //controleerd of er een verbinding is
@@ -197,7 +197,7 @@ wsServer.on('connection', (socket,req) => {
     }
 
     if (msg.type === 'offer') {
-      if(msg.from == msg.to ){
+     // if(msg.from == msg.to ){
         info(`camera ${msg.from} sent offer to screen ${msg.to}`);
         if (!screens.has(msg.to)) {
           warn(`offer sent to screen ${msg.to} that's not registered`);
@@ -207,11 +207,11 @@ wsServer.on('connection', (socket,req) => {
         console.log(`camera ${msg.from} sent offer to screen ${msg.to}`);
         const socket = sockets.get(msg.to);
         socket.send(e);
-      }
+      //}
     }
 
     if (msg.type === 'answer') {
-      if(msg.from == msg.to ){
+      //if(msg.from == msg.to ){
         info(`screen ${msg.from} sent answer to camera ${msg.to}`);
         if (!cameras.has(msg.to)) {
           warn(`offer sent to camera ${msg.to} that's not registered`);
@@ -220,7 +220,7 @@ wsServer.on('connection', (socket,req) => {
 
       const socket = sockets.get(msg.to);
       socket.send(e); 
-      }
+     // }
     }
 
     if (msg.type === 'candidate') {
