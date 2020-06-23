@@ -205,7 +205,7 @@ wsServer.on('connection', (socket,req) => {
           return;
         }
 
-        var selectedCar = msg.to
+
 
         console.log(`camera ${msg.from} sent offer to screen ${selectedCar.slice(0, 4)}`);
         const socket = sockets.get(msg.to);
@@ -214,8 +214,6 @@ wsServer.on('connection', (socket,req) => {
     }
 
     if (msg.type === 'answer') {
-      var selectedCar = msg.to
-      if(msg.from == selectedCar.slice(0, 4) ){ /// vergelijkt het camera beeld met de geselcteerde auto
         info(`screen ${msg.from} sent answer to camera ${msg.to}`);
         if (!cameras.has(msg.to)) {
           warn(`offer sent to camera ${msg.to} that's not registered`);
@@ -224,7 +222,7 @@ wsServer.on('connection', (socket,req) => {
 
       const socket = sockets.get(msg.to);
       socket.send(e); 
-      }
+      
     }
 
     if (msg.type === 'candidate') {
