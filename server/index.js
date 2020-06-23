@@ -154,7 +154,7 @@ wsServer.on('connection', (socket,req) => {
 
 
   const onMessage = (e) => {
-    //console.log(e);
+    console.log(e);
       //var cameraURL =req.url
          // console.log(cameraURL);
       //  connectedClients.forEach((obj,i)=>{
