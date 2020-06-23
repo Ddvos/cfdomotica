@@ -158,7 +158,7 @@ wsServer.on('connection', (socket,req) => {
       var cameraURL =req.url
          // console.log(cameraURL);
        connectedClients.forEach((obj,i)=>{
-           console.log(obj.socket);
+           console.log(obj.socket.readyState);
                //if(obj.WebSocket.readyState === obj.WebSocket.OPEN){ //controleerd of er een verbinding is
                 if(obj.webURL == cameraURL){ // kijkt of de webURL uit de array overeen komt met de inkomende url data (camera beeld url)
                     //obj.socket.send(e); // send img to 
