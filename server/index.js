@@ -155,8 +155,8 @@ wsServer.on('connection', (socket,req) => {
 
   const onMessage = (e) => {
     //console.log(e);
-      // var cameraURL =req.url
-      //    // console.log(cameraURL);
+      var cameraURL =req.url
+         // console.log(cameraURL);
       //  connectedClients.forEach((obj,i)=>{
       //          if(obj.socket.readyState === obj.socket.OPEN){ //controleerd of er een verbinding is
       //           if(obj.webURL == cameraURL){ // kijkt of de webURL uit de array overeen komt met de inkomende url data (camera beeld url)
@@ -197,26 +197,30 @@ wsServer.on('connection', (socket,req) => {
     }
 
     if (msg.type === 'offer') {
-      info(`camera ${msg.from} sent offer to screen ${msg.to}`);
-      if (!screens.has(msg.to)) {
-        warn(`offer sent to screen ${msg.to} that's not registered`);
-        return;
-      }
+      if(msg.from == msg.to ){
+        info(`camera ${msg.from} sent offer to screen ${msg.to}`);
+        if (!screens.has(msg.to)) {
+          warn(`offer sent to screen ${msg.to} that's not registered`);
+          return;
+        }
 
-      console.log(`camera ${msg.from} sent offer to screen ${msg.to}`);
-      const socket = sockets.get(msg.to);
-      socket.send(e);
+        console.log(`camera ${msg.from} sent offer to screen ${msg.to}`);
+        const socket = sockets.get(msg.to);
+        socket.send(e);
+      }
     }
 
     if (msg.type === 'answer') {
-      info(`screen ${msg.from} sent answer to camera ${msg.to}`);
-      if (!cameras.has(msg.to)) {
-        warn(`offer sent to camera ${msg.to} that's not registered`);
-        return;
-      }
+      if(msg.from == msg.to ){
+        info(`screen ${msg.from} sent answer to camera ${msg.to}`);
+        if (!cameras.has(msg.to)) {
+          warn(`offer sent to camera ${msg.to} that's not registered`);
+          return;
+        }
 
-     const socket = sockets.get(msg.to);
-     socket.send(e); 
+      const socket = sockets.get(msg.to);
+      socket.send(e); 
+      }
     }
 
     if (msg.type === 'candidate') {
