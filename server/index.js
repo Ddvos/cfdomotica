@@ -162,7 +162,7 @@ wsServer.on('connection', (socket,req) => {
                 if(obj.webURL == cameraURL){ // kijkt of de webURL uit de array overeen komt met de inkomende url data (camera beeld url)
                     //obj.socket.send(e); // send img to 
 
-                    console.log(obj.webURL+"is gelijk aan inkomnde video: "+ cameraURL);
+                   // console.log(obj.webURL+"is gelijk aan inkomnde video: "+ cameraURL);
          
 
          // code hierboven toegevoegd
@@ -203,6 +203,7 @@ wsServer.on('connection', (socket,req) => {
         return;
       }
 
+      console.log(`camera ${msg.from} sent offer to screen ${msg.to}`);
       //const socket = sockets.get(msg.to);
       obj.socket.send(e);
     }
