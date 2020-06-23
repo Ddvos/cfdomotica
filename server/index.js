@@ -158,17 +158,19 @@ wsServer.on('connection', (socket,req) => {
       var cameraURL =req.url
          // console.log(cameraURL);
        connectedClients.forEach((obj,i)=>{
-               if(obj.socket.readyState === obj.socket.OPEN){ //controleerd of er een verbinding is
+        console.log(obj);
+      
+               //if(obj.socket.readyState === obj.socket.OPEN){ //controleerd of er een verbinding is
                 if(obj.webURL == cameraURL){ // kijkt of de webURL uit de array overeen komt met de inkomende url data (camera beeld url)
                     //obj.socket.send(e); // send img to 
 
                     console.log(obj.webURL+"is gelijk aan inkomnde video: "+ cameraURL);
               }
              
-              }else{
-                 console.log(obj.webURL+"is niet gelijk aan: "+ cameraURL);
-                   connectedClients.splice(i ,1);
-               }
+              // /}else{
+              //    console.log(obj.webURL+"is niet gelijk aan: "+ cameraURL);
+              //      connectedClients.splice(i ,1);
+              //  }
          })
 
          // code hierboven toegevoegd
