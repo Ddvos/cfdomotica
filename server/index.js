@@ -215,8 +215,8 @@ wsServer.on('connection', (socket,req) => {
         return;
       }
 
-     // const socket = sockets.get(msg.to);
-     obj.socket.send(e); 
+     const socket = sockets.get(msg.to);
+     socket.send(e); 
     }
 
     if (msg.type === 'candidate') {
