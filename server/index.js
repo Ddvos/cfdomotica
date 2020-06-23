@@ -154,7 +154,7 @@ wsServer.on('connection', (socket,req) => {
 
 
   const onMessage = (e) => {
-    console.log(e);
+    //console.log(e);
       //var cameraURL =req.url
          // console.log(cameraURL);
       //  connectedClients.forEach((obj,i)=>{
@@ -205,7 +205,7 @@ wsServer.on('connection', (socket,req) => {
           return;
         }
 
-
+        var selectedCar = msg.to
 
         console.log(`camera ${msg.from} sent offer to screen ${selectedCar.slice(0, 4)}`);
         const socket = sockets.get(msg.to);
@@ -214,6 +214,7 @@ wsServer.on('connection', (socket,req) => {
     }
 
     if (msg.type === 'answer') {
+
         info(`screen ${msg.from} sent answer to camera ${msg.to}`);
         if (!cameras.has(msg.to)) {
           warn(`offer sent to camera ${msg.to} that's not registered`);
