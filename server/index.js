@@ -163,13 +163,7 @@ wsServer.on('connection', (socket,req) => {
                     //obj.socket.send(e); // send img to 
 
                     console.log(obj.webURL+"is gelijk aan inkomnde video: "+ cameraURL);
-              }
-             
-               }else{
-                  console.log(obj.webURL+"is niet gelijk aan: "+ cameraURL);
-                   connectedClients.splice(i ,1);
-                }
-         })
+         
 
          // code hierboven toegevoegd
     const msg = JSON.parse(e);
@@ -209,8 +203,8 @@ wsServer.on('connection', (socket,req) => {
         return;
       }
 
-      const socket = sockets.get(msg.to);
-      socket.send(e);
+      //const socket = sockets.get(msg.to);
+      obj.socket.send(e);
     }
 
     if (msg.type === 'answer') {
@@ -220,8 +214,8 @@ wsServer.on('connection', (socket,req) => {
         return;
       }
 
-      const socket = sockets.get(msg.to);
-      socket.send(e);
+     // const socket = sockets.get(msg.to);
+     obj.socket.send(e); 
     }
 
     if (msg.type === 'candidate') {
@@ -235,6 +229,14 @@ wsServer.on('connection', (socket,req) => {
 
       socketTo.send(e);
     }
+
+  }
+             
+    }else{
+      console.log(obj.webURL+"is niet gelijk aan: "+ cameraURL);
+        connectedClients.splice(i ,1);
+    }
+    })
   };
 
 
