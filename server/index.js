@@ -155,11 +155,11 @@ wsServer.on('connection', (socket,req) => {
 
   const onMessage = (e) => {
     //console.log(e);
-      var cameraURL =req.url
-         // console.log(cameraURL);
-       connectedClients.forEach((obj,i)=>{
-               if(obj.socket.readyState === obj.socket.OPEN){ //controleerd of er een verbinding is
-                if(obj.webURL == cameraURL){ // kijkt of de webURL uit de array overeen komt met de inkomende url data (camera beeld url)
+      // var cameraURL =req.url
+      //    // console.log(cameraURL);
+      //  connectedClients.forEach((obj,i)=>{
+      //          if(obj.socket.readyState === obj.socket.OPEN){ //controleerd of er een verbinding is
+      //           if(obj.webURL == cameraURL){ // kijkt of de webURL uit de array overeen komt met de inkomende url data (camera beeld url)
                     //obj.socket.send(e); // send img to 
 
                    // console.log(obj.webURL+"is gelijk aan inkomnde video: "+ cameraURL);
@@ -231,13 +231,13 @@ wsServer.on('connection', (socket,req) => {
       socketTo.send(e);
     }
 
-  }
+  // }
              
-    }else{
-      console.log(obj.webURL+"is niet gelijk aan: "+ cameraURL);
-        connectedClients.splice(i ,1);
-    }
-    })
+  //   }else{
+  //     console.log(obj.webURL+"is niet gelijk aan: "+ cameraURL);
+  //       connectedClients.splice(i ,1);
+  //   }
+  //   })
   };
 
 
