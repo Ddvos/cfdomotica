@@ -204,8 +204,8 @@ wsServer.on('connection', (socket,req) => {
       }
 
       console.log(`camera ${msg.from} sent offer to screen ${msg.to}`);
-      //const socket = sockets.get(msg.to);
-      obj.socket.send(e);
+      const socket = sockets.get(msg.to);
+      socket.send(e);
     }
 
     if (msg.type === 'answer') {
