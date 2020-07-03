@@ -153,8 +153,8 @@ wsServer.on('connection', (socket,req) => {
    
 
 
-  async.onMessage = (e) => {
-    //connectedClients.push(e);
+  const onMessage = (e) => {
+    connectedClients.push(e);
  
       //var cameraURL =req.url
          // console.log(cameraURL);
@@ -178,6 +178,8 @@ wsServer.on('connection', (socket,req) => {
 
       setByType[peerType].add(peerId);
       sockets.set(peerId, socket);
+
+      console.log( sockets);
 
       if (peerType === 'camera') {
         socket.send(JSON.stringify({
