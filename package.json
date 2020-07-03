@@ -16,6 +16,7 @@
     "express": "^4.17.1",
     "file-saver": "^2.0.2",
     "jquery": "^3.5.0",
+    "lottie-vuejs": "^0.3.7",
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.6",
     "osc": "^2.4.0",
