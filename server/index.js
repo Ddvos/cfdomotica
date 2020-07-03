@@ -153,8 +153,8 @@ wsServer.on('connection', (socket,req) => {
    
 
 
-  const onMessage = (e) => {
-    connectedClients.push(e);
+  async const onMessage = (e) => {
+    //connectedClients.push(e);
  
       //var cameraURL =req.url
          // console.log(cameraURL);
@@ -168,7 +168,7 @@ wsServer.on('connection', (socket,req) => {
 
          // code hierboven toegevoegd
     const msg = JSON.parse(e);
-    console.log(msg);
+   
 
     if (msg.type === 'register') {
       peerId = msg.peerId;
