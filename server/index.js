@@ -179,7 +179,7 @@ wsServer.on('connection', (socket,req) => {
       setByType[peerType].add(peerId);
       sockets.set(peerId, socket);
 
-      console.log( sockets);
+     // console.log( sockets);
 
       if (peerType === 'camera') {
         socket.send(JSON.stringify({
@@ -202,6 +202,7 @@ wsServer.on('connection', (socket,req) => {
     if (msg.type === 'offer') {
       var selectedCar = msg.to
       if(msg.from == selectedCar.slice(0, 4) ){ /// vergelijkt het camera beeld met de geselcteerde auto
+         console.log("camera en beeld zijn het zelfde");
         info(`camera ${msg.from} sent offer to screen ${msg.to}`);
         if (!screens.has(msg.to)) {
           warn(`offer sent to screen ${msg.to} that's not registered`);
