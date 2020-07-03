@@ -153,7 +153,7 @@ wsServer.on('connection', (socket,req) => {
    
 
 
-  async const onMessage = (e) => {
+  async.onMessage = (e) => {
     //connectedClients.push(e);
  
       //var cameraURL =req.url
