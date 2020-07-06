@@ -146,7 +146,8 @@ wsServer.on('connection', (socket,req) => {
 
  
 
- // var webURL =req.url
+  var webURL =req.url
+   console.log(webURL);
   //connectedClients.push({ socket,webURL});
 
 
@@ -184,7 +185,7 @@ wsServer.on('connection', (socket,req) => {
       if (peerType === 'camera') {
         socket.send(JSON.stringify({
           type: 'screens',
-          screens: Array.from(screens),
+          screens: Array.from(screens), // send evry body who is watching to the tream
         }));
       }
 
