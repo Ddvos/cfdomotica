@@ -192,7 +192,7 @@ wsServer.on('connection', (socket,req) => {
       if (peerType === 'screen') {
         for (let cameraId of cameras) {
           const cameraSocket = sockets.get(cameraId);
-          if (cameraId == peerId.slice(0, 4)){ // als de camera id car id het zelfde stuur dan de screenId (broadcast car)
+          if (cameraId == peerId.slice(0, 4)){ // als de camera id en  car id het zelfde zijn stuur dan de screenId (broadcast car)
             cameraSocket.send(JSON.stringify({
               type: 'screens',
               screens: [ peerId ],
