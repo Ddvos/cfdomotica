@@ -147,7 +147,7 @@ wsServer.on('connection', (socket,req) => {
  
 
   var webURL =req.url
-   console.log(webURL);
+  
   //connectedClients.push({ socket,webURL});
 
 
@@ -192,10 +192,16 @@ wsServer.on('connection', (socket,req) => {
       if (peerType === 'screen') {
         for (let cameraId of cameras) {
           const cameraSocket = sockets.get(cameraId);
-          cameraSocket.send(JSON.stringify({
-            type: 'screens',
-            screens: [ peerId ],
-          }));
+          if (cameraId == peerId){ // als de camera id car id het zelfde stuur dan de screenId (broadcast car)
+            cameraSocket.send(JSON.stringify({
+              type: 'screens',
+              screens: [ peerId ],
+            }));
+          }
+           else{
+            console.log(cameraId +"is niet het zelfde als " + peerId);
+            }
+        
         }
       }
     }
