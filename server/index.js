@@ -125,7 +125,7 @@ wsUploadServer.on('connection', (ws, req)=>{
  });
 
 
- userCountserver.listen(6500,() => console.log('vister counter is listening on port: 6500'))
+ userCountserver.listen(6583,() => console.log('vister counter is listening on port: 6500'))
 
 /// einde registratie bezoekers
 
