@@ -116,16 +116,16 @@ wsUploadServer.on('connection', (ws, req)=>{
 ///////////////////////////////////////
   // registratie bezoekers Raum
 //////////////////////////////
-// const userCountserver = http.createServer(app);
-// const io = require("socket.io")(userCountserver); 
+ const userCountserver = http.createServer(app);
+ const io = require("socket.io")(userCountserver); 
 
-// io.on("connection",(socket)=>{
+ io.on("connection",(socket)=>{
 
-//   socket.emit("welcome", "Hello there and welcome to Raum")
-// });
+   socket.emit("welcome", "Hello there and welcome to Raum")
+ });
 
 
-// userCountserver.listen(6500,() => console.log('vister counter is listening on port: 6500'))
+ userCountserver.listen(6500,() => console.log('vister counter is listening on port: 6500'))
 
 /// einde registratie bezoekers
 
