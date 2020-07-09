@@ -117,7 +117,7 @@ wsUploadServer.on('connection', (ws, req)=>{
   // registratie bezoekers Raum
 //////////////////////////////
 const userCountserver = http.createServer(app);
-const io = require('socket.io')(userCountserver); 
+const io = require("socket.io")(userCountserver); 
 
 io.on("connection",(socket)=>{
 
