@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const http = require('http');
 const cors = require('cors');
 //const path = require('path');
 const WebSocket = require('ws');
@@ -132,7 +133,6 @@ userCountserver.listen(6500,() => console.log('vister counter is listening on po
        // begin livestream test
 //////////////////////////////////
 const debug = require('debug');
-const http = require('http');
 
 const info = debug('app:server:info');
 const warn = debug('app:server:warn');
