@@ -121,11 +121,18 @@ wsUploadServer.on('connection', (ws, req)=>{
 
  io.on("connection",(socket)=>{
 
-   socket.emit("welcome", "Hello there and welcome to Raum")
+  var room = io.sockets.adapter.rooms[''].room.length;
+
+   socket.emit("welcome", room)
+   
+
+   socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
  });
 
 
- userCountserver.listen(6583,() => console.log('vister counter is listening on port: 6500'))
+ userCountserver.listen(6583,() => console.log('vister counter RAUM is listening on port: 6500'))
 
 /// einde registratie bezoekers
 
