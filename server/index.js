@@ -129,11 +129,17 @@ wsUploadServer.on('connection', (ws, req)=>{
    socket.on("joinRaum",(room)=>{
      if(raumRooms.includes(room)){
         socket.join(room);
-        io.of("/raum").emit("newUser", "new visistor as joined the room " + room)
+        io.of("/raum").to("newUser", "new visistor as joined the room " + room)
+
+        var users = io.sockets.adapter.rooms['clientRoom'];
+         console.log(users.length)
+
         return socket.emit("succes","You have succesfully joined the room " + room);
      }else{
        return socket.emit("err","Error: No room named " + room);
      }
+
+     socket.disconnect();
    });
    
 
