@@ -122,7 +122,7 @@ wsUploadServer.on('connection', (ws, req)=>{
  io.on("connection",(socket)=>{
 
   var room = io.sockets.adapter.rooms[''];
-   socket.emit("welcome", room.length)
+   socket.emit("welcome", room)
    
 
    socket.on('disconnect', () => {
