@@ -119,15 +119,26 @@ wsUploadServer.on('connection', (ws, req)=>{
  const userCountserver = http.createServer(app);
  const io = require("socket.io")(userCountserver); 
 
- io.on("connection",(socket)=>{
+ const raumRooms = ["clientRoom"]
 
-  var room = io.sockets.adapter.rooms[''];
-   socket.emit("welcome", room)
+ io.of("/raum").on("connection",(socket)=>{
+
+  //var room = io.sockets.adapter.rooms[''];
+   socket.emit("welcome", "Hello and welcome to the RAUM Area");
+
+   socket.on("joinRaum",(room)=>{
+     if(raumRooms.includes(room)){
+        socket.join(room);
+        return socket.emit("succes","You have succesfully joined the room" + room);
+     }else{
+       return socket.emit("err","Error: No room named " + room);
+     }
+   });
    
 
-   socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
+  //  socket.on('disconnect', () => {
+  //   console.log('user disconnected');
+  // });
  });
 
 
