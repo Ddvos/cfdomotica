@@ -132,7 +132,7 @@ wsUploadServer.on('connection', (ws, req)=>{
         io.of("/raum").to("newUser", "new visistor as joined the room " + room)
 
         var users = io.sockets.adapter.rooms['clientRoom'];
-         console.log(users.length)
+         console.log(users)
 
         return socket.emit("succes","You have succesfully joined the room " + room);
      }else{
