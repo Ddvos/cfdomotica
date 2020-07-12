@@ -129,13 +129,7 @@ wsUploadServer.on('connection', (ws, req)=>{
    socket.on("joinRaum",(room)=>{
      if(raumRooms.includes(room)){
         socket.join(room);
-        io.of("/raum").to(room).emit("newUser", "new visistor has joined the room " + room)
-        
-
-
-        /// get all users in room
-        // var clients = io.sockets.adapter.rooms['clientRoom'].sockets;   
-        //   console.log(clients)
+        io.of("/raum").to(room).emit("newUser", "new visistor has joined the room " + room)  //melding nieuwe deelnemer
 
         io.of('/raum').in(room).clients((error, clients) => { // get all the clients which are connected with the room: clientRoom
           if (error) throw error;
@@ -150,13 +144,23 @@ wsUploadServer.on('connection', (ws, req)=>{
        return socket.emit("err","Error: No room named " + room);
      }
 
-     socket.disconnect();
+     //socket.disconnect();
+
+      socket.on('disconnect', () => {
+
+        io.of('/raum').in(room).clients((error, clients) => { // get all the clients which are connected with the room: clientRoom
+          if (error) throw error;
+          io.of("/raum").to(room).emit("clientList", clients)  // sends/emits a array with all the clients
+          console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
+        });
+       onsole.log('user disconnected');
+   });
+
+
    });
    
 
-  //  socket.on('disconnect', () => {
-  //   console.log('user disconnected');
-  // });
+ 
  });
 
 
