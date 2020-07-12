@@ -143,25 +143,21 @@ wsUploadServer.on('connection', (ws, req)=>{
      }else{
        return socket.emit("err","Error: No room named " + room);
      }
-
-     //socket.disconnect();
-
-      socket.on('disconnect', () => {
-
-        io.of('/raum').in(room).clients((error, clients) => { // get all the clients which are connected with the room: clientRoom
-          if (error) throw error;
-          io.of("/raum").to(room).emit("clientList", clients)  // sends/emits a array with all the clients
-          console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
-        });
-       onsole.log('user disconnected');
-   });
-
-
-   });
+  });
+});
+   //socket.disconnect();
+    socket.on('disconnect', () => {
+      io.of('/raum').in(room).clients((error, clients) => { // get all the clients which are connected with the room: clientRoom
+        if (error) throw error;
+        io.of("/raum").to(room).emit("clientList", clients)  // sends/emits a array with all the clients
+        console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
+      });
+    onsole.log('user disconnected');
+  });
    
 
  
- });
+
 
 
  userCountserver.listen(6583,() => console.log('vister counter RAUM is listening on port: 6500'))
