@@ -137,7 +137,7 @@ wsUploadServer.on('connection', (ws, req)=>{
         // var clients = io.sockets.adapter.rooms['clientRoom'].sockets;   
         //   console.log(clients)
 
-          io.in(clientRoom).clients((err , clients) => {
+          io.in(room).clients((err , clients) => {
             console.log(clients)
             console.log(err)
         });
