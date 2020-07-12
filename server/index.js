@@ -152,7 +152,7 @@ wsUploadServer.on('connection', (ws, req)=>{
         io.of("/raum").to("clientRoom").emit("clientList", clients)  // sends/emits a array with all the clients
         console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
       });
-    onsole.log('user disconnected');
+    console.log('user disconnected');
   });
 });  
 
