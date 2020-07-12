@@ -137,8 +137,9 @@ wsUploadServer.on('connection', (ws, req)=>{
         // var clients = io.sockets.adapter.rooms['clientRoom'].sockets;   
         //   console.log(clients)
 
-        io.of('/raum').in(room).clients((error, clients) => {
+        io.of('/raum').in(room).clients((error, clients) => { // get all the clients which are connected with the room: clientRoom
           if (error) throw error;
+          io.of("/raum").to(room).emit("clientList", clients)  // sends/emits a array with all the clients
           console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
         });
       
