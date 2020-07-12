@@ -144,7 +144,7 @@ wsUploadServer.on('connection', (ws, req)=>{
        return socket.emit("err","Error: No room named " + room);
      }
   });
-});
+
    //socket.disconnect();
     socket.on('disconnect', () => {
       io.of('/raum').in(room).clients((error, clients) => { // get all the clients which are connected with the room: clientRoom
@@ -154,7 +154,7 @@ wsUploadServer.on('connection', (ws, req)=>{
       });
     onsole.log('user disconnected');
   });
-   
+});  
 
  
 
