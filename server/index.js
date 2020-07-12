@@ -147,9 +147,9 @@ wsUploadServer.on('connection', (ws, req)=>{
 
    //socket.disconnect();
     socket.on('disconnect', () => {
-      io.of('/raum').in(room).clients((error, clients) => { // get all the clients which are connected with the room: clientRoom
+      io.of('/raum').in("clientRoom").clients((error, clients) => { // get all the clients which are connected with the room: clientRoom
         if (error) throw error;
-        io.of("/raum").to(room).emit("clientList", clients)  // sends/emits a array with all the clients
+        io.of("/raum").to("clientRoom").emit("clientList", clients)  // sends/emits a array with all the clients
         console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
       });
     onsole.log('user disconnected');
