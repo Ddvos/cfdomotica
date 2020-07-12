@@ -134,17 +134,14 @@ wsUploadServer.on('connection', (ws, req)=>{
 
 
         /// get all users in room
-        var clients = io.sockets.adapter.rooms['clientRoom'].sockets;   
+        // var clients = io.sockets.adapter.rooms['clientRoom'].sockets;   
+        //   console.log(clients)
 
-        var numClients = (typeof clients !== 'undefined') ? Object.keys(clients).length : 0;
-
-          for (var clientId in clients ) {
-
-              //this is the socket of each client in the room.
-             console.log(clientId);
-
-
-          }
+          io.in(clientRoom).clients((err , clients) => {
+            console.log(clients)
+            console.log(err)
+        });
+      
         /// enf of code get all users in room
 
         return socket.emit("succes","You have succesfully joined the room " + room);
