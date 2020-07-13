@@ -134,7 +134,7 @@ wsUploadServer.on('connection', (ws, req)=>{
         io.of('/raum').in(room).clients((error, clients) => { // get all the clients which are connected with the room: clientRoom
           if (error) throw error;
           io.of("/raum").to(room).emit("clientList", clients)  // sends/emits a array with all the clients
-          console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
+         // console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
         });
       
         /// enf of code get all users in room
@@ -152,7 +152,7 @@ wsUploadServer.on('connection', (ws, req)=>{
         io.of("/raum").to("clientRoom").emit("clientList", clients)  // sends/emits a array with all the clients
         console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
       });
-    console.log('user disconnected');
+    //console.log('user disconnected');
   });
 });  
 
