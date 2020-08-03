@@ -114,7 +114,7 @@ export default {
          
          //console.log(this.mouseX)
          TweenMax.to(this.bigBall, 0.1,{
-           x: event.x +25,
+           x: event.x -10,
            y: event.y - 10      
            })
            TweenMax.to(this.smallBall, .1, {
@@ -131,7 +131,7 @@ export default {
         this.mouseY = touch.clientY;
 
          TweenMax.to(this.bigBall, 0.1,{
-          x: touch.clientX - 10,
+          x: touch.clientX + 25,
           y: touch.clientY - 10      
           })
           TweenMax.to(this.smallBall, .1, {
