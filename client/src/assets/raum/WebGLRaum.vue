@@ -388,7 +388,7 @@ console.log(container.clientWidth)
                   var pos = this.camera.position.clone().add( dir.multiplyScalar( distance ) );
                  // console.log(pos.x)
                   // geeft de grote ball in three.js vertraging
-                  TweenMax.to(this.mouseMesh.position, 4
+                  TweenMax.to(this.mouseMesh.position, 3
                   ,{
                       x: pos.x -5.5,
                       y: (pos.y - 4.8)*-1     
