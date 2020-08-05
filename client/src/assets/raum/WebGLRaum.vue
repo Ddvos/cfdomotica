@@ -45,6 +45,9 @@ export default {
       // detection
       mesh1Detection: null,
       mesh2Detection: null,
+      mesh3Detection: null,
+      mesh4Detection: null,
+      detectionArray: [],
       vlak1Position: null,
 
    }
@@ -73,16 +76,27 @@ export default {
             // put incoming OSC data in colorvlakken
              if(oscMessage.address == "/color_pole1" ){
                  this.colorVlak1 = ['rgb('+oscMessage.args[0]+','+oscMessage.args[1]+','+oscMessage.args[2]+')','rgb('+oscMessage.args[3]+','+oscMessage.args[4]+','+oscMessage.args[5]+')',oscMessage.args[6]]//twee waardes rgb(255, 0, 0) 
-               
                  this.mesh1.material.uniforms.vlak1color1.value = new this.$three.Color(this.colorVlak1[0])
                  this.mesh1.material.uniforms.vlak1color2.value = new this.$three.Color(this.colorVlak1[1])
                  this.mesh1.material.uniforms.positionVlak1.value = (this.width)/1*this.colorVlak1[2]
 
                  this.colorVlak2 = ['rgb('+oscMessage.args[7]+','+oscMessage.args[8]+','+oscMessage.args[9]+')','rgb('+oscMessage.args[10]+','+oscMessage.args[11]+','+oscMessage.args[12]+')',oscMessage.args[13]]//twee waardes rgb(255, 0, 0) 
-                 //console.log(this.colorVlak2);
                  this.mesh2.material.uniforms.vlak2color1.value = new this.$three.Color(this.colorVlak2[0])
                  this.mesh2.material.uniforms.vlak2color2.value = new this.$three.Color(this.colorVlak2[1])
                  this.mesh2.material.uniforms.positionVlak2.value = (this.width)/1*this.colorVlak2[2]
+
+                 this.colorVlak3 = ['rgb('+oscMessage.args[14]+','+oscMessage.args[15]+','+oscMessage.args[16]+')','rgb('+oscMessage.args[17]+','+oscMessage.args[18]+','+oscMessage.args[19]+')',oscMessage.args[20]]//twee waardes rgb(255, 0, 0) 
+                 this.mesh3.material.uniforms.vlak3color1.value = new this.$three.Color(this.colorVlak3[0])
+                 this.mesh3.material.uniforms.vlak3color2.value = new this.$three.Color(this.colorVlak3[1])
+                 this.mesh3.material.uniforms.positionVlak3.value = (this.width)/1*this.colorVlak3[2]
+
+                 this.colorVlak4 = ['rgb('+oscMessage.args[21]+','+oscMessage.args[22]+','+oscMessage.args[23]+')','rgb('+oscMessage.args[24]+','+oscMessage.args[25]+','+oscMessage.args[26]+')',oscMessage.args[27]]//twee waardes rgb(255, 0, 0) 
+                //console.log( oscMessage)
+                this.mesh4.material.uniforms.vlak4color1.value = new this.$three.Color(this.colorVlak4[0])
+                 this.mesh4.material.uniforms.vlak4color2.value = new this.$three.Color(this.colorVlak4[1])
+                 this.mesh4.material.uniforms.positionVlak4.value = (this.width)/1*this.colorVlak4[2]
+
+
                  }
             
                  
@@ -372,11 +386,18 @@ export default {
         this.mesh1Detection.position.y = 3;
 
         this.mesh2Detection = new this.$three.Mesh( detection1, materialDetection );
-         this.mesh2Detection.position.x = 3;
-         this.mesh2Detection.rotation.z = ( Math.PI / 2 );
+        this.mesh2Detection.position.x = 3;
+        this.mesh2Detection.rotation.z = ( Math.PI / 2 );
+
+        this.mesh3Detection = new this.$three.Mesh( detection1, materialDetection );
+        this.mesh3Detection.position.y =-3;
+        this.mesh3Detection.rotation.z = ( Math.PI);
+
+        this.mesh4Detection = new this.$three.Mesh( detection1, materialDetection );
+        this.mesh4Detection.position.x=-3;
+        this.mesh4Detection.rotation.z = ( Math.PI/2);
     
-        //this.mesh2Detection.rotation.x = Math.PI / 2 
-        
+       
 
         this.mesh1 = new this.$three.Mesh( Color1Geometry,  custom1Material );
         this.mesh2 = new this.$three.Mesh( Color2Geometry,  custom2Material );
@@ -403,7 +424,7 @@ export default {
           var mouseMaterial = new  this.$three.MeshBasicMaterial( { color: 0xffff00 } );
           this.mouseMesh = new  this.$three.Mesh( mouseGeometry, mouseMaterial );
                
-          this.scene.add(this.mesh1,this.mesh2,this.mesh3, this.mesh4,this.groundMesh,this.meshPilaar,this.mouseMesh,this.mesh2Detection);
+          this.scene.add(this.mesh1,this.mesh2,this.mesh3, this.mesh4,this.groundMesh,this.meshPilaar,this.mouseMesh,);
 
   
     },
@@ -433,24 +454,41 @@ export default {
           //collision detection ball with vlak1
            var mesh1Collision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
                mesh1Collision.setFromObject(this.mesh1Detection);
+           //collision detection ball with vlak2
+           var mesh2Collision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
+               mesh2Collision.setFromObject(this.mesh2Detection);
+           //collision detection ball with vlak3
+           var mesh3Collision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
+               mesh3Collision.setFromObject(this.mesh3Detection);
+           //collision detection ball with vlak4
+           var mesh4Collision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
+               mesh4Collision.setFromObject(this.mesh4Detection);
+
+            //array with all detection meshes
+        this.detectionArray=[ mesh1Collision,mesh2Collision,mesh3Collision,mesh4Collision]
             
           // console.log(  testmesh.intersectsTriangle(testmesh))
            var mouseCollision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
                mouseCollision.setFromObject(this.mouseMesh)
               //console.log(  testmesh)
-               if(mouseCollision.intersectsBox( mesh1Collision)){
-                   // console.log("side1 pole1 active")
+          
+              for(var i = 1; i<5; i++){ // loops through every side 
+                   // console.log( 'mesh'+i+'Collision')
+               
+               if(mouseCollision.intersectsBox( this.detectionArray[i-1])){
+                   // console.log("side"+i+" pole1 active")
                    port.send({
-                        address: "/pole1_1",
+                        address: "/pole1_"+i,
                         args:  [1]
                     });                
                }
                else{
                     port.send({
-                        address: "/pole1_1",
+                        address: "/pole1_"+i,
                         args:  [0]
                     });
                }
+              }
             //console.log(  mouseCollision.isIntersectionBox(mesh1Collision))
           }
       
