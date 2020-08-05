@@ -17,7 +17,7 @@
     </svg>
   </div>
   
-  <div class="cursor__ball cursor__ball--small">
+  <div ref="ballSmall" class="cursor__ball cursor__ball--small">
     <svg height="10" width="10">
       <circle cx="5" cy="5" r="4" stroke-width="0"></circle>
     </svg>
@@ -42,7 +42,7 @@
         <div class="col-1"></div>
         <div class="col-10" id="speelveld"> WebGl
                
-                <WebGLRaum v-bind:bigBallPosition="ballposition"></WebGLRaum> 
+                <WebGLRaum v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition"></WebGLRaum> 
             </div>
         <div class="col-1"></div>
    </div>
@@ -68,6 +68,7 @@ export default {
     smallBall: null,
     clientcolor: '#f2ff00',
     ballposition: null,
+    smalBallposition: null,
     ballpositionmobile:[],
     mouseX: null,
     mouseY: null,
@@ -143,6 +144,7 @@ export default {
       },
       ballXYposition: function(){
         this.ballposition = this.$refs.ballBig.getBoundingClientRect()  //positie bigball
+        this.smalBallposition = this.$refs.ballSmall.getBoundingClientRect()
         //console.log(this.ballposition)
       }
       

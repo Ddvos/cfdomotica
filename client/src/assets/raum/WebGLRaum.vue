@@ -17,6 +17,7 @@ export default {
 
   props: {
         bigBallPosition: Array,
+        smallBallPosition: Array,
      },
    
   data() {
@@ -48,7 +49,11 @@ export default {
       mesh3Detection: null,
       mesh4Detection: null,
       detectionArray: [],
+      meshPoleDetection: null,
+      collisionPole: false,
       vlak1Position: null,
+      posSmall: null, // positie van de kleine muis
+      posBig: null,
 
    }
   },
@@ -135,6 +140,7 @@ export default {
 
           //detection
          var detection1 = new this.$three.PlaneGeometry( 4, 2.5, 1);
+         var poleDetection = new this.$three.PlaneGeometry(6, 6, 1);
         
       
        // var normal = triangle1.normal();
@@ -223,7 +229,7 @@ export default {
 
 
           // calculation height and width triangle for dynamic blur in procent % 0 to 1
-         console.log()
+        // console.log()
 
           this.width =Color1Geometry.vertices[1].y-Color1Geometry.vertices[0].y
           var vlak1Position = (this.width)/1*this.colorVlak1[2]
@@ -396,7 +402,9 @@ export default {
         this.mesh4Detection = new this.$three.Mesh( detection1, materialDetection );
         this.mesh4Detection.position.x=-3;
         this.mesh4Detection.rotation.z = ( Math.PI/2);
-    
+
+        this.meshPoleDetection = new this.$three.Mesh( poleDetection, materialDetection );
+     
        
 
         this.mesh1 = new this.$three.Mesh( Color1Geometry,  custom1Material );
@@ -423,33 +431,48 @@ export default {
           // mouse
           var mouseMaterial = new  this.$three.MeshBasicMaterial( { color: 0xffff00 } );
           this.mouseMesh = new  this.$three.Mesh( mouseGeometry, mouseMaterial );
-               
-          this.scene.add(this.mesh1,this.mesh2,this.mesh3, this.mesh4,this.groundMesh,this.meshPilaar,this.mouseMesh,);
+          this.mouseMesh.position.x = 5           
+          this.scene.add(this.mesh1,this.mesh2,this.mesh3, this.mesh4,this.groundMesh,this.meshPilaar,this.mouseMesh,this.meshPoleDetection, this.meshPoleDetection ); //this.mesh1,this.mesh2,this.mesh3, this.mesh4
 
   
     },
 
     mousePosition:function(){
        let container = document.getElementById('container');
-      //console.log(this.$props.bigBallPosition.x)
+
+        if(this.$props.smallBallPosition !=null){
+           var vectorSmall = new this.$three.Vector3(((this.$props.smallBallPosition.x/container.clientWidth)* 2 -1), (this.$props.smallBallPosition.y/container.clientHeight) *2-1, 0.1);
+                vectorSmall.unproject( this.camera );
+                var dirSmall = vectorSmall.sub( this.camera.position ).normalize();
+                var distanceSmall = - this.camera.position.z / dirSmall.z;
+                this.posSmall = this.camera.position.clone().add( dirSmall.multiplyScalar( distanceSmall ) );
+          // console.log(this.posSmall)
+           }
+           
+        //console.log(  mouseCollision.isIntersectionBox(mesh1Collision))
+        //console.log(this.$props.bigBallPosition.x)
         if(this.$props.bigBallPosition !=null){ // als bigball niet 0 is
+         if(this.collisionPole==false){
+              
               // standaard code om 2de muis positie om te zetten naar een 3D object in three.js
-              var vector = new this.$three.Vector3(((this.$props.bigBallPosition.x/container.clientWidth)* 2 -1), (this.$props.bigBallPosition.y/container.clientHeight) *2-1, 0.1);
+               var vector = new this.$three.Vector3(((this.$props.bigBallPosition.x/container.clientWidth)* 2 -1), (this.$props.bigBallPosition.y/container.clientHeight) *2-1, 0.1);
                 vector.unproject( this.camera );
                   var dir = vector.sub( this.camera.position ).normalize();
                   var distance = - this.camera.position.z / dir.z;
-                  var pos = this.camera.position.clone().add( dir.multiplyScalar( distance ) );
+                  this.posBig = this.camera.position.clone().add( dir.multiplyScalar( distance ) );
                  // console.log(pos.x)
                   // geeft de grote ball in three.js vertraging
                   TweenMax.to(this.mouseMesh.position, 3
                   ,{
-                      x: pos.x -5.5,
-                      y: (pos.y - 4.8)*-1     
+                      x: this.posBig.x -3,
+                      y: (this.posBig.y - 4.8)*-1     
                       })
                   //this.mouseMesh.position.copy(pos);
-
+            }
+          }
+      
           /// collision detection
-
+          
           
           //collision detection ball with vlak1
            var mesh1Collision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
@@ -463,8 +486,11 @@ export default {
            //collision detection ball with vlak4
            var mesh4Collision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
                mesh4Collision.setFromObject(this.mesh4Detection);
-
+            //collision with pole
+           var poleDetection = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
+               poleDetection.setFromObject(this.meshPoleDetection );
             //array with all detection meshes
+          
         this.detectionArray=[ mesh1Collision,mesh2Collision,mesh3Collision,mesh4Collision]
             
           // console.log(  testmesh.intersectsTriangle(testmesh))
@@ -489,8 +515,31 @@ export default {
                     });
                }
               }
-            //console.log(  mouseCollision.isIntersectionBox(mesh1Collision))
-          }
+                console.log(this.posSmall.y*-1)
+              // detect if mouse touches pole
+              if(mouseCollision.intersectsBox( poleDetection)){
+
+                 //console.log(mouseCollision.intersectsBox( poleDetection))
+                  this.collisionPole = true
+
+                    TweenMax.to(this.mouseMesh.position, 3
+                  ,{
+                      x: this.mouseMesh.position.x,
+                      y: this.mouseMesh.position.y
+                      })
+
+                  // example positions ad Y ass:  square bigball smallball. so bigball should come lose of square
+                  if(this.posSmall.y*-7 >poleDetection.max.y){
+                       //console.log("komlos!")
+                      this.collisionPole = false
+                    
+                  }
+
+                  
+                  
+                 
+              }
+     
       
     },
     animate: function() {
