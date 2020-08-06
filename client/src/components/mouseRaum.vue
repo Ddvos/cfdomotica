@@ -18,7 +18,7 @@
   </div>
   
   <div ref="ballSmall" class="cursor__ball cursor__ball--small">
-    <svg height="10" width="10">
+    <svg height="10" width="10" display= "none">
       <circle cx="5" cy="5" r="4" stroke-width="0"></circle>
     </svg>
   </div>
@@ -120,7 +120,7 @@ export default {
            })
            TweenMax.to(this.smallBall, .1, {
              x: event.x -2,
-            y: event.y - 7
+            y: event.y - 1
           }) 
 
           this.ballXYposition()
@@ -173,6 +173,7 @@ export default {
       left: 0;
       mix-blend-mode: difference;
       z-index: 1000;
+      
       
       circle {
         fill: #f7f8fa;

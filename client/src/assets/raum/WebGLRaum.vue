@@ -34,7 +34,8 @@ export default {
       meshPilaar: null, // kruis pilaar
       light: null,
       mouseMesh: null,
-       bigBall: null,
+      mouseSmallMesh: null,
+      bigBall: null,
       smallBall: null,
       //colorvlakken
       colorVlak1: ['rgb(222, 60, 49)','rgb(13, 212, 209)',0.5], // kleuren en positie van vlakken
@@ -54,6 +55,10 @@ export default {
       vlak1Position: null,
       posSmall: null, // positie van de kleine muis
       posBig: null,
+      hitTop: false, // deze variabele komen op true als de grote bal de betreffende kant raakt
+      hitRight: false,
+      hitBottom: false,
+      hitLeft: false,
 
    }
   },
@@ -140,13 +145,16 @@ export default {
 
           //detection
          var detection1 = new this.$three.PlaneGeometry( 4, 2.5, 1);
-         var poleDetection = new this.$three.PlaneGeometry(6, 6, 1);
+         var poleDetection = new this.$three.PlaneGeometry(4.5, 4.5, 1);
         
       
        // var normal = triangle1.normal();
 
          // grote bal
         var mouseGeometry = new this.$three.CircleGeometry( 0.8, 100 );
+
+         // kleine bal
+        var mouseSmallGeometry = new this.$three.CircleGeometry( 0.2, 100 );
 
       
     
@@ -428,10 +436,17 @@ export default {
           //this.groundMesh.rotation.x += -0.2
           //this.groundMesh.rotation.y += 3.1        
 
-          // mouse
+          // mouse big
           var mouseMaterial = new  this.$three.MeshBasicMaterial( { color: 0xffff00 } );
           this.mouseMesh = new  this.$three.Mesh( mouseGeometry, mouseMaterial );
-          this.mouseMesh.position.x = 5           
+          this.mouseMesh.position.x = 5   
+          // mouse small
+          var mouseSmallMaterial = new  this.$three.MeshBasicMaterial( { color: '#222526' } );
+          this.mouseSmallMesh = new  this.$three.Mesh( mouseSmallGeometry, mouseSmallMaterial );
+          this.mouseSmallMesh.position.x = 5  
+          this.mouseSmallMesh.position.z = 0 
+          this.scene.add(this.mouseSmallMesh) 
+
           this.scene.add(this.mesh1,this.mesh2,this.mesh3, this.mesh4,this.groundMesh,this.meshPilaar,this.mouseMesh,this.meshPoleDetection, this.meshPoleDetection ); //this.mesh1,this.mesh2,this.mesh3, this.mesh4
 
   
@@ -439,21 +454,27 @@ export default {
 
     mousePosition:function(){
        let container = document.getElementById('container');
-
+        // three.js mouseposition small ball
         if(this.$props.smallBallPosition !=null){
            var vectorSmall = new this.$three.Vector3(((this.$props.smallBallPosition.x/container.clientWidth)* 2 -1), (this.$props.smallBallPosition.y/container.clientHeight) *2-1, 0.1);
                 vectorSmall.unproject( this.camera );
                 var dirSmall = vectorSmall.sub( this.camera.position ).normalize();
                 var distanceSmall = - this.camera.position.z / dirSmall.z;
                 this.posSmall = this.camera.position.clone().add( dirSmall.multiplyScalar( distanceSmall ) );
-          // console.log(this.posSmall)
+
+          this.mouseSmallMesh.position.x =this.posSmall.x -2.8
+          this.mouseSmallMesh.position.y =(this.posSmall.y)*-1 +3.7
+                  // TweenMax.to(this.mouseSmallMesh.position, .01, {
+                  //     x:  this.posSmall.x -3,
+                  //     y:  (this.posSmall.y)*-1 
+                  //   }) 
            }
            
         //console.log(  mouseCollision.isIntersectionBox(mesh1Collision))
         //console.log(this.$props.bigBallPosition.x)
         if(this.$props.bigBallPosition !=null){ // als bigball niet 0 is
          if(this.collisionPole==false){
-              
+            
               // standaard code om 2de muis positie om te zetten naar een 3D object in three.js
                var vector = new this.$three.Vector3(((this.$props.bigBallPosition.x/container.clientWidth)* 2 -1), (this.$props.bigBallPosition.y/container.clientHeight) *2-1, 0.1);
                 vector.unproject( this.camera );
@@ -496,6 +517,9 @@ export default {
           // console.log(  testmesh.intersectsTriangle(testmesh))
            var mouseCollision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
                mouseCollision.setFromObject(this.mouseMesh)
+
+           var mouseSmallCollision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
+               mouseSmallCollision.setFromObject(this.mouseSmallMesh)
               //console.log(  testmesh)
           
               for(var i = 1; i<5; i++){ // loops through every side 
@@ -515,27 +539,52 @@ export default {
                     });
                }
               }
-                console.log(this.posSmall.y*-1)
+               //console.log("paal Y positie boven: "+poleDetection.max.y +"  Grote bal Y positie onder: " +(this.mouseMesh.position.y)-(this.mouseMesh.geometry.boundingBox.max.y))
+               console.log( mouseSmallCollision.intersectsBox( poleDetection))
               // detect if mouse touches pole
               if(mouseCollision.intersectsBox( poleDetection)){
 
-                 //console.log(mouseCollision.intersectsBox( poleDetection))
+                 //stop bigball
                   this.collisionPole = true
 
+                
+                    // hold possition
                     TweenMax.to(this.mouseMesh.position, 3
                   ,{
                       x: this.mouseMesh.position.x,
                       y: this.mouseMesh.position.y
-                      })
+                    })
 
-                  // example positions ad Y ass:  square bigball smallball. so bigball should come lose of square
-                  if(this.posSmall.y*-7 >poleDetection.max.y){
-                       //console.log("komlos!")
-                      this.collisionPole = false
-                    
-                  }
+                    //hit top
+                    if((this.mouseSmallMesh.position.y<this.mouseMesh.position.y) && mouseSmallCollision.intersectsBox( poleDetection)){
+                       console.log("hit top")
+                       this.hitTop= true;
+                       this.hitBottom=  false;
+                     }
+                    // right
+                    //bottom
+                      if((this.mouseSmallMesh.position.y>this.mouseMesh.position.y)&& mouseSmallCollision.intersectsBox( poleDetection)){
+                        console.log("hit bottom")
+                       this.hitBottom= true;
+                       this.hitTop= false;
+                     }
+                    //left
 
-                  
+                  // example positions ad Y ass:  square, bigball smallball. so bigball should come lose of square
+                  if(this.mouseSmallMesh.position.y+1>poleDetection.max.y && this.hitTop ==true){ //
+                       console.log("komlos boven!")
+                       this.mouseMesh.position.y += 0.02
+                      this.collisionPole = false 
+                      this.hitBottom= false;
+                      
+                   }
+                   if(this.mouseSmallMesh.position.y<poleDetection.min.y&& this.hitBottom== true){
+                       console.log("komlos onder!")
+                      this.collisionPole = false 
+                       this.hitTop= false;
+                   }
+
+                 
                   
                  
               }
