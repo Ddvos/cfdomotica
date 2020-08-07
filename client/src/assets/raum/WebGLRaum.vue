@@ -394,7 +394,7 @@ export default {
          /// einde test vertexshader en fragmentshade
 
          //detection material/field
-        var materialDetection = new this.$three.MeshLambertMaterial( {color: 0xffff00, transparent: true, opacity: 0.5   } );        
+        var materialDetection = new this.$three.MeshLambertMaterial( {color: 0xffff00, transparent: true, opacity: 0.7  } );        
      
         this.mesh1Detection = new this.$three.Mesh( detection1, materialDetection );
         this.mesh1Detection.position.y = 3;
@@ -447,7 +447,7 @@ export default {
           this.mouseSmallMesh.position.z = 0 
           this.scene.add(this.mouseSmallMesh) 
 
-          this.scene.add(this.mesh1,this.mesh2,this.mesh3, this.mesh4,this.groundMesh,this.meshPilaar,this.mouseMesh,this.meshPoleDetection, this.meshPoleDetection ); //this.mesh1,this.mesh2,this.mesh3, this.mesh4
+          this.scene.add(this.mesh1,this.mesh2,this.mesh3, this.mesh4,this.groundMesh,this.meshPilaar,this.mouseMesh,this.meshPoleDetection, this.meshPoleDetection ); //   this.meshPoleDetection
 
   
     },
@@ -540,7 +540,7 @@ export default {
                }
               }
                //console.log("paal Y positie boven: "+poleDetection.max.y +"  Grote bal Y positie onder: " +(this.mouseMesh.position.y)-(this.mouseMesh.geometry.boundingBox.max.y))
-               console.log( mouseSmallCollision.intersectsBox( poleDetection))
+             // console.log(this.mouseSmallMesh.position.x+ "  "+poleDetection.max.x )
               // detect if mouse touches pole
               if(mouseCollision.intersectsBox( poleDetection)){
 
@@ -548,45 +548,72 @@ export default {
                   this.collisionPole = true
 
                 
-                    // hold possition
-                    TweenMax.to(this.mouseMesh.position, 3
-                  ,{
-                      x: this.mouseMesh.position.x,
-                      y: this.mouseMesh.position.y
-                    })
+             
+
+                   
+                   
+                          // hold possition
+                        TweenMax.to(this.mouseMesh.position, 2
+                      ,{
+                          x: this.mouseMesh.position.x,
+                          y: this.mouseMesh.position.y
+                        })
+                    
 
                     //hit top
-                    if((this.mouseSmallMesh.position.y<this.mouseMesh.position.y) && mouseSmallCollision.intersectsBox( poleDetection)){
-                       console.log("hit top")
+                    if((this.mouseMesh.position.y-poleDetection.max.y>-1) && this.hitBottom == false){
+                     //  console.log("hit top")
                        this.hitTop= true;
-                       this.hitBottom=  false;
                      }
-                    // right
-                    //bottom
-                      if((this.mouseSmallMesh.position.y>this.mouseMesh.position.y)&& mouseSmallCollision.intersectsBox( poleDetection)){
-                        console.log("hit bottom")
+                    // hit right
+                    if((this.mouseMesh.position.x-poleDetection.max.x>-1) && this.hitLeft == false){
+                      // console.log("hit Right")
+                       this.hitRight= true;
+                     }
+                    // hit bottom
+                      if((this.mouseMesh.position.y-poleDetection.min.y<1)&& this.hitTop == false){ //this.mouseSmallMesh.position.y>this.mouseMesh.position.y
+                      // console.log("hit bottom")
                        this.hitBottom= true;
-                       this.hitTop= false;
                      }
-                    //left
+                    //hit left
+                      if((this.mouseMesh.position.x-poleDetection.min.x<1)&& this.hitRight == false){ //this.mouseSmallMesh.position.y>this.mouseMesh.position.y
+                      // console.log("hit Left")
+                       this.hitLeft= true;
+                     }
 
-                  // example positions ad Y ass:  square, bigball smallball. so bigball should come lose of square
-                  if(this.mouseSmallMesh.position.y+1>poleDetection.max.y && this.hitTop ==true){ //
-                       console.log("komlos boven!")
-                       this.mouseMesh.position.y += 0.02
+                  // bij hit boven komt hij los met de volgende if statment
+                  if(this.mouseSmallMesh.position.y+1>poleDetection.max.y && this.hitTop ==true && this.hitBottom ==false){ //
+                      //console.log("komlos boven!")
+                      //this.mouseMesh.position.y += 0.02
                       this.collisionPole = false 
-                      this.hitBottom= false;
-                      
-                   }
-                   if(this.mouseSmallMesh.position.y<poleDetection.min.y&& this.hitBottom== true){
-                       console.log("komlos onder!")
+                  } 
+                   // bij hit rechts komt hij los met de volgende if statment
+                  if(this.mouseSmallMesh.position.x+1>poleDetection.max.x && this.hitRight==true && this.hitLeft==false){ //
+                      //console.log("komlos rechts!")
                       this.collisionPole = false 
-                       this.hitTop= false;
+                  } 
+                   // bij hit onder komt hij los met de volgende if statment
+                   if(this.mouseSmallMesh.position.y<poleDetection.min.y&& this.hitBottom== true && this.hitTop ==false){
+                    // console.log("komlos onder!")
+                      this.collisionPole = false 
                    }
+                     // bij hit links  komt hij los met de volgende if statment
+                   if(this.mouseSmallMesh.position.x<poleDetection.min.x&& this.hitLeft== true && this.hitRight ==false){
+                    // console.log("komlos links!")
+                      this.collisionPole = false 
+                   }
+                
+                   
 
                  
                   
                  
+              }else{
+                this.hitTop= false;
+                this.hitRight= false;
+                this.hitBottom=  false;
+                 this.hitLeft= false;
+                this.collisionPole = false 
               }
      
       
