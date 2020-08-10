@@ -59,6 +59,7 @@ export default {
       hitRight: false,
       hitBottom: false,
       hitLeft: false,
+      sendPole:[false,false,false,false,false]
 
    }
   },
@@ -145,7 +146,7 @@ export default {
 
           //detection
          var detection1 = new this.$three.PlaneGeometry( 4, 2.5, 1);
-         var poleDetection = new this.$three.PlaneGeometry(4.5, 4.5, 1);
+         var poleDetection = new this.$three.PlaneGeometry(5.5, 5.5, 1);
         
       
        // var normal = triangle1.normal();
@@ -439,7 +440,7 @@ export default {
           // mouse big
           var mouseMaterial = new  this.$three.MeshBasicMaterial( { color: 0xffff00 } );
           this.mouseMesh = new  this.$three.Mesh( mouseGeometry, mouseMaterial );
-          this.mouseMesh.position.x = 5   
+          this.mouseMesh.position.x = 8  
           // mouse small
           var mouseSmallMaterial = new  this.$three.MeshBasicMaterial( { color: '#222526' } );
           this.mouseSmallMesh = new  this.$three.Mesh( mouseSmallGeometry, mouseSmallMaterial );
@@ -447,7 +448,7 @@ export default {
           this.mouseSmallMesh.position.z = 0 
           this.scene.add(this.mouseSmallMesh) 
 
-          this.scene.add(this.mesh1,this.mesh2,this.mesh3, this.mesh4,this.groundMesh,this.meshPilaar,this.mouseMesh,this.meshPoleDetection, this.meshPoleDetection ); //   this.meshPoleDetection
+          this.scene.add(this.mesh1,this.mesh2,this.mesh3, this.mesh4,this.groundMesh,this.meshPilaar,this.mouseMesh ); //   this.meshPoleDetection
 
   
     },
@@ -525,20 +526,26 @@ export default {
               for(var i = 1; i<5; i++){ // loops through every side 
                    // console.log( 'mesh'+i+'Collision')
                
-               if(mouseCollision.intersectsBox( this.detectionArray[i-1])){
-                   // console.log("side"+i+" pole1 active")
+               if(mouseCollision.intersectsBox( this.detectionArray[i-1]) && this.sendPole[i] == false){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd
+             
+                   console.log("side"+i+" pole1 active")
                    port.send({
                         address: "/pole1_"+i,
                         args:  [1]
-                    });                
+                    });  
+                      this.sendPole[i] =true              
                }
-               else{
+               if(this.sendPole[i] ==true && mouseCollision.intersectsBox( this.detectionArray[i-1]) == false) {
+                console.log("side"+i+" pole1 dissable")
                     port.send({
                         address: "/pole1_"+i,
                         args:  [0]
                     });
+                this.sendPole[i] =false
                }
+
               }
+                 
                //console.log("paal Y positie boven: "+poleDetection.max.y +"  Grote bal Y positie onder: " +(this.mouseMesh.position.y)-(this.mouseMesh.geometry.boundingBox.max.y))
              // console.log(this.mouseSmallMesh.position.x+ "  "+poleDetection.max.x )
               // detect if mouse touches pole
@@ -547,23 +554,25 @@ export default {
                  //stop bigball
                   this.collisionPole = true
 
-                
-             
+                  
 
-                   
-                   
-                          // hold possition
-                        TweenMax.to(this.mouseMesh.position, 2
+                          // hold possition // hover
+                        TweenMax.to(this.mouseMesh.position, 3
                       ,{
-                          x: this.mouseMesh.position.x,
+                          x: this.mouseMesh.position.x + 0.3,
                           y: this.mouseMesh.position.y
-                        })
+                        }) 
+
+
+
+                    
                     
 
                     //hit top
                     if((this.mouseMesh.position.y-poleDetection.max.y>-1) && this.hitBottom == false){
                      //  console.log("hit top")
                        this.hitTop= true;
+                          
                      }
                     // hit right
                     if((this.mouseMesh.position.x-poleDetection.max.x>-1) && this.hitLeft == false){
@@ -581,14 +590,16 @@ export default {
                        this.hitLeft= true;
                      }
 
+
+                  // code voor los komen bal van paal
                   // bij hit boven komt hij los met de volgende if statment
-                  if(this.mouseSmallMesh.position.y+1>poleDetection.max.y && this.hitTop ==true && this.hitBottom ==false){ //
+                  if(this.mouseSmallMesh.position.y>poleDetection.max.y && this.hitTop ==true && this.hitBottom ==false){ //
                       //console.log("komlos boven!")
                       //this.mouseMesh.position.y += 0.02
                       this.collisionPole = false 
                   } 
                    // bij hit rechts komt hij los met de volgende if statment
-                  if(this.mouseSmallMesh.position.x+1>poleDetection.max.x && this.hitRight==true && this.hitLeft==false){ //
+                  if(this.mouseSmallMesh.position.x>poleDetection.max.x && this.hitRight==true && this.hitLeft==false){ //
                       //console.log("komlos rechts!")
                       this.collisionPole = false 
                   } 
