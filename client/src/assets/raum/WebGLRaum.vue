@@ -582,7 +582,7 @@ export default {
                                 ,{y: this.mouseMesh.position.y })
                              /// afrol naar rechts
                              if(this.mouseMesh.position.x>poleDetection.max.x) {
-                              // console.log("draaien")
+                               console.log("draaien")
                                this.hitTop= false; this.hitBottom =false
                                this.hitRight=true
                              }
@@ -612,13 +612,13 @@ export default {
 
                                   /// afrol naar boven
                              if(this.mouseMesh.position.y>poleDetection.max.y) {
-                              // console.log("draaien")
+                               //console.log("draaien")
                                this.hitLeft= false; this.hitRight =false
                                this.hitTop=true
                              }
                              /// afrol naar onder
                              if(this.mouseMesh.position.y<poleDetection.min.y) {
-                               //console.log("draaien")
+                              // console.log("draaien")
                                 this.hitLeft= false; this.hitRight =false
                                 this.hitBottom=true
                              }
@@ -632,23 +632,23 @@ export default {
 
                     //hit top
                     if((this.mouseMesh.position.y-poleDetection.max.y>-1) && this.hitBottom == false){
-                       //console.log("hit top")
+                       console.log("hit top")
                        this.hitTop= true;
                           
                      }
                     // hit right
                     if((this.mouseMesh.position.x-poleDetection.max.x>-1) && this.hitLeft == false && this.hitTop == false){
-                       //console.log("hit Right")
+                       console.log("hit Right")
                        this.hitRight= true;
                      }
                     // hit bottom
                       if((this.mouseMesh.position.y-poleDetection.min.y<1)&& this.hitTop == false){ //this.mouseSmallMesh.position.y>this.mouseMesh.position.y
-                      // console.log("hit bottom")
+                       console.log("hit bottom")
                        this.hitBottom= true;
                      }
                     //hit left
                       if((this.mouseMesh.position.x-poleDetection.min.x<1)&& this.hitRight == false && this.hitTop == false){ //this.mouseSmallMesh.position.y>this.mouseMesh.position.y
-                      // console.log("hit Left")
+                       console.log("hit Left")
                        this.hitLeft= true;
                      }
 
@@ -672,7 +672,7 @@ export default {
                    }
                      // bij hit links  komt hij los met de volgende if statment
                    if(this.mouseSmallMesh.position.x<poleDetection.min.x&& this.hitLeft== true && this.hitRight ==false){
-                    // console.log("komlos links!")
+                   console.log("komlos links!")
                       this.collisionPole = false 
                    }
                 
