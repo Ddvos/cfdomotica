@@ -25,10 +25,6 @@ export default {
       camera: null,
       scene: null,
       renderer: null,
-      idPole:[1,2,3,4],
-      widthPole: null,
-      x: null,
-      y: null,
       mesh1: null, // vlak bovenkant
       mesh2: null, // vlak rechterkant
       mesh3: null, // vlak onderkant
@@ -42,8 +38,7 @@ export default {
       bigBall: null,
       smallBall: null,
       //colorvlakken
-      colorVlak1: ['rgb(222, 60, 49)','rgb(13, 212, 209)',0.5
-      ], // kleuren en positie van vlakken
+      colorVlak1: ['rgb(222, 60, 49)','rgb(13, 212, 209)',0.5], // kleuren en positie van vlakken
       colorVlak2: ['rgb(222, 60, 49)','rgb(13, 212, 209)',0.5], // kleuren en positie van vlakken
       colorVlak3: ['rgb(222, 60, 49)','rgb(13, 212, 209)',0.5], // kleuren en positie van vlakken
       colorVlak4: ['rgb(222, 60, 49)','rgb(13, 212, 209)',0.5], // kleuren en positie van vlakken
@@ -141,11 +136,6 @@ export default {
        //console.log(container.clientWidth)
         //scene
         this.scene = new this.$three.Scene();
-
-         // variable to make 1 pole
-        this.widthPole = 6.0
-        this.x =-1.0
-        this.y = 0.0
         
 
          var ground = new this.$three.BoxGeometry( 20,20, 0 );
@@ -157,50 +147,47 @@ export default {
 
 
           //detection
-         var detection1 = new this.$three.PlaneGeometry( this.widthPole/2.5, this.widthPole/3, 1);
-         var poleDetection = new this.$three.PlaneGeometry(this.widthPole/1.6, this.widthPole/1.6, 1);
-     
+         var detection1 = new this.$three.PlaneGeometry( 4, 2.5, 1);
+         var poleDetection = new this.$three.PlaneGeometry(5.5, 5.5, 1);
+        
       
        // var normal = triangle1.normal();
 
          // grote bal
-        var mouseGeometry = new this.$three.CircleGeometry( 0.5, 100 );
+        var mouseGeometry = new this.$three.CircleGeometry( 0.8, 100 );
 
          // kleine bal
-        var mouseSmallGeometry = new this.$three.CircleGeometry( 0.15, 100 );
+        var mouseSmallGeometry = new this.$three.CircleGeometry( 0.2, 100 );
 
-         var cornerRightTop = [this.x+(this.widthPole/2),this.y+(this.widthPole/2)]
-         var cornerRightBottom = [this.x+(this.widthPole/2),this.y-(this.widthPole/2)]
-         var cornerLeftBottom = [this.x-(this.widthPole/2),this.y-(this.widthPole/2)]
-         var cornerLeftTop = [this.x-( this.widthPole/2),this.y+(this.widthPole/2)]
-         
-         console.log(cornerRightTop[0]/2 )
+      
+    
+
          //vlak bovenkant kleur
-        Color1Geometry.vertices.push(new this.$three.Vector3(this.x, this.y,  0.0));  // x,y,z  0  // 0 is de hoogte
-        Color1Geometry.vertices.push(new this.$three.Vector3(cornerRightTop[0], cornerRightTop[1],  0.0));  // x,y,z  1
-        Color1Geometry.vertices.push(new this.$three.Vector3(cornerLeftTop[0], cornerLeftTop[1],  0.0));  // x,y,z  2
+        Color1Geometry.vertices.push(new this.$three.Vector3(0, 0,  0.0));  // x,y,z  0  // 0 is de hoogte
+        Color1Geometry.vertices.push(new this.$three.Vector3(4, 4,  0.0));  // x,y,z  1
+        Color1Geometry.vertices.push(new this.$three.Vector3(-4, 4,  0.0));  // x,y,z  2
 
         // rechterkant
-        Color2Geometry.vertices.push(new this.$three.Vector3(this.x, this.y,  0.0));  // x,y,z  0  // 0 is de hoogte
-        Color2Geometry.vertices.push(new this.$three.Vector3(cornerRightTop[0], cornerRightTop[1],  0.0));  // x,y,z  3
-        Color2Geometry.vertices.push(new this.$three.Vector3(cornerRightBottom [0], cornerRightBottom [1],  0.0));  // x,y,z  4
+        Color2Geometry.vertices.push(new this.$three.Vector3(0, 0,  0.0));  // x,y,z  0  // 0 is de hoogte
+        Color2Geometry.vertices.push(new this.$three.Vector3(4, 4,  0.0));  // x,y,z  3
+        Color2Geometry.vertices.push(new this.$three.Vector3(4, -4,  0.0));  // x,y,z  4
 
         // onderkant 
-        Color3Geometry.vertices.push(new this.$three.Vector3(this.x, this.y,  0.0));  // x,y,z  0  // 0 is de hoogte
-        Color3Geometry.vertices.push(new this.$three.Vector3(cornerLeftBottom[0], cornerLeftBottom[1],  0.0));  // x,y,z  3
-        Color3Geometry.vertices.push(new this.$three.Vector3(cornerRightBottom [0], cornerRightBottom [1],  0.0));  // x,y,z  4
+        Color3Geometry.vertices.push(new this.$three.Vector3(0, 0,  0.0));  // x,y,z  0  // 0 is de hoogte
+        Color3Geometry.vertices.push(new this.$three.Vector3(-4, -4,  0.0));  // x,y,z  3
+        Color3Geometry.vertices.push(new this.$three.Vector3(4, -4,  0.0));  // x,y,z  4
 
         // linkerkant
-        Color4Geometry.vertices.push(new this.$three.Vector3(this.x, this.y,  0.0));  // x,y,z  0  // 0 is de hoogte
-        Color4Geometry.vertices.push(new this.$three.Vector3(cornerLeftBottom[0], cornerLeftBottom[1],  0.0));  // x,y,z  3
-        Color4Geometry.vertices.push(new this.$three.Vector3(cornerLeftTop[0], cornerLeftTop[1],  0.0));  // x,y,z  4
+        Color4Geometry.vertices.push(new this.$three.Vector3(0, 0,  0.0));  // x,y,z  0  // 0 is de hoogte
+        Color4Geometry.vertices.push(new this.$three.Vector3(-4, -4,  0.0));  // x,y,z  3
+        Color4Geometry.vertices.push(new this.$three.Vector3(-4, 4,  0.0));  // x,y,z  4
         
              //vlak bovenkant paal outline
-        PilaarGeometry.vertices.push(new this.$three.Vector3(this.x, this.y,  0.001));  // x,y,z  0  // 0 is de hoogte
-        PilaarGeometry.vertices.push(new this.$three.Vector3(this.x+(this.widthPole/4), this.y+(this.widthPole/4),   0.001));  // x,y,z  1 topright
-        PilaarGeometry.vertices.push(new this.$three.Vector3(this.x-(this.widthPole/4), this.y+(this.widthPole/4),   0.001));  // x,y,z  2 lefttop
-        PilaarGeometry.vertices.push(new this.$three.Vector3(this.x+(this.widthPole/4), this.y-(this.widthPole/4),   0.001));  // x,y,z  3 right bottoom
-        PilaarGeometry.vertices.push(new this.$three.Vector3(this.x-(this.widthPole/4), this.y-(this.widthPole/4),  0.001));  // x,y,z  4 leftbottom
+        PilaarGeometry.vertices.push(new this.$three.Vector3(0, 0,  1));  // x,y,z  0  // 0 is de hoogte
+        PilaarGeometry.vertices.push(new this.$three.Vector3(2, 2,  1));  // x,y,z  1
+        PilaarGeometry.vertices.push(new this.$three.Vector3(-2, 2,  1));  // x,y,z  2
+        PilaarGeometry.vertices.push(new this.$three.Vector3(2, -2,  1));  // x,y,z  3
+        PilaarGeometry.vertices.push(new this.$three.Vector3(-2, -2,  1));  // x,y,z  4
 
 
         Color1Geometry.faces.push(
@@ -255,8 +242,7 @@ export default {
           // calculation height and width triangle for dynamic blur in procent % 0 to 1
         // console.log()
 
-          this.width = this.widthPole/2
-        console.log(this.width)
+          this.width =Color1Geometry.vertices[1].y-Color1Geometry.vertices[0].y
           var vlak1Position = (this.width)/1*this.colorVlak1[2]
           var vlak2Position = (this.width)/1*this.colorVlak2[2]
           var vlak3Position = (this.width)/1*this.colorVlak3[2]
@@ -269,9 +255,7 @@ export default {
                    vlak1color1: { value: new this.$three.Color(this.colorVlak1[0])},
                    vlak1color2: { value: new this.$three.Color(this.colorVlak1[1])},
                    positionVlak1: {value: vlak1Position.toFixed(2)},
-                   YhalfTop:{value: (this.widthPole/4)+this.y}, // example 8/4+y is 2 bij Y = 0 
-                   Yas: {value:  this.y}          
-                },
+                 },
                  vertexShader: `
                 
                   varying vec3 vUv; 
@@ -287,18 +271,16 @@ export default {
                    uniform vec3 vlak1color1;
                    uniform vec3 vlak1color2;
                    uniform float positionVlak1;
-                   uniform float YhalfTop;
-                   uniform float Yas;
 
                 
                    varying vec3 vUv;
                   
                    void main() {     
                     
-                       float alpha = smoothstep(YhalfTop, Yas, vUv.y-(YhalfTop-Yas)); // example 2.0 , 0.0, vUv.y-2.0
+                       float alpha = smoothstep(2.0, 0.0, vUv.y-2.0);
 
                         // y < 1 = color1, > 2 = color2   // positie tussen boven en onderkant kleur mix
-                        float colorMix = smoothstep(Yas, YhalfTop, vUv.y-positionVlak1); // Yas, de helft van het bovenstevlak1, positionVlak1
+                        float colorMix = smoothstep(0.0, 2.0, vUv.y-positionVlak1); //positionVlak1
 
                         gl_FragColor = vec4(mix(vlak1color1, vlak1color2, colorMix), alpha);
                    }
@@ -310,8 +292,6 @@ export default {
                    vlak2color1: { value: new this.$three.Color(this.colorVlak2[0])},
                    vlak2color2: { value: new this.$three.Color(this.colorVlak2[1])},
                    positionVlak2: {value: vlak2Position.toFixed(2)},
-                   XhalfRight:{value: (this.widthPole/4)+this.x}, // example 8/4+x is 2 bij x = 0 
-                   Xas: {value:  this.x} 
                  },
                  vertexShader: `
                 
@@ -328,16 +308,14 @@ export default {
                   uniform vec3 vlak2color1;
                    uniform vec3 vlak2color2;
                    uniform float positionVlak2;
-                   uniform float XhalfRight;
-                   uniform float Xas;
                
                    varying vec3 vUv;
                   
                    void main() {     
-                      float alpha = smoothstep(XhalfRight, Xas, vUv.x-(XhalfRight-Xas)); // eample 2.0, 0.0, vUv.x-2.0);
+                      float alpha = smoothstep(2.0, 0.0, vUv.x-2.0);
 
                         // y < 1 = color1, > 2 = color2
-                        float colorMix = smoothstep(Xas, XhalfRight, vUv.x-positionVlak2); // example 0.0, 2.0
+                        float colorMix = smoothstep(0.0, 2.0, vUv.x-positionVlak2);
 
                         gl_FragColor = vec4(mix(vlak2color1, vlak2color2, colorMix), alpha);
                    }
@@ -349,9 +327,6 @@ export default {
                    vlak3color1: { value: new this.$three.Color(this.colorVlak3[0])},
                    vlak3color2: { value: new this.$three.Color(this.colorVlak3[1])},
                    positionVlak3: {value: vlak3Position.toFixed(2)},
-                   YhalfBottom:{value: (this.widthPole/4)+this.y}, // example 8/4+y is 2 bij Y = 0 
-                   Yas: {value:  this.y},
-                   width: {value:    this.widthPole/2} 
                  },
                  vertexShader: `
                 
@@ -368,18 +343,15 @@ export default {
                   uniform vec3 vlak3color1;
                    uniform vec3 vlak3color2;
                    uniform float positionVlak3;
-                   uniform float YhalfBottom;
-                   uniform float Yas;
-                   uniform float width;
               
                    varying vec3 vUv;
                   
                    void main() {     
                     
-                      float alpha = smoothstep(Yas, YhalfBottom, vUv.y+(width)); // example 0.0 , 2.0, vUv.y+4.0
+                      float alpha = smoothstep(0.0, 2.0, vUv.y+4.0);
 
                         // y < 1 = color1, > 2 = color2
-                        float colorMix = smoothstep(Yas, YhalfBottom, vUv.y+(width/2.0)+positionVlak3); //2.0 voor de afwijking example 0.0, 2.0, vUv.y+2.0+positionVlak3
+                        float colorMix = smoothstep(0.0, 2.0, vUv.y+2.0+positionVlak3); //2.0 voor de afwijking 
 
                         gl_FragColor = vec4(mix(vlak3color2, vlak3color1, colorMix), alpha);
                    }
@@ -391,9 +363,6 @@ export default {
                    vlak4color1: { value: new this.$three.Color(this.colorVlak4[0])},
                    vlak4color2: { value: new this.$three.Color(this.colorVlak4[1])},
                    positionVlak4: {value: vlak4Position.toFixed(2)},
-                   XhalfLeft:{value: (this.widthPole/4)+this.x}, // example 8/4+y is 2 bij Y = 0 
-                   Xas: {value:  this.x},
-                   width: {value: this.widthPole/2} 
                  },
                  vertexShader: `
                 
@@ -407,21 +376,18 @@ export default {
                  `,
                  fragmentShader: `
                     
-                   uniform vec3 vlak4color1;
+                  uniform vec3 vlak4color1;
                    uniform vec3 vlak4color2;
                    uniform float positionVlak4;
-                   uniform float XhalfLeft;
-                   uniform float Xas;
-                   uniform float width;
               
                    varying vec3 vUv;
                   
                    void main() {     
                     
-                       float alpha = smoothstep(Xas, XhalfLeft, vUv.x+width); // example 0.0, 2.0, vUv.x+4.0
+                       float alpha = smoothstep(0.0, 2.0, vUv.x+4.0);
 
                         // y < 1 = color1, > 2 = color2
-                        float colorMix = smoothstep(Xas, XhalfLeft, vUv.x+(width/2.0)+positionVlak4); // +2.0 voor de afwijking en + de postie
+                        float colorMix = smoothstep(0.0, 2.0, vUv.x+2.0+positionVlak4); // +2.0 voor de afwijking en + de postie
 
                         gl_FragColor = vec4(mix(vlak4color2, vlak4color1, colorMix), alpha);
                    }
@@ -431,40 +397,31 @@ export default {
          /// einde test vertexshader en fragmentshade
 
          //detection material/field
-        var materialDetection = new this.$three.MeshLambertMaterial( {color: 0xffff00, transparent: true, opacity: 0.7  } ); 
-        
+        var materialDetection = new this.$three.MeshLambertMaterial( {color: 0xffff00, transparent: true, opacity: 0.7  } );        
+     
+        this.mesh1Detection = new this.$three.Mesh( detection1, materialDetection );
+        this.mesh1Detection.position.y = 3;
+
+        this.mesh2Detection = new this.$three.Mesh( detection1, materialDetection );
+        this.mesh2Detection.position.x = 3;
+        this.mesh2Detection.rotation.z = ( Math.PI / 2 );
+
+        this.mesh3Detection = new this.$three.Mesh( detection1, materialDetection );
+        this.mesh3Detection.position.y =-3;
+        this.mesh3Detection.rotation.z = ( Math.PI);
+
+        this.mesh4Detection = new this.$three.Mesh( detection1, materialDetection );
+        this.mesh4Detection.position.x=-3;
+        this.mesh4Detection.rotation.z = ( Math.PI/2);
+
+        this.meshPoleDetection = new this.$three.Mesh( poleDetection, materialDetection );
+     
+       
+
         this.mesh1 = new this.$three.Mesh( Color1Geometry,  custom1Material );
         this.mesh2 = new this.$three.Mesh( Color2Geometry,  custom2Material );
         this.mesh3 = new this.$three.Mesh( Color3Geometry,  custom3Material );
         this.mesh4 = new this.$three.Mesh( Color4Geometry,  custom4Material );
-
-      
-        this.mesh1Detection = new this.$three.Mesh( detection1, materialDetection );
-        this.mesh1Detection.position.x += this.x
-        this.mesh1Detection.position.y = this.mesh1.geometry.vertices[1].y-(this.widthPole/8);
-
-        this.mesh2Detection = new this.$three.Mesh( detection1, materialDetection );
-        this.mesh2Detection.position.x = this.mesh2.geometry.vertices[1].x-(this.widthPole/8);
-        this.mesh2Detection.position.y += this.y
-        this.mesh2Detection.rotation.z = ( Math.PI / 2 );
-
-        this.mesh3Detection = new this.$three.Mesh( detection1, materialDetection );
-        this.mesh3Detection.position.y = this.mesh3.geometry.vertices[1].y+(this.widthPole/8);
-        this.mesh3Detection.position.x += this.x
-        this.mesh3Detection.rotation.z = ( Math.PI);
-
-        this.mesh4Detection = new this.$three.Mesh( detection1, materialDetection );
-        this.mesh4Detection.position.x= this.mesh4.geometry.vertices[1].x+(this.widthPole/8);
-        this.mesh4Detection.position.y += this.y
-        this.mesh4Detection.rotation.z = ( Math.PI/2);
-
-        // paal detectie
-        this.meshPoleDetection = new this.$three.Mesh( poleDetection, materialDetection );
-        this.meshPoleDetection.position.x += this.x
-        this.meshPoleDetection.position.y += this.y
-       
-        
- 
 
        // console.log(this.mesh1.Color1Geometry.computeBoundingBox())
 
@@ -489,12 +446,11 @@ export default {
           // mouse small
           var mouseSmallMaterial = new  this.$three.MeshBasicMaterial( { color: '#222526' } );
           this.mouseSmallMesh = new  this.$three.Mesh( mouseSmallGeometry, mouseSmallMaterial );
-          this.mouseSmallMesh.position.x = 8  
-          this.mouseSmallMesh.position.z = 0.01
+          this.mouseSmallMesh.position.x = 5  
+          this.mouseSmallMesh.position.z = 0 
           this.scene.add(this.mouseSmallMesh) 
-         
 
-          this.scene.add(this.mesh1,this.mesh2, this.mesh3, this.mesh4,this.groundMesh,this.meshPilaar, this.mouseMesh, ); //   this.meshPoleDetection this.mesh1,this.mesh2
+          this.scene.add(this.mesh1,this.mesh2, this.mesh3, this.mesh4,this.groundMesh,this.meshPilaar,this.mouseMesh); //   this.meshPoleDetection this.mesh1,this.mesh2
 
   
     },
@@ -532,8 +488,8 @@ export default {
                   // geeft de grote ball in three.js vertraging
                   TweenMax.to(this.mouseMesh.position, 3
                   ,{
-                      x: this.posBig.x -2.5,
-                      y: (this.posBig.y - 3.5)*-1     
+                      x: this.posBig.x -3,
+                      y: (this.posBig.y - 4.8)*-1     
                       })
                   //this.mouseMesh.position.copy(pos);
             }
@@ -626,13 +582,13 @@ export default {
                                 ,{y: this.mouseMesh.position.y })
                              /// afrol naar rechts
                              if(this.mouseMesh.position.x>poleDetection.max.x) {
-                              // console.log("draaien")
+                               console.log("draaien")
                                this.hitTop= false; this.hitBottom =false
                                this.hitRight=true
                              }
                              /// afrol naar links
                              if(this.mouseMesh.position.x<poleDetection.min.x) {
-                               //console.log("draaien")
+                               console.log("draaien")
                                 this.hitTop= false; this.hitBottom =false
                                 this.hitLeft=true
                              }
@@ -676,23 +632,23 @@ export default {
 
                     //hit top
                     if((this.mouseMesh.position.y-poleDetection.max.y>-1) && this.hitBottom == false){
-                      // console.log("hit top")
+                       console.log("hit top")
                        this.hitTop= true;
                           
                      }
                     // hit right
                     if((this.mouseMesh.position.x-poleDetection.max.x>-1) && this.hitLeft == false && this.hitTop == false){
-                      // console.log("hit Right")
+                       console.log("hit Right")
                        this.hitRight= true;
                      }
                     // hit bottom
                       if((this.mouseMesh.position.y-poleDetection.min.y<1)&& this.hitTop == false){ //this.mouseSmallMesh.position.y>this.mouseMesh.position.y
-                      // console.log("hit bottom")
+                       console.log("hit bottom")
                        this.hitBottom= true;
                      }
                     //hit left
                       if((this.mouseMesh.position.x-poleDetection.min.x<1)&& this.hitRight == false && this.hitTop == false){ //this.mouseSmallMesh.position.y>this.mouseMesh.position.y
-                      // console.log("hit Left")
+                       console.log("hit Left")
                        this.hitLeft= true;
                      }
 
@@ -716,7 +672,7 @@ export default {
                    }
                      // bij hit links  komt hij los met de volgende if statment
                       if(this.mouseSmallMesh.position.x<poleDetection.min.x&& this.hitLeft== true && this.hitRight ==false){
-                     // console.log("komlos links!")
+                      console.log("komlos links!")
                           this.collisionPole = false 
                       }
                     
