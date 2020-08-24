@@ -29,10 +29,10 @@ export default {
       widthPole: null,
       x: null,
       y: null,
-      mesh1: null, // vlak bovenkant
-      mesh2: null, // vlak rechterkant
-      mesh3: null, // vlak onderkant
-      mesh4: null, // vlak linkerkant
+      mesh1: [], // vlak bovenkant
+      mesh2: [], // vlak rechterkant
+      mesh3: [], // vlak onderkant
+      mesh4: [], // vlak linkerkant
       testMesh: null, // vlak linkerkant
       groundMesh: null,
       meshPilaar: null, // kruis pilaar
@@ -50,12 +50,12 @@ export default {
       // breedite driehoeken
       width: null,
       // detection
-      mesh1Detection: null,
-      mesh2Detection: null,
-      mesh3Detection: null,
-      mesh4Detection: null,
+      mesh1Detection:[],
+      mesh2Detection: [],
+      mesh3Detection: [],
+      mesh4Detection:[],
       detectionArray: [],
-      meshPoleDetection: null,
+      meshPoleDetection:[],
       collisionPole: false,
       vlak1Position: null,
       posSmall: null, // positie van de kleine muis
@@ -67,6 +67,7 @@ export default {
       sendPole:[false,false,false,false,false],
        xposistieSpeed: 0.1,
        speed: 0,
+       id: null,
 
    }
   },
@@ -142,13 +143,302 @@ export default {
         //scene
         this.scene = new this.$three.Scene();
 
+
+        var ground = new this.$three.BoxGeometry( 20,20, 0 );
+        
+        this.pole(-4,-1,1) // paal variable x,y,id
+        this.pole(-4,6,2) // paal variable x,y,id
+        this.pole(4,-1,3) // paal variable x,y,id
+        this.pole(4,6,4) // paal variable x,y,id
+      
+
+
+         // grote bal
+        var mouseGeometry = new this.$three.CircleGeometry( 0.5, 100 );
+
+         // kleine bal
+        var mouseSmallGeometry = new this.$three.CircleGeometry( 0.15, 100 );
+
+       
+           // grond
+          var groundMaterial = new  this.$three.MeshBasicMaterial( {color: '#484a4a'} );
+          this.groundMesh = new this.$three.Mesh( ground, groundMaterial );
+          this.groundMesh.position.set(0, 0, -1)
+          //this.groundMesh.rotation.x += -0.2
+          //this.groundMesh.rotation.y += 3.1        
+
+          // mouse big
+          var mouseMaterial = new  this.$three.MeshBasicMaterial( { color: 0xffff00 } );
+          this.mouseMesh = new  this.$three.Mesh( mouseGeometry, mouseMaterial );
+          this.mouseMesh.position.x = 8  
+          // mouse small
+          var mouseSmallMaterial = new  this.$three.MeshBasicMaterial( { color: '#222526' } );
+          this.mouseSmallMesh = new  this.$three.Mesh( mouseSmallGeometry, mouseSmallMaterial );
+          this.mouseSmallMesh.position.x = 8  
+          this.mouseSmallMesh.position.z = 0.01
+          this.scene.add(this.mouseSmallMesh) 
+         
+
+          this.scene.add(this.groundMesh, this.mouseMesh, ); //   this.meshPoleDetection this.mesh1,this.mesh2
+
+  
+    },
+
+    mousePosition:function(){ // mouse position and  collision detection
+       let container = document.getElementById('container');
+        // three.js mouseposition small ball
+        if(this.$props.smallBallPosition !=null){
+           var vectorSmall = new this.$three.Vector3(((this.$props.smallBallPosition.x/container.clientWidth)* 2 -1), (this.$props.smallBallPosition.y/container.clientHeight) *2-1, 0.1);
+                vectorSmall.unproject( this.camera );
+                var dirSmall = vectorSmall.sub( this.camera.position ).normalize();
+                var distanceSmall = - this.camera.position.z / dirSmall.z;
+                this.posSmall = this.camera.position.clone().add( dirSmall.multiplyScalar( distanceSmall ) );
+
+          this.mouseSmallMesh.position.x =this.posSmall.x -2.8
+          this.mouseSmallMesh.position.y =(this.posSmall.y)*-1 +3.7
+                  // TweenMax.to(this.mouseSmallMesh.position, .01, {
+                  //     x:  this.posSmall.x -3,
+                  //     y:  (this.posSmall.y)*-1 
+                  //   }) 
+           }
+           
+        //console.log(  mouseCollision.isIntersectionBox(mesh1Collision))
+        //console.log(this.$props.bigBallPosition.x)
+        if(this.$props.bigBallPosition !=null){ // als bigball niet 0 is
+         if(this.collisionPole ==false){
+           //console.log("hallo")
+            
+              // standaard code om 2de muis positie om te zetten naar een 3D object in three.js
+               var vector = new this.$three.Vector3(((this.$props.bigBallPosition.x/container.clientWidth)* 2 -1), (this.$props.bigBallPosition.y/container.clientHeight) *2-1, 0.1);
+                vector.unproject( this.camera );
+                  var dir = vector.sub( this.camera.position ).normalize();
+                  var distance = - this.camera.position.z / dir.z;
+                  this.posBig = this.camera.position.clone().add( dir.multiplyScalar( distance ) );
+                 // console.log(pos.x)
+                  // geeft de grote ball in three.js vertraging
+                  TweenMax.to(this.mouseMesh.position, 3
+                  ,{
+                      x: this.posBig.x -2.5,
+                      y: (this.posBig.y - 3.5)*-1     
+                      })
+                  //this.mouseMesh.position.copy(pos);
+            }
+          }
+      
+          /// collision detection
+          
+          for(var p = 1; p<5; p++){// loops till all poles
+          //collision detection ball with vlak1
+           var mesh1Collision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
+               mesh1Collision.setFromObject(this.mesh1Detection[p]);
+           //collision detection ball with vlak2
+           var mesh2Collision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
+               mesh2Collision.setFromObject(this.mesh2Detection[p]);
+           //collision detection ball with vlak3
+           var mesh3Collision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
+               mesh3Collision.setFromObject(this.mesh3Detection[p]);
+           //collision detection ball with vlak4
+           var mesh4Collision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
+               mesh4Collision.setFromObject(this.mesh4Detection[p]);
+            //collision with pole
+              var poleDetection =[]
+               poleDetection[p] = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
+               poleDetection[p].setFromObject(this.meshPoleDetection[p] );
+       
+            //array with all detection meshes
+          
+        this.detectionArray=[ mesh1Collision,mesh2Collision,mesh3Collision,mesh4Collision]
+            
+          // console.log(  testmesh.intersectsTriangle(testmesh))
+           var mouseCollision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
+               mouseCollision.setFromObject(this.mouseMesh)
+
+           var mouseSmallCollision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
+               mouseSmallCollision.setFromObject(this.mouseSmallMesh)
+              //console.log(  testmesh)
+          
+              for(var i = 1; i<5; i++){ // loops through every side 
+                   // console.log( 'mesh'+i+'Collision')
+               
+               if(mouseCollision.intersectsBox( this.detectionArray[i-1]) && this.sendPole[i] == false){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd
+             
+                  // console.log("side"+i+" pole"+p+" active")
+                   port.send({
+                        address: "/pole1_"+i,
+                        args:  [1]
+                    });  
+                      this.sendPole[i] =true              
+               }
+               if(this.sendPole[i] ==true && mouseCollision.intersectsBox( this.detectionArray[i-1]) == false) {
+               // console.log("side"+i+" pole1 dissable")
+                    port.send({
+                        address: "/pole1_"+i,
+                        args:  [0]
+                    });
+                this.sendPole[i] =false
+               }
+
+              }
+                 
+               //console.log("paal Y positie boven: "+poleDetection.max.y +"  Grote bal Y positie onder: " +(this.mouseMesh.position.y)-(this.mouseMesh.geometry.boundingBox.max.y))
+             // console.log(this.mouseSmallMesh.position.x+ "  "+poleDetection.max.x )
+              // detect if mouse touches pole
+              if(mouseCollision.intersectsBox( poleDetection[p])){
+               
+                 //stop bigball
+                  this.collisionPole = true
+  
+                  if(this.collisionPole== true){
+                         var halfx = (poleDetection[p].max.x+poleDetection[p].min.x)/2 // postie helft op de x as 
+                         var distanceYas = this.mouseSmallMesh.position.y-poleDetection[p].max.y // afstand tot de kleine ball op de y as
+
+                         var halfy = (poleDetection[p].max.y+poleDetection[p].min.y)/2 // postie helft op de y as 
+                         var distanceXas = this.mouseSmallMesh.position.x-poleDetection[p].max.x // afstand tot de kleine ball op de x as
+                         //console.log(distanceXas)
+
+                         
+             
+
+                    //hit top
+                    if((this.mouseMesh.position.y-poleDetection[p].max.y>-1) && this.hitBottom == false){
+                      //console.log("hit top")
+                       this.hitTop= true;
+                          
+                     }
+                    // hit right
+                    if((this.mouseMesh.position.x-poleDetection[p].max.x>-1) && this.hitLeft == false && this.hitTop == false){
+                       //console.log("hit Right")
+                       this.hitRight= true;
+                     }
+                    // hit bottom
+                      if((this.mouseMesh.position.y-poleDetection[p].min.y<1)&& this.hitTop == false){ //this.mouseSmallMesh.position.y>this.mouseMesh.position.y
+                       //console.log("hit bottom")
+                       this.hitBottom= true;
+                     }
+                    //hit left
+                      if((this.mouseMesh.position.x-poleDetection[p].min.x<1)&& this.hitRight == false && this.hitTop == false){ //this.mouseSmallMesh.position.y>this.mouseMesh.position.y
+                       //console.log("hit Left")
+                       this.hitLeft= true;
+                     }
+
+                      // als de bodem of bovenkant is geraakt
+                          if(this.hitBottom == true || this.hitTop== true){ 
+                            // console.log("test geraakt")
+                            this.speed = 0.009*(-distanceYas>0 ? -distanceYas : distanceYas)*20 // maakt de snelheid op de X as altijd een positief getal
+                            if(this.mouseSmallMesh.position.x>halfx){
+                                //big ball is going to the right
+                               // console.log("move to right")
+                                TweenMax.to(this.mouseMesh.position,   this.speed
+                                  ,{x: this.mouseMesh.position.x += 0.02, }) 
+                            }else{
+                                //big ball is going to the left
+                                 //console.log("move to left")
+                                  TweenMax.to(this.mouseMesh.position, this.speed
+                                  ,{ x: this.mouseMesh.position.x -= 0.02,}) 
+                            }
+                               // hold Y possition // hover
+                                TweenMax.to(this.mouseMesh.position, 30
+                                ,{y: this.mouseMesh.position.y })
+                             /// afrol naar rechts
+                             if(this.mouseMesh.position.x>poleDetection[p].max.x) {
+                               //console.log("draaien")
+                               this.hitTop= false; this.hitBottom =false
+                               this.hitRight=true
+                             }
+                             /// afrol naar links
+                             if(this.mouseMesh.position.x<poleDetection[p].min.x) {
+                               //console.log("draaien")
+                                this.hitTop= false; this.hitBottom =false
+                                this.hitLeft=true
+                             }
+                          }
+
+                          // als de rechter of linker kant is geraakt
+                          if(this.hitLeft == true || this.hitRight== true){ 
+                            this.speed = 0.0009*(-distanceXas>0 ? -distanceXas : distanceXas)*20 // maakt de snelheid op de X as altijd een positief getal
+                            if(this.mouseSmallMesh.position.y>halfy){
+                                //big ball is going to the top
+                                TweenMax.to(this.mouseMesh.position,   this.speed
+                                  ,{y: this.mouseMesh.position.y += 0.02, }) 
+                            }else{
+                                //big ball is going to the bottom
+                                  TweenMax.to(this.mouseMesh.position, this.speed
+                                  ,{ y: this.mouseMesh.position.y -= 0.02,}) 
+                            }
+                               // hold x possition // hover
+                                TweenMax.to(this.mouseMesh.position, 10
+                                ,{x: this.mouseMesh.position.x }) 
+
+                                  /// afrol naar boven
+                             if(this.mouseMesh.position.y>poleDetection[p].max.y) {
+                               //console.log("draaien")
+                               this.hitLeft= false; this.hitRight =false
+                               this.hitTop=true
+                             }
+                             /// afrol naar onder
+                             if(this.mouseMesh.position.y<poleDetection[p].min.y) {
+                              // console.log("draaien")
+                                this.hitLeft= false; this.hitRight =false
+                                this.hitBottom=true
+                             }
+                          }
+
+
+                  // code voor los komen bal van paal
+                  // bij hit boven komt hij los met de volgende if statment
+                  if(this.mouseSmallMesh.position.y>poleDetection[p].max.y && this.hitTop ==true && this.hitBottom ==false){ //
+                     //console.log("komlos boven!")
+                      //this.mouseMesh.position.y += 0.02
+                      this.collisionPole = false 
+                  } 
+                   // bij hit rechts komt hij los met de volgende if statment
+                  if(this.mouseSmallMesh.position.x>poleDetection[p].max.x && this.hitRight==true && this.hitLeft==false){ //
+                     // console.log("komlos rechts!")
+                      this.collisionPole = false 
+                  } 
+                   // bij hit onder komt hij los met de volgende if statment
+                   if(this.mouseSmallMesh.position.y<poleDetection[p].min.y&& this.hitBottom== true && this.hitTop ==false){
+                   // console.log("komlos onder!")
+                      this.collisionPole= false 
+                   }
+                     // bij hit links  komt hij los met de volgende if statment
+                      if(this.mouseSmallMesh.position.x<poleDetection[p].min.x&& this.hitLeft== true && this.hitRight ==false){
+                     // console.log("komlos links!")
+                          this.collisionPole = false 
+                      }
+                     }                               
+                    
+                  }else{
+                    this.hitTop= false;
+                    this.hitRight= false;
+                    this.hitBottom=  false;
+                    this.hitLeft= false;
+                    //this.collisionPole = false 
+              }
+          }
+      
+    },
+    animate: function() {
+        requestAnimationFrame(this.animate);
+      
+       //this.mesh.rotation.x += 0.01;    
+      //this.mesh.rotation.y += 0.02;
+      this.mousePosition()
+      
+        this.renderer.render(this.scene, this.camera);
+    },
+
+    pole: function(x,y,id){
+     
+     // console.log("dit is paal: "+ id )
          // variable to make 1 pole
         this.widthPole = 6.0
-        this.x =-1.0
-        this.y = 0.0
-        
+        this.x = x
+        this.y = y
+        this.id = id
 
-         var ground = new this.$three.BoxGeometry( 20,20, 0 );
+       
+       
          var Color1Geometry = new this.$three.Geometry();  // color vlakken 
          var Color2Geometry = new this.$three.Geometry();
          var Color3Geometry = new this.$three.Geometry();
@@ -159,22 +449,13 @@ export default {
           //detection
          var detection1 = new this.$three.PlaneGeometry( this.widthPole/2.5, this.widthPole/3, 1);
          var poleDetection = new this.$three.PlaneGeometry(this.widthPole/1.6, this.widthPole/1.6, 1);
-     
-      
-       // var normal = triangle1.normal();
 
-         // grote bal
-        var mouseGeometry = new this.$three.CircleGeometry( 0.5, 100 );
-
-         // kleine bal
-        var mouseSmallGeometry = new this.$three.CircleGeometry( 0.15, 100 );
-
-         var cornerRightTop = [this.x+(this.widthPole/2),this.y+(this.widthPole/2)]
+           var cornerRightTop = [this.x+(this.widthPole/2),this.y+(this.widthPole/2)]
          var cornerRightBottom = [this.x+(this.widthPole/2),this.y-(this.widthPole/2)]
          var cornerLeftBottom = [this.x-(this.widthPole/2),this.y-(this.widthPole/2)]
          var cornerLeftTop = [this.x-( this.widthPole/2),this.y+(this.widthPole/2)]
          
-         console.log(cornerRightTop[0]/2 )
+         //console.log(cornerRightTop[0]/2 )
          //vlak bovenkant kleur
         Color1Geometry.vertices.push(new this.$three.Vector3(this.x, this.y,  0.0));  // x,y,z  0  // 0 is de hoogte
         Color1Geometry.vertices.push(new this.$three.Vector3(cornerRightTop[0], cornerRightTop[1],  0.0));  // x,y,z  1
@@ -256,7 +537,7 @@ export default {
         // console.log()
 
           this.width = this.widthPole/2
-        console.log(this.width)
+        //console.log(this.width)
           var vlak1Position = (this.width)/1*this.colorVlak1[2]
           var vlak2Position = (this.width)/1*this.colorVlak2[2]
           var vlak3Position = (this.width)/1*this.colorVlak3[2]
@@ -433,35 +714,35 @@ export default {
          //detection material/field
         var materialDetection = new this.$three.MeshLambertMaterial( {color: 0xffff00, transparent: true, opacity: 0.7  } ); 
         
-        this.mesh1 = new this.$three.Mesh( Color1Geometry,  custom1Material );
-        this.mesh2 = new this.$three.Mesh( Color2Geometry,  custom2Material );
-        this.mesh3 = new this.$three.Mesh( Color3Geometry,  custom3Material );
-        this.mesh4 = new this.$three.Mesh( Color4Geometry,  custom4Material );
+        this.mesh1[id] = new this.$three.Mesh( Color1Geometry,  custom1Material );
+        this.mesh2[id] = new this.$three.Mesh( Color2Geometry,  custom2Material );
+        this.mesh3[id] = new this.$three.Mesh( Color3Geometry,  custom3Material );
+        this.mesh4[id] = new this.$three.Mesh( Color4Geometry,  custom4Material );
 
       
-        this.mesh1Detection = new this.$three.Mesh( detection1, materialDetection );
-        this.mesh1Detection.position.x += this.x
-        this.mesh1Detection.position.y = this.mesh1.geometry.vertices[1].y-(this.widthPole/8);
+        this.mesh1Detection[id] = new this.$three.Mesh( detection1, materialDetection );
+        this.mesh1Detection[id].position.x += this.x
+        this.mesh1Detection[id].position.y = this.mesh1[id].geometry.vertices[1].y-(this.widthPole/8);
 
-        this.mesh2Detection = new this.$three.Mesh( detection1, materialDetection );
-        this.mesh2Detection.position.x = this.mesh2.geometry.vertices[1].x-(this.widthPole/8);
-        this.mesh2Detection.position.y += this.y
-        this.mesh2Detection.rotation.z = ( Math.PI / 2 );
+        this.mesh2Detection[id] = new this.$three.Mesh( detection1, materialDetection );
+        this.mesh2Detection[id].position.x = this.mesh2[id].geometry.vertices[1].x-(this.widthPole/8);
+        this.mesh2Detection[id].position.y += this.y
+        this.mesh2Detection[id].rotation.z = ( Math.PI / 2 );
 
-        this.mesh3Detection = new this.$three.Mesh( detection1, materialDetection );
-        this.mesh3Detection.position.y = this.mesh3.geometry.vertices[1].y+(this.widthPole/8);
-        this.mesh3Detection.position.x += this.x
-        this.mesh3Detection.rotation.z = ( Math.PI);
+        this.mesh3Detection[id] = new this.$three.Mesh( detection1, materialDetection );
+        this.mesh3Detection[id].position.y = this.mesh3[id].geometry.vertices[1].y+(this.widthPole/8);
+        this.mesh3Detection[id].position.x += this.x
+        this.mesh3Detection[id].rotation.z = ( Math.PI);
 
-        this.mesh4Detection = new this.$three.Mesh( detection1, materialDetection );
-        this.mesh4Detection.position.x= this.mesh4.geometry.vertices[1].x+(this.widthPole/8);
-        this.mesh4Detection.position.y += this.y
-        this.mesh4Detection.rotation.z = ( Math.PI/2);
+        this.mesh4Detection[id] = new this.$three.Mesh( detection1, materialDetection );
+        this.mesh4Detection[id].position.x= this.mesh4[id].geometry.vertices[1].x+(this.widthPole/8);
+        this.mesh4Detection[id].position.y += this.y
+        this.mesh4Detection[id].rotation.z = ( Math.PI/2);
 
         // paal detectie
-        this.meshPoleDetection = new this.$three.Mesh( poleDetection, materialDetection );
-        this.meshPoleDetection.position.x += this.x
-        this.meshPoleDetection.position.y += this.y
+        this.meshPoleDetection[id] = new this.$three.Mesh( poleDetection, materialDetection );
+        this.meshPoleDetection[id].position.x += this.x
+        this.meshPoleDetection[id].position.y += this.y
        
         
  
@@ -475,277 +756,10 @@ export default {
           var materialPilaar = new this.$three.MeshBasicMaterial({ color: '#FFFFFF',    wireframe: true, linewidth: 4 });  //vertexColors: this.$three.FaceColors, side: this.$three.DoubleSide
           this.meshPilaar = new this.$three.Mesh( PilaarGeometry, materialPilaar  );
 
-           // grond
-          var groundMaterial = new  this.$three.MeshBasicMaterial( {color: '#484a4a'} );
-          this.groundMesh = new this.$three.Mesh( ground, groundMaterial );
-          this.groundMesh.position.set(0, 0, -1)
-          //this.groundMesh.rotation.x += -0.2
-          //this.groundMesh.rotation.y += 3.1        
-
-          // mouse big
-          var mouseMaterial = new  this.$three.MeshBasicMaterial( { color: 0xffff00 } );
-          this.mouseMesh = new  this.$three.Mesh( mouseGeometry, mouseMaterial );
-          this.mouseMesh.position.x = 8  
-          // mouse small
-          var mouseSmallMaterial = new  this.$three.MeshBasicMaterial( { color: '#222526' } );
-          this.mouseSmallMesh = new  this.$three.Mesh( mouseSmallGeometry, mouseSmallMaterial );
-          this.mouseSmallMesh.position.x = 8  
-          this.mouseSmallMesh.position.z = 0.01
-          this.scene.add(this.mouseSmallMesh) 
-         
-
-          this.scene.add(this.mesh1,this.mesh2, this.mesh3, this.mesh4,this.groundMesh,this.meshPilaar, this.mouseMesh, ); //   this.meshPoleDetection this.mesh1,this.mesh2
-
-  
-    },
-
-    mousePosition:function(){
-       let container = document.getElementById('container');
-        // three.js mouseposition small ball
-        if(this.$props.smallBallPosition !=null){
-           var vectorSmall = new this.$three.Vector3(((this.$props.smallBallPosition.x/container.clientWidth)* 2 -1), (this.$props.smallBallPosition.y/container.clientHeight) *2-1, 0.1);
-                vectorSmall.unproject( this.camera );
-                var dirSmall = vectorSmall.sub( this.camera.position ).normalize();
-                var distanceSmall = - this.camera.position.z / dirSmall.z;
-                this.posSmall = this.camera.position.clone().add( dirSmall.multiplyScalar( distanceSmall ) );
-
-          this.mouseSmallMesh.position.x =this.posSmall.x -2.8
-          this.mouseSmallMesh.position.y =(this.posSmall.y)*-1 +3.7
-                  // TweenMax.to(this.mouseSmallMesh.position, .01, {
-                  //     x:  this.posSmall.x -3,
-                  //     y:  (this.posSmall.y)*-1 
-                  //   }) 
-           }
-           
-        //console.log(  mouseCollision.isIntersectionBox(mesh1Collision))
-        //console.log(this.$props.bigBallPosition.x)
-        if(this.$props.bigBallPosition !=null){ // als bigball niet 0 is
-         if(this.collisionPole==false){
-            
-              // standaard code om 2de muis positie om te zetten naar een 3D object in three.js
-               var vector = new this.$three.Vector3(((this.$props.bigBallPosition.x/container.clientWidth)* 2 -1), (this.$props.bigBallPosition.y/container.clientHeight) *2-1, 0.1);
-                vector.unproject( this.camera );
-                  var dir = vector.sub( this.camera.position ).normalize();
-                  var distance = - this.camera.position.z / dir.z;
-                  this.posBig = this.camera.position.clone().add( dir.multiplyScalar( distance ) );
-                 // console.log(pos.x)
-                  // geeft de grote ball in three.js vertraging
-                  TweenMax.to(this.mouseMesh.position, 3
-                  ,{
-                      x: this.posBig.x -2.5,
-                      y: (this.posBig.y - 3.5)*-1     
-                      })
-                  //this.mouseMesh.position.copy(pos);
-            }
-          }
+         this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar,)
       
-          /// collision detection
-          
-          
-          //collision detection ball with vlak1
-           var mesh1Collision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
-               mesh1Collision.setFromObject(this.mesh1Detection);
-           //collision detection ball with vlak2
-           var mesh2Collision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
-               mesh2Collision.setFromObject(this.mesh2Detection);
-           //collision detection ball with vlak3
-           var mesh3Collision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
-               mesh3Collision.setFromObject(this.mesh3Detection);
-           //collision detection ball with vlak4
-           var mesh4Collision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
-               mesh4Collision.setFromObject(this.mesh4Detection);
-            //collision with pole
-           var poleDetection = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
-               poleDetection.setFromObject(this.meshPoleDetection );
-            //array with all detection meshes
-          
-        this.detectionArray=[ mesh1Collision,mesh2Collision,mesh3Collision,mesh4Collision]
-            
-          // console.log(  testmesh.intersectsTriangle(testmesh))
-           var mouseCollision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
-               mouseCollision.setFromObject(this.mouseMesh)
 
-           var mouseSmallCollision = new this.$three.Box3(new this.$three.Vector3(), new this.$three.Vector3());
-               mouseSmallCollision.setFromObject(this.mouseSmallMesh)
-              //console.log(  testmesh)
-          
-              for(var i = 1; i<5; i++){ // loops through every side 
-                   // console.log( 'mesh'+i+'Collision')
-               
-               if(mouseCollision.intersectsBox( this.detectionArray[i-1]) && this.sendPole[i] == false){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd
-             
-                   //console.log("side"+i+" pole1 active")
-                   port.send({
-                        address: "/pole1_"+i,
-                        args:  [1]
-                    });  
-                      this.sendPole[i] =true              
-               }
-               if(this.sendPole[i] ==true && mouseCollision.intersectsBox( this.detectionArray[i-1]) == false) {
-               // console.log("side"+i+" pole1 dissable")
-                    port.send({
-                        address: "/pole1_"+i,
-                        args:  [0]
-                    });
-                this.sendPole[i] =false
-               }
-
-              }
-                 
-               //console.log("paal Y positie boven: "+poleDetection.max.y +"  Grote bal Y positie onder: " +(this.mouseMesh.position.y)-(this.mouseMesh.geometry.boundingBox.max.y))
-             // console.log(this.mouseSmallMesh.position.x+ "  "+poleDetection.max.x )
-              // detect if mouse touches pole
-              if(mouseCollision.intersectsBox( poleDetection)){
-
-                 //stop bigball
-                  this.collisionPole = true
-
-                  if(this.collisionPole == true){
-                         var halfx = (poleDetection.max.x+poleDetection.min.x)/2 // postie helft op de x as 
-                         var distanceYas = this.mouseSmallMesh.position.y-poleDetection.max.y // afstand tot de kleine ball op de y as
-
-                         var halfy = (poleDetection.max.y+poleDetection.min.y)/2 // postie helft op de y as 
-                         var distanceXas = this.mouseSmallMesh.position.x-poleDetection.max.x // afstand tot de kleine ball op de x as
-                         //console.log(distanceXas)
-
-                          // als de bodem of bovenkant is geraakt
-                          if(this.hitBottom == true || this.hitTop== true){ 
-                            this.speed = 0.0009*(-distanceYas>0 ? -distanceYas : distanceYas)*20 // maakt de snelheid op de X as altijd een positief getal
-                            if(this.mouseSmallMesh.position.x>halfx){
-                                //big ball is going to the right
-                                 //console.log("move to right")
-                                TweenMax.to(this.mouseMesh.position,   this.speed
-                                  ,{x: this.mouseMesh.position.x += 0.03, }) 
-                            }else{
-                                //big ball is going to the left
-                                  TweenMax.to(this.mouseMesh.position, this.speed
-                                  ,{ x: this.mouseMesh.position.x -= 0.03,}) 
-                            }
-                               // hold Y possition // hover
-                                TweenMax.to(this.mouseMesh.position, 30
-                                ,{y: this.mouseMesh.position.y })
-                             /// afrol naar rechts
-                             if(this.mouseMesh.position.x>poleDetection.max.x) {
-                              // console.log("draaien")
-                               this.hitTop= false; this.hitBottom =false
-                               this.hitRight=true
-                             }
-                             /// afrol naar links
-                             if(this.mouseMesh.position.x<poleDetection.min.x) {
-                               //console.log("draaien")
-                                this.hitTop= false; this.hitBottom =false
-                                this.hitLeft=true
-                             }
-                          }
-
-                          // als de rechter of linker kant is geraakt
-                          if(this.hitLeft == true || this.hitRight== true){ 
-                            this.speed = 0.0009*(-distanceXas>0 ? -distanceXas : distanceXas)*20 // maakt de snelheid op de X as altijd een positief getal
-                            if(this.mouseSmallMesh.position.y>halfy){
-                                //big ball is going to the top
-                                TweenMax.to(this.mouseMesh.position,   this.speed
-                                  ,{y: this.mouseMesh.position.y += 0.03, }) 
-                            }else{
-                                //big ball is going to the bottom
-                                  TweenMax.to(this.mouseMesh.position, this.speed
-                                  ,{ y: this.mouseMesh.position.y -= 0.03,}) 
-                            }
-                               // hold x possition // hover
-                                TweenMax.to(this.mouseMesh.position, 10
-                                ,{x: this.mouseMesh.position.x }) 
-
-                                  /// afrol naar boven
-                             if(this.mouseMesh.position.y>poleDetection.max.y) {
-                               //console.log("draaien")
-                               this.hitLeft= false; this.hitRight =false
-                               this.hitTop=true
-                             }
-                             /// afrol naar onder
-                             if(this.mouseMesh.position.y<poleDetection.min.y) {
-                              // console.log("draaien")
-                                this.hitLeft= false; this.hitRight =false
-                                this.hitBottom=true
-                             }
-                          }
-                       
-
-
-
-                    
-                    
-
-                    //hit top
-                    if((this.mouseMesh.position.y-poleDetection.max.y>-1) && this.hitBottom == false){
-                      // console.log("hit top")
-                       this.hitTop= true;
-                          
-                     }
-                    // hit right
-                    if((this.mouseMesh.position.x-poleDetection.max.x>-1) && this.hitLeft == false && this.hitTop == false){
-                      // console.log("hit Right")
-                       this.hitRight= true;
-                     }
-                    // hit bottom
-                      if((this.mouseMesh.position.y-poleDetection.min.y<1)&& this.hitTop == false){ //this.mouseSmallMesh.position.y>this.mouseMesh.position.y
-                      // console.log("hit bottom")
-                       this.hitBottom= true;
-                     }
-                    //hit left
-                      if((this.mouseMesh.position.x-poleDetection.min.x<1)&& this.hitRight == false && this.hitTop == false){ //this.mouseSmallMesh.position.y>this.mouseMesh.position.y
-                      // console.log("hit Left")
-                       this.hitLeft= true;
-                     }
-
-
-                  // code voor los komen bal van paal
-                  // bij hit boven komt hij los met de volgende if statment
-                  if(this.mouseSmallMesh.position.y>poleDetection.max.y && this.hitTop ==true && this.hitBottom ==false){ //
-                     // console.log("komlos boven!")
-                      //this.mouseMesh.position.y += 0.02
-                      this.collisionPole = false 
-                  } 
-                   // bij hit rechts komt hij los met de volgende if statment
-                  if(this.mouseSmallMesh.position.x>poleDetection.max.x && this.hitRight==true && this.hitLeft==false){ //
-                      //console.log("komlos rechts!")
-                      this.collisionPole = false 
-                  } 
-                   // bij hit onder komt hij los met de volgende if statment
-                   if(this.mouseSmallMesh.position.y<poleDetection.min.y&& this.hitBottom== true && this.hitTop ==false){
-                    //console.log("komlos onder!")
-                      this.collisionPole = false 
-                   }
-                     // bij hit links  komt hij los met de volgende if statment
-                      if(this.mouseSmallMesh.position.x<poleDetection.min.x&& this.hitLeft== true && this.hitRight ==false){
-                     // console.log("komlos links!")
-                          this.collisionPole = false 
-                      }
-                    
-                      }
-
-                    
-                      
-                    
-                  }else{
-                    this.hitTop= false;
-                    this.hitRight= false;
-                    this.hitBottom=  false;
-                    this.hitLeft= false;
-                    this.collisionPole = false 
-              }
-     
-      
-    },
-    animate: function() {
-        requestAnimationFrame(this.animate);
-      
-       //this.mesh.rotation.x += 0.01;    
-      //this.mesh.rotation.y += 0.02;
-       this.mousePosition()
-      
-        this.renderer.render(this.scene, this.camera);
     }
-
-
     }
 }
 </script>
@@ -757,11 +771,6 @@ export default {
   height: 100%;
   width: 100%;
 
-}
-
-
-
-
- 
+} 
 
 </style>
