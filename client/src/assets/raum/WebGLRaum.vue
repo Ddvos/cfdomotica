@@ -134,9 +134,15 @@ export default {
         this.renderer.setSize(container.clientWidth, container.clientHeight);
         container.appendChild(this.renderer.domElement);
 
+        
         //camera
         this.camera = new this.$three.PerspectiveCamera(100, container.clientWidth/container.clientHeight, 0.1, 100);
-        this.camera.position.z = 10;
+        console.log( container.clientWidth)
+    
+        
+        this.camera.position.z = 10
+        this.camera.aspect =container.clientWidth/container.clientHeight
+        this.camera.updateProjectionMatrix()
        //console.log(container.clientWidth)
         //scene
         this.scene = new this.$three.Scene();
@@ -447,7 +453,7 @@ export default {
 
     pole: function(x,y,id){
       this.totalPole=[id]
-      console.log("aantal palen: "+ this.totalPole )
+     // console.log("aantal palen: "+ this.totalPole )
          // variable to make 1 pole
         this.widthPole = 5.0
         this.x = x
@@ -770,7 +776,7 @@ export default {
           //this.mesh.rotation.y += 3.1
 
            // pilaar outline
-          var materialPilaar = new this.$three.MeshBasicMaterial({ color: '#FFFFFF',    wireframe: true, linewidth: 4 });  //vertexColors: this.$three.FaceColors, side: this.$three.DoubleSide
+          var materialPilaar = new this.$three.MeshBasicMaterial({ color: '#FFFFFF',    wireframe: true, });  //vertexColors: this.$three.FaceColors, side: this.$three.DoubleSide
           this.meshPilaar = new this.$three.Mesh( PilaarGeometry, materialPilaar  );
 
          this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar,)
@@ -787,6 +793,7 @@ export default {
   
   height: 100%;
   width: 100%;
+
 
 } 
 

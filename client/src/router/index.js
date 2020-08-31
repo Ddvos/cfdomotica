@@ -60,9 +60,9 @@ export default new Router({
             component:() => import(/* webpackChunkName: "caroverview" */ '@/vieuws/Caroverview'),
         },
         {
-            path:'/raum',
-            name: '/raum',
-            component:() => import(/* webpackChunkName: "Raum" */ '@/vieuws/Raum'),
+            path:'/raumclients',
+            name: '/raumclients',
+            component:() => import(/* webpackChunkName: "Raum" */ '@/vieuws/Raumclients'),
         },
         {
             path:'/lottietest',
@@ -70,10 +70,15 @@ export default new Router({
             component:() => import(/* webpackChunkName: "lottieTest" */ '@/vieuws/Lottietest'),
         },
         {
-            path:'/mouseRaum',
-            name: '/mouseRaum',
-            component:() => import(/* webpackChunkName: "lottieTest" */ '@/components/mouseRaum'),
+            path:'/Raum',
+            name: '/Raum',
+            component:() => import(/* webpackChunkName: "lottieTest" */ '@/vieuws/Raum'),
         },
+        {
+        path:'/raumbroadcast',
+        name: '/raumbroadcast',
+        component:() => import(/* webpackChunkName: "lottieTest" */ '@/vieuws/RaumBroadcast'),
+    },
        
     
         
