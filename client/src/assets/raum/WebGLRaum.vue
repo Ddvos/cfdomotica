@@ -68,7 +68,10 @@ export default {
        speed: 0,
        id: null,
        totalPole:[],
-
+       OSCconnectionStatus: false,
+       mouse: null, 
+       raycaster: null,
+        
    }
   },
   computed: {
@@ -95,6 +98,7 @@ export default {
             // put incoming OSC data in colorvlakken
             for(var p = 1; p<6; p++){
              if(oscMessage.address == "/color_pole"+p ){
+                this.OSCconnectionStatus = true
                  this.colorVlak1 = ['rgb('+oscMessage.args[0]+','+oscMessage.args[1]+','+oscMessage.args[2]+')','rgb('+oscMessage.args[3]+','+oscMessage.args[4]+','+oscMessage.args[5]+')',oscMessage.args[6]]//twee waardes rgb(255, 0, 0) 
                  this.mesh1[p].material.uniforms.vlak1color1.value = new this.$three.Color(this.colorVlak1[0])
                  this.mesh1[p].material.uniforms.vlak1color2.value = new this.$three.Color(this.colorVlak1[1])
@@ -147,6 +151,9 @@ export default {
         //scene
         this.scene = new this.$three.Scene();
 
+        this.raycaster = new this.$three.Raycaster();
+				this.mouse = new this.$three.Vector2();
+
 
         var ground = new this.$three.BoxGeometry( 30,30, 0 );
         
@@ -170,10 +177,10 @@ export default {
 
 
          // grote bal
-        var mouseGeometry = new this.$three.CircleGeometry( 0.5, 100 );
+        var mouseGeometry = new this.$three.CircleGeometry( 0.7, 100 );
 
          // kleine bal
-        var mouseSmallGeometry = new this.$three.CircleGeometry( 0.15, 100 );
+        var mouseSmallGeometry = new this.$three.CircleGeometry( 0.3, 100 );
 
        
            // grond
@@ -197,28 +204,40 @@ export default {
 
           this.scene.add(this.groundMesh, this.mouseMesh, ); //   this.meshPoleDetection this.mesh1,this.mesh2
 
-  
+      window.addEventListener( 'resize', this.onWindowResize(), false );
     },
+   onWindowResize: function() {
+        console.log("resize")
+			//	this.scamera.aspect = window.innerWidth / window.innerHeight;
+			//	this.camera.updateProjectionMatrix();
+
+				//this.renderer.setSize( window.innerWidth, window.innerHeight );
+
+			},
+    
 
     mousePosition:function(){ // mouse position and  collision detection
      
        let container = document.getElementById('container');
         // three.js mouseposition small ball
         if(this.$props.smallBallPosition !=null){
-           var vectorSmall = new this.$three.Vector3(((this.$props.smallBallPosition.x/container.clientWidth)* 2 -1), (this.$props.smallBallPosition.y/container.clientHeight) *2-1, 0.1);
+           //(((this.$props.smallBallPosition.x/container.clientWidth)* 2 -1), (this.$props.smallBallPosition.y/container.clientHeight) *2-1, 0.3)
+      var vectorSmall = new this.$three.Vector3(((this.$props.smallBallPosition.x/container.clientWidth)* 2 -1), (this.$props.smallBallPosition.y/container.clientHeight) *2-1 ,0.0);
                 vectorSmall.unproject( this.camera );
                 var dirSmall = vectorSmall.sub( this.camera.position ).normalize();
                 var distanceSmall = - this.camera.position.z / dirSmall.z;
                 this.posSmall = this.camera.position.clone().add( dirSmall.multiplyScalar( distanceSmall ) );
 
-          this.mouseSmallMesh.position.x =this.posSmall.x -2.8
-          this.mouseSmallMesh.position.y =(this.posSmall.y)*-1 +3.7
+            
+          //  console.log(intersects )
+          this.mouseSmallMesh.position.x =this.posSmall.x -0.0065*container.clientWidth
+          this.mouseSmallMesh.position.y =(this.posSmall.y)*-1 +18.5
                   // TweenMax.to(this.mouseSmallMesh.position, .01, {
                   //     x:  this.posSmall.x -3,
                   //     y:  (this.posSmall.y)*-1 
                   //   }) 
            }
-           
+    
         //console.log(  mouseCollision.isIntersectionBox(mesh1Collision))
         //console.log(this.$props.bigBallPosition.x)
         if(this.$props.bigBallPosition !=null){ // als bigball niet 0 is
@@ -227,7 +246,7 @@ export default {
   
             
               // standaard code om 2de muis positie om te zetten naar een 3D object in three.js
-               var vector = new this.$three.Vector3(((this.$props.bigBallPosition.x/container.clientWidth)* 2 -1), (this.$props.bigBallPosition.y/container.clientHeight) *2-1, 0.1);
+               var vector = new this.$three.Vector3(((this.$props.bigBallPosition.x/container.clientWidth)* 2 -1), (this.$props.bigBallPosition.y/container.clientHeight) *2-1, 0.0)
                 vector.unproject( this.camera );
                   var dir = vector.sub( this.camera.position ).normalize();
                   var distance = - this.camera.position.z / dir.z;
@@ -236,8 +255,8 @@ export default {
                   // geeft de grote ball in three.js vertraging
                   TweenMax.to(this.mouseMesh.position, 3
                   ,{
-                      x: this.posBig.x -2.5,
-                      y: (this.posBig.y - 3.5)*-1     
+                      x: this.posBig.x -0.0065*container.clientWidth,
+                      y: (this.posBig.y - 18)*-1     
                       })
                   //this.mouseMesh.position.copy(pos);
             }
@@ -279,8 +298,8 @@ export default {
               for(var i = 1; i<5; i++){ // loops through every side 
                    // console.log( 'mesh'+i+'Collision')
                
-               if(mouseCollision.intersectsBox( this.detectionArray[i-1]) && this.sendPole[i] == false){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd
-             
+               if(mouseCollision.intersectsBox( this.detectionArray[i-1]) && this.sendPole[i] == false &&  this.OSCconnectionStatus == true){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd
+               
                   // console.log("side"+i+" pole"+p+" active")
                    port.send({
                         address: "/pole"+p+"_"+i,
@@ -288,7 +307,7 @@ export default {
                     });  
                       this.sendPole[i] =true              
                }
-               if(this.sendPole[i] ==true && mouseCollision.intersectsBox( this.detectionArray[i-1]) == false) {
+               if(this.sendPole[i] ==true && mouseCollision.intersectsBox( this.detectionArray[i-1]) == false &&  this.OSCconnectionStatus == true) {
                // console.log("side"+i+" pole1 dissable")
                     port.send({
                         address: "/pole"+p+"_"+i,
@@ -791,10 +810,16 @@ export default {
 
 #container {
   
-  height: 100%;
+  height: 90%;
   width: 100%;
-
+  cursor: none;
 
 } 
+
+canvas{
+  height: 100%;
+  width: 50%;
+  cursor: none;
+}
 
 </style>

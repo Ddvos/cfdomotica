@@ -476,9 +476,9 @@ export default {
                 'ws:'
             );
             
-            ws = new WebSocket('wss://circusfamilyprojects.nl:4084/'+this.config.placeholder+'');  // ws://localhost:4083 online server wss://circusfamilyprojects.nl:4084
+            ws = new WebSocket('wss://circusfamilyprojects.nl:4084/car2');  // ws://localhost:4083 online server wss://circusfamilyprojects.nl:4084
           
-          //console.log(">>nieuwe verbinding wordt opgezet<<")
+          console.log(peerId)
            
            const onOpen = () => {
              

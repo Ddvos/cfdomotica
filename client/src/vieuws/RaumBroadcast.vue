@@ -6,7 +6,7 @@
     <h3>Live stream vanaf PC bij Raum </h3>
    
       <video mute='true' playsinline autoplay id='v' width='50%' height='50%'></video>
-{{$route.params.id }}
+
 
 </div>
   
@@ -21,11 +21,6 @@ import io from "socket.io-client";
 
 export default {
   
-   props: {
-    userId: { 
-      required: true,
-    },
-  },
 
   data() {
   return{
@@ -34,7 +29,7 @@ export default {
     
   }},
     created() {
-      this.user = this.$route.params.id; 
+    
      this.videoStream()
         
         
@@ -49,7 +44,7 @@ export default {
   },
   methods:{
        async videoStream(){
-          console.log(this.user)
+      
           const config = {
             iceServers: [{
               urls: ['stun:stun.l.google.com:19302']
@@ -60,7 +55,7 @@ export default {
              return Math.floor(Math.random() * 10000);
            };
 
-          const peerId = getRandomId();
+          const peerId = 'raumlivestream'
           const peerType = 'camera';
           const connections = new Map();
 

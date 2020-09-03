@@ -1,24 +1,22 @@
 <template>
 <div class="background"  ref="mouseEvent"> <!-- v-hammer:pan="onPan"  v-on:mousemove="onMouseMovePc"  -->
 <div class="row" id="info">
-  <div class="col-6">
-    <p>X posistie pc: {{ mouseX }}  X posistie mobile: {{ mouseX }}</p>
-    <p>Y posistie pc: {{ mouseY }}  Y posistie mobile: {{ mouseY }}</p>
-    <p></p>
+  <div class="col-12">
+  <!-- <p>X posistie pc: {{ mouseX }}  X posistie mobile: {{ mouseX }} Y posistie pc: {{ mouseY }}  Y posistie mobile: {{ mouseY }}</p>  -->
+   
   </div>
-  <div class="col-6"></div>
   <br>
 </div>
 
 <div class="cursor">
   <div ref="ballBig" class="cursor__ball cursor__ball--big ">
-    <svg  height="30" width="30" display= "none" >
+ <svg  height="30" width="30"  >     <!--display= "none" -->
       <circle cx="15" cy="15" r="12" stroke-width="0"></circle>
     </svg>
   </div>
   
   <div ref="ballSmall" class="cursor__ball cursor__ball--small">
-    <svg height="10" width="10" display= "none">
+    <svg height="10" width="10" >  <!--display= "none" -->
       <circle cx="5" cy="5" r="4" stroke-width="0"></circle>
     </svg>
   </div>
@@ -26,10 +24,11 @@
    <div class="row" id="title">
         <div class="col-3"></div>
             <div class="col-6"> RAUM - living apart together</div>
+            
         <div class="col-3"></div>
    </div>
    <!-- video livestream -->
-    <div class="row" id="title">
+    <div class="row" id="video">
         <div class="col-3"></div>
             <div class="col-6">
               <div class="livefeed">            
@@ -41,7 +40,7 @@
  <!-- WebGL -->
      <div class="row" >
         <div class="col-1"></div>
-        <div class="col-10" id="speelveld"> WebGl
+        <div v-on:click="startlivestream" class="col-10" id="speelveld"> WebGl - klik hier om livestream te starten 
                
                 <WebGLRaum v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition"></WebGLRaum> 
             </div>
@@ -102,6 +101,8 @@ export default {
       this.bigBall = document.querySelector('.cursor__ball--big');
       this.smallBall = document.querySelector('.cursor__ball--small');
 
+        
+
       
       //window.addEventListener('touchmove',this.mouseMobile);
     
@@ -145,15 +146,24 @@ export default {
         this.ballXYposition()
       },
       ballXYposition: function(){
+         
+
         this.ballposition = this.$refs.ballBig.getBoundingClientRect()  //positie bigball
         this.smalBallposition = this.$refs.ballSmall.getBoundingClientRect()
         //console.log(this.ballposition)
+      },
+      startlivestream: function(){
+          this.videoStream()
+          window.v.play();
+          window.controls.classList.add('hidden');
+
+
       },
        /// begin live videostream
        async videoStream(){
 
               /// websocket WebRTC for live stream
-      
+        
 
       const config = {
         iceServers: [{
@@ -165,9 +175,11 @@ export default {
         return Math.floor(Math.random() * 10000);
       };
 
-      const peerId = getRandomId();
+      const peerId = 'raum'+getRandomId();
       const peerType = 'screen';
       const connections = new Map();
+
+      console.log("peerId is: " +peerId)
 
       let ws;
       const getSocket = async (peerId, peerType) => {
@@ -177,7 +189,7 @@ export default {
           try {
             
             
-            ws = new WebSocket('wss://circusfamilyprojects.nl:4084/raumlivestream');  // ws://localhost:4083 online server wss://circusfamilyprojects.nl:4084
+            ws = new WebSocket('wss://circusfamilyprojects.nl:4084/raum');  // ws://localhost:4083 online server wss://circusfamilyprojects.nl:4084
           
           //console.log(">>nieuwe verbinding wordt opgezet<<")
            
@@ -318,16 +330,22 @@ export default {
     color: white;
   }
   #speelveld{
-     width: 100%;
-  height: 80vh;
+     width: 50%;
+  height: 60vh;
   background: #474141;
   color: white;
-  cursor: none;
+
   }
 
   .row{
     margin: 0;
   }
+  video{
+    
+      width: 60%;
+    height: 30vh;
+      background-color: black;
+}
 }
        
 
