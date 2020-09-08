@@ -96,7 +96,7 @@ export default {
      },
       OSCMessages: function(oscMessage){ 
             // put incoming OSC data in colorvlakken
-            for(var p = 1; p<6; p++){
+            for(var p = 1; p<17; p++){
              if(oscMessage.address == "/color_pole"+p ){
                 this.OSCconnectionStatus = true
                  this.colorVlak1 = ['rgb('+oscMessage.args[0]+','+oscMessage.args[1]+','+oscMessage.args[2]+')','rgb('+oscMessage.args[3]+','+oscMessage.args[4]+','+oscMessage.args[5]+')',oscMessage.args[6]]//twee waardes rgb(255, 0, 0) 

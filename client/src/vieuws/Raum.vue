@@ -8,19 +8,24 @@
   <br>
 </div>
 
-<div class="cursor">
-  <div ref="ballBig" class="cursor__ball cursor__ball--big ">
- <svg  height="30" width="30"  >     <!--display= "none" -->
-      <circle cx="15" cy="15" r="12" stroke-width="0"></circle>
-    </svg>
-  </div>
-  
-  <div ref="ballSmall" class="cursor__ball cursor__ball--small">
-    <svg height="10" width="10" >  <!--display= "none" -->
-      <circle cx="5" cy="5" r="4" stroke-width="0"></circle>
-    </svg>
-  </div>
-</div>
+ 
+
+    <div class="cursor" >  <!--if cursor is not in webGL element mouse vissible-->
+      <div ref="ballBig" class="cursor__ball cursor__ball--big ">
+         <transition name="fade" v-on:enter="enter">
+          <svg  v-if="show"  height="30" width="30" >     <!--display= "none" -->
+              <circle cx="15" cy="15" r="12" stroke-width="0"></circle>
+          </svg>
+       </transition>
+      </div>
+      
+      <div ref="ballSmall" class="cursor__ball cursor__ball--small">
+        <svg height="10" width="10"  v-bind:style="{ 'display': this.visibility}" >  
+          <circle cx="5" cy="5" r="4" stroke-width="0"></circle>
+        </svg>
+      </div>
+    </div>
+
    <div class="row" id="title">
         <div class="col-3"></div>
             <div class="col-6"> RAUM - living apart together</div>
@@ -32,17 +37,17 @@
         <div class="col-3"></div>
             <div class="col-6">
               <div class="livefeed">            
-                <video mute='true' playsinline autoplay id='v'  ></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
+                <video mute='true' playsinline autoplay id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
               </div>
             </div>
         <div class="col-3"></div>
    </div>
  <!-- WebGL -->
-     <div class="row" >
+     <div class="row"  >
         <div class="col-1"></div>
-        <div v-on:click="startlivestream" class="col-10" id="speelveld"> WebGl - klik hier om livestream te starten 
+        <div ref="webGLSpeelveld" v-on:click="startlivestream" class="col-10" id="speelveld"> WebGl - klik hier om livestream te starten 
                
-                <WebGLRaum v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition"></WebGLRaum> 
+                <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition"></WebGLRaum> 
             </div>
         <div class="col-1"></div>
    </div>
@@ -72,7 +77,8 @@ export default {
     ballpositionmobile:[],
     mouseX: null,
     mouseY: null,
-   
+   visibility: 'block',
+   show: true
        
   }
   },
@@ -150,12 +156,34 @@ export default {
 
         this.ballposition = this.$refs.ballBig.getBoundingClientRect()  //positie bigball
         this.smalBallposition = this.$refs.ballSmall.getBoundingClientRect()
-        //console.log(this.ballposition)
+
+        
+      
+        const rect2 = this.$refs.webGLSpeelveld.getBoundingClientRect()  //positie bigball
+        //console.log( this.ballposition)
+        const isInHoriztonalBounds = this.ballposition.x < rect2.x + rect2.width &&  this.ballposition.x -  this.ballposition.width > rect2.x;
+        const isInVerticalBounds = this.ballposition.y < rect2.y + rect2.height && this.ballposition.y - this.ballposition.height > rect2.y;
+        const isOverlapping = isInHoriztonalBounds && isInVerticalBounds;
+        
+        if(isOverlapping== true){ // muis gaat uit
+        this.show = false
+              this.visibility = 'none'
+        }else if(isOverlapping== false){ // muis gaat aan
+           this.show = true
+           this.visibility = 'block'
+        }
+
+      
       },
+      enter: function() {
+        setTimeout(function() {
+          this.show = false;
+        }, 1000); // hide the message after 3 seconds
+    },
       startlivestream: function(){
           this.videoStream()
           window.v.play();
-          window.controls.classList.add('hidden');
+         // window.controls.classList.add('hidden');
 
 
       },
@@ -346,6 +374,19 @@ export default {
     height: 30vh;
       background-color: black;
 }
+
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s
+}
+
+.fade-enter,
+.fade-leave-to
+/* .fade-leave-active in <2.1.8 */
+
+{
+  opacity: 0
 }
        
 
