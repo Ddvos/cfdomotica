@@ -144,7 +144,7 @@ export default {
         console.log( container.clientWidth)
     
         
-        this.camera.position.z = 10
+        this.camera.position.z = 11
         this.camera.aspect =container.clientWidth/container.clientHeight
         this.camera.updateProjectionMatrix()
        //console.log(container.clientWidth)
@@ -155,7 +155,7 @@ export default {
 				this.mouse = new this.$three.Vector2();
 
 
-        var ground = new this.$three.BoxGeometry( 30,30, 0 );
+        var ground = new this.$three.BoxGeometry( 40,30, 0 );
         
         this.pole(-9,9,1) // paal variable x,y,id change value in  mousePosition() function forloop to total poles +1
         this.pole(-9,3,2) // paal variable x,y,id
@@ -177,25 +177,27 @@ export default {
 
 
          // grote bal
-        var mouseGeometry = new this.$three.CircleGeometry( 0.7, 100 );
-
+        var mouseGeometry = new this.$three.CircleGeometry( 0.4, 60 );
+            // Remove center vertex
+            mouseGeometry.vertices.shift();
          // kleine bal
-        var mouseSmallGeometry = new this.$three.CircleGeometry( 0.3, 100 );
+        var mouseSmallGeometry = new this.$three.CircleGeometry( 0.1, 100 );
 
        
            // grond
-          var groundMaterial = new  this.$three.MeshBasicMaterial( {color: '#484a4a'} );
+          var groundMaterial = new  this.$three.MeshBasicMaterial( {color: '#0d0d0d'} );
           this.groundMesh = new this.$three.Mesh( ground, groundMaterial );
           this.groundMesh.position.set(0, 0, -1)
           //this.groundMesh.rotation.x += -0.2
           //this.groundMesh.rotation.y += 3.1        
 
           // mouse big
-          var mouseMaterial = new  this.$three.MeshBasicMaterial( { color: 0xffff00 } );
-          this.mouseMesh = new  this.$three.Mesh( mouseGeometry, mouseMaterial );
+          var mouseMaterial = new  this.$three.LineBasicMaterial( { color: '#FFFFFF'} );
+          this.mouseMesh = new  this.$three.LineLoop( mouseGeometry, mouseMaterial );
+          
           this.mouseMesh.position.x = 8  
           // mouse small
-          var mouseSmallMaterial = new  this.$three.MeshBasicMaterial( { color: '#222526' } );
+          var mouseSmallMaterial = new  this.$three.MeshBasicMaterial( { color: '#FFFFFF' } );
           this.mouseSmallMesh = new  this.$three.Mesh( mouseSmallGeometry, mouseSmallMaterial );
           this.mouseSmallMesh.position.x = 8  
           this.mouseSmallMesh.position.z = 0.01
@@ -230,8 +232,8 @@ export default {
 
             
           //  console.log(intersects )
-          this.mouseSmallMesh.position.x =this.posSmall.x -0.0065*container.clientWidth
-          this.mouseSmallMesh.position.y =(this.posSmall.y)*-1 +18.5
+          this.mouseSmallMesh.position.x =this.posSmall.x -0.0000*container.clientWidth
+          this.mouseSmallMesh.position.y =(this.posSmall.y)*-1 +0
                   // TweenMax.to(this.mouseSmallMesh.position, .01, {
                   //     x:  this.posSmall.x -3,
                   //     y:  (this.posSmall.y)*-1 
@@ -255,8 +257,8 @@ export default {
                   // geeft de grote ball in three.js vertraging
                   TweenMax.to(this.mouseMesh.position, 3
                   ,{
-                      x: this.posBig.x -0.0065*container.clientWidth,
-                      y: (this.posBig.y - 18)*-1     
+                      x: this.posBig.x -0.0000*container.clientWidth,
+                      y: (this.posBig.y - 0)*-1     
                       })
                   //this.mouseMesh.position.copy(pos);
             }
@@ -474,7 +476,7 @@ export default {
       this.totalPole=[id]
      // console.log("aantal palen: "+ this.totalPole )
          // variable to make 1 pole
-        this.widthPole = 5.0
+        this.widthPole =3.5
         this.x = x
         this.y = y
         //this.id = id
@@ -809,16 +811,19 @@ export default {
 <style lang="scss" scoped>
 
 #container {
-  
-  height: 90%;
+     margin: auto;
+     
+  height: 100%;
   width: 100%;
+  
   cursor: none;
 
 } 
 
 canvas{
-  height: 100%;
-  width: 50%;
+  margin: auto;
+  height: 60%;
+  width: 100%;
   cursor: none;
 }
 

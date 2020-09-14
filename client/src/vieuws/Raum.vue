@@ -1,12 +1,6 @@
 <template>
 <div class="background"  ref="mouseEvent"> <!-- v-hammer:pan="onPan"  v-on:mousemove="onMouseMovePc"  -->
-<div class="row" id="info">
-  <div class="col-12">
-  <!-- <p>X posistie pc: {{ mouseX }}  X posistie mobile: {{ mouseX }} Y posistie pc: {{ mouseY }}  Y posistie mobile: {{ mouseY }}</p>  -->
-   
-  </div>
-  <br>
-</div>
+
 
  
 
@@ -26,31 +20,25 @@
       </div>
     </div>
 
-   <div class="row" id="title">
-        <div class="col-3"></div>
-            <div class="col-6"> RAUM - living apart together</div>
-            
-        <div class="col-3"></div>
-   </div>
-   <!-- video livestream -->
-    <div class="row" id="video">
-        <div class="col-3"></div>
-            <div class="col-6">
-              <div class="livefeed">            
-                <video mute='true' playsinline autoplay id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
-              </div>
-            </div>
-        <div class="col-3"></div>
-   </div>
- <!-- WebGL -->
-     <div class="row"  >
-        <div class="col-1"></div>
-        <div ref="webGLSpeelveld" v-on:click="startlivestream" class="col-10" id="speelveld"> WebGl - klik hier om livestream te starten 
-               
+ 
+    <div class="row" >
+       
+        <!-- WebGL -->
+        <div class="col-8">
+           <div ref="webGLSpeelveld" v-on:click="startlivestream"  id="speelveld"> 
                 <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition"></WebGLRaum> 
             </div>
-        <div class="col-1"></div>
+
+        </div>
+          <!-- video livestream -->
+        <div class="col-4" id="video">
+          <div class="livefeed">            
+             <video mute='true' playsinline autoplay id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
+          </div>
+        </div>
+      
    </div>
+ 
    
 </div>
 
@@ -358,21 +346,23 @@ export default {
     color: white;
   }
   #speelveld{
-     width: 50%;
-  height: 60vh;
+     width: 100%;
+  height: 100vh;
   background: #474141;
   color: white;
 
   }
 
-  .row{
+  .row,.col-8,.col-4{
     margin: 0;
+    padding:0;
   }
+
   video{
     
-      width: 60%;
-    height: 30vh;
-      background-color: black;
+      width: 100%;
+    height: 99vh;
+      background-color: rgb(87, 87, 87);
 }
 
 }
