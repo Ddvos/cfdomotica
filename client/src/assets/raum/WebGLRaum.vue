@@ -138,9 +138,17 @@ export default {
         this.renderer.setSize(container.clientWidth, container.clientHeight);
         container.appendChild(this.renderer.domElement);
 
-        
+        // point of view
+        console.log("resize: " + container.clientWidth)
+        var pointofview = 100
+
+        if(container.clientWidth<501){
+
+          pointofview = ((100/container.clientWidth)*70) +100
+            console.log( "point: "+pointofview)
+        }
         //camera
-        this.camera = new this.$three.PerspectiveCamera(100, container.clientWidth/container.clientHeight, 0.1, 100);
+        this.camera = new this.$three.PerspectiveCamera(pointofview, container.clientWidth/container.clientHeight, 0.1, 100);
         //console.log( container.clientWidth)
     
         
