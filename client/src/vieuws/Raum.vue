@@ -157,12 +157,12 @@ export default {
         this.mouseY = touch.clientY;
 
          TweenMax.to(this.bigBall, 0.1,{
-          x: touch.clientX + 50,
-          y: touch.clientY + 20      
+          x: touch.clientX + 0,
+          y: touch.clientY + 0      
           })
           TweenMax.to(this.smallBall, .1, {
-            x: touch.clientX - 5,
-           y: touch.clientY - 7
+            x: touch.clientX ,
+           y: touch.clientY 
          }) 
 
         this.ballXYposition()
@@ -401,13 +401,13 @@ export default {
   }
   #speelveld{
      width: 100%;
-    height: 70vh;
+    height: 59vh;
     background: #474141;
     color: white;
   }
   video {
        width: 100%;
-       height: 20vh;
+       height: 40vh;
        background-color: rgb(87, 87, 87);
   }
 }

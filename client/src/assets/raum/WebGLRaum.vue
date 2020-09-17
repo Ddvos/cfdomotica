@@ -163,7 +163,7 @@ export default {
 				this.mouse = new this.$three.Vector2();
 
 
-        var ground = new this.$three.BoxGeometry( 40,30, 0 );
+        var ground = new this.$three.BoxGeometry( 40,60, 0 );
         
         this.pole(-9,9,1) // paal variable x,y,id change value in  mousePosition() function forloop to total poles +1
         this.pole(-9,3,2) // paal variable x,y,id
