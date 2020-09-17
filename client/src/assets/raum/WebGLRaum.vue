@@ -41,11 +41,11 @@ export default {
       bigBall: null,
       smallBall: null,
       //colorvlakken
-      colorVlak1: ['rgb(222, 60, 49)','rgb(13, 212, 209)',0.5
+      colorVlak1: ['rgb(35, 100, 233)','rgb(202, 26, 47)',0.3
       ], // kleuren en positie van vlakken
-      colorVlak2: ['rgb(222, 60, 49)','rgb(13, 212, 209)',0.5], // kleuren en positie van vlakken
-      colorVlak3: ['rgb(222, 60, 49)','rgb(13, 212, 209)',0.5], // kleuren en positie van vlakken
-      colorVlak4: ['rgb(222, 60, 49)','rgb(13, 212, 209)',0.5], // kleuren en positie van vlakken
+      colorVlak2: ['rgb(35, 100, 233)','rgb(202, 26, 47)',0.3], // kleuren en positie van vlakken
+      colorVlak3: ['rgb(35, 100, 233)','rgb(202, 26, 47)',0.3], // kleuren en positie van vlakken
+      colorVlak4: ['rgb(35, 100, 233)','rgb(202, 26, 47)',0.3], // kleuren en positie van vlakken
       // breedite driehoeken
       width: null,
       // detection
@@ -195,16 +195,17 @@ export default {
           var mouseMaterial = new  this.$three.LineBasicMaterial( { color: '#FFFFFF'} );
           this.mouseMesh = new  this.$three.LineLoop( mouseGeometry, mouseMaterial );
           
-          this.mouseMesh.position.x = 8  
+          this.mouseMesh.position.x = 8
+          this.mouseMesh.position.z = 0.01  
           // mouse small
           var mouseSmallMaterial = new  this.$three.MeshBasicMaterial( { color: '#FFFFFF' } );
           this.mouseSmallMesh = new  this.$three.Mesh( mouseSmallGeometry, mouseSmallMaterial );
           this.mouseSmallMesh.position.x = 8  
-          this.mouseSmallMesh.position.z = 0.01
-          this.scene.add(this.mouseSmallMesh) 
+          this.mouseSmallMesh.position.z = 0.02
+          this.scene.add(this.mouseSmallMesh, this.mouseMesh) 
          
 
-          this.scene.add(this.groundMesh, this.mouseMesh, ); //   this.meshPoleDetection this.mesh1,this.mesh2
+          this.scene.add(this.groundMesh, ); //   this.meshPoleDetection this.mesh1,this.mesh2
 
       window.addEventListener( 'resize', this.onWindowResize(), false );
     },
@@ -476,7 +477,7 @@ export default {
       this.totalPole=[id]
      // console.log("aantal palen: "+ this.totalPole )
          // variable to make 1 pole
-        this.widthPole =3.5
+        this.widthPole =5.7
         this.x = x
         this.y = y
         //this.id = id
@@ -487,12 +488,12 @@ export default {
          var Color2Geometry = new this.$three.Geometry();
          var Color3Geometry = new this.$three.Geometry();
          var Color4Geometry = new this.$three.Geometry();
-         var PilaarGeometry = new this.$three.Geometry();
+         var PilaarGeometry = new this.$three.Geometry(); // wit kruis
 
 
           //detection
-         var detection1 = new this.$three.PlaneGeometry( this.widthPole/2.5, this.widthPole/3, 1);
-         var poleDetection = new this.$three.PlaneGeometry(this.widthPole/1.6, this.widthPole/1.6, 1);
+         var detection1 = new this.$three.PlaneGeometry( this.widthPole/2.4, this.widthPole/3, 1); // dit is detectie met een specifiek vlak bv vlak1
+         var poleDetection = new this.$three.PlaneGeometry(this.widthPole/2.4, this.widthPole/2.4, 1);  // afrol van bal en detectie tussen bal en algemene paal
 
            var cornerRightTop = [this.x+(this.widthPole/2),this.y+(this.widthPole/2)]
          var cornerRightBottom = [this.x+(this.widthPole/2),this.y-(this.widthPole/2)]
@@ -522,10 +523,10 @@ export default {
         
              //vlak bovenkant paal outline
         PilaarGeometry.vertices.push(new this.$three.Vector3(this.x, this.y,  0.001));  // x,y,z  0  // 0 is de hoogte
-        PilaarGeometry.vertices.push(new this.$three.Vector3(this.x+(this.widthPole/4), this.y+(this.widthPole/4),   0.001));  // x,y,z  1 topright
-        PilaarGeometry.vertices.push(new this.$three.Vector3(this.x-(this.widthPole/4), this.y+(this.widthPole/4),   0.001));  // x,y,z  2 lefttop
-        PilaarGeometry.vertices.push(new this.$three.Vector3(this.x+(this.widthPole/4), this.y-(this.widthPole/4),   0.001));  // x,y,z  3 right bottoom
-        PilaarGeometry.vertices.push(new this.$three.Vector3(this.x-(this.widthPole/4), this.y-(this.widthPole/4),  0.001));  // x,y,z  4 leftbottom
+        PilaarGeometry.vertices.push(new this.$three.Vector3(this.x+(this.widthPole/6), this.y+(this.widthPole/6),   0.001));  // x,y,z  1 topright
+        PilaarGeometry.vertices.push(new this.$three.Vector3(this.x-(this.widthPole/6), this.y+(this.widthPole/6),   0.001));  // x,y,z  2 lefttop
+        PilaarGeometry.vertices.push(new this.$three.Vector3(this.x+(this.widthPole/6), this.y-(this.widthPole/6),   0.001));  // x,y,z  3 right bottoom
+        PilaarGeometry.vertices.push(new this.$three.Vector3(this.x-(this.widthPole/6), this.y-(this.widthPole/6),  0.001));  // x,y,z  4 leftbottom
 
 
         Color1Geometry.faces.push(
@@ -623,9 +624,9 @@ export default {
                        float alpha = smoothstep(YhalfTop, Yas, vUv.y-(YhalfTop-Yas)); // example 2.0 , 0.0, vUv.y-2.0
 
                         // y < 1 = color1, > 2 = color2   // positie tussen boven en onderkant kleur mix
-                        float colorMix = smoothstep(Yas, YhalfTop, vUv.y-positionVlak1); // Yas, de helft van het bovenstevlak1, positionVlak1
+                        float colorMix = smoothstep(Yas-1.0, YhalfTop+1.0, vUv.y-positionVlak1); // Yas, de helft van het bovenstevlak1, positionVlak1 -1 en 1+ om de gradient meer smooth te maken
 
-                        gl_FragColor = vec4(mix(vlak1color1, vlak1color2, colorMix), alpha);
+                        gl_FragColor = vec4(mix(vlak1color1, vlak1color2, colorMix), 1.0); // of alpha voor de blur aan de uiteindes 
                    }
                    `,transparent: true,
                });
@@ -662,9 +663,9 @@ export default {
                       float alpha = smoothstep(XhalfRight, Xas, vUv.x-(XhalfRight-Xas)); // eample 2.0, 0.0, vUv.x-2.0);
 
                         // y < 1 = color1, > 2 = color2
-                        float colorMix = smoothstep(Xas, XhalfRight, vUv.x-positionVlak2); // example 0.0, 2.0
+                        float colorMix = smoothstep(Xas-1.0, XhalfRight+1.0, vUv.x-positionVlak2); // example 0.0, 2.0
 
-                        gl_FragColor = vec4(mix(vlak2color1, vlak2color2, colorMix), alpha);
+                        gl_FragColor = vec4(mix(vlak2color1, vlak2color2, colorMix), 0.95); // of alpha voor de blur aan de uiteindes 
                    }
                    `,transparent: true,
               });
@@ -704,9 +705,9 @@ export default {
                       float alpha = smoothstep(Yas, YhalfBottom, vUv.y+(width)); // example 0.0 , 2.0, vUv.y+4.0
 
                         // y < 1 = color1, > 2 = color2
-                        float colorMix = smoothstep(Yas, YhalfBottom, vUv.y+(width/2.0)+positionVlak3); //2.0 voor de afwijking example 0.0, 2.0, vUv.y+2.0+positionVlak3
+                        float colorMix = smoothstep(Yas-1.0, YhalfBottom+1.0, vUv.y+(width/2.0)+positionVlak3); //2.0 voor de afwijking example 0.0, 2.0, vUv.y+2.0+positionVlak3
 
-                        gl_FragColor = vec4(mix(vlak3color2, vlak3color1, colorMix), alpha);
+                        gl_FragColor = vec4(mix(vlak3color2, vlak3color1, colorMix), 0.95); // of alpha voor de blur aan de uiteindes 
                    }
                    `,transparent: true,
               });
@@ -746,9 +747,9 @@ export default {
                        float alpha = smoothstep(Xas, XhalfLeft, vUv.x+width); // example 0.0, 2.0, vUv.x+4.0
 
                         // y < 1 = color1, > 2 = color2
-                        float colorMix = smoothstep(Xas, XhalfLeft, vUv.x+(width/2.0)+positionVlak4); // +2.0 voor de afwijking en + de postie
+                        float colorMix = smoothstep(Xas-1.0, XhalfLeft+1.0, vUv.x+(width/2.0)+positionVlak4); // +2.0 voor de afwijking en + de postie
 
-                        gl_FragColor = vec4(mix(vlak4color2, vlak4color1, colorMix), alpha);
+                        gl_FragColor = vec4(mix(vlak4color2, vlak4color1, colorMix), 0.95); // of alpha voor de blur aan de uiteindes 
                    }
                    `,transparent: true,
               });        
@@ -787,6 +788,7 @@ export default {
         this.meshPoleDetection[id] = new this.$three.Mesh( poleDetection, materialDetection );
         this.meshPoleDetection[id].position.x += this.x
         this.meshPoleDetection[id].position.y += this.y
+        this.meshPoleDetection[id].position.z = 0.01  
        
         
  
@@ -799,6 +801,7 @@ export default {
            // pilaar outline
           var materialPilaar = new this.$three.MeshBasicMaterial({ color: '#FFFFFF',    wireframe: true, });  //vertexColors: this.$three.FaceColors, side: this.$three.DoubleSide
           this.meshPilaar = new this.$three.Mesh( PilaarGeometry, materialPilaar  );
+        
 
          this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar,)
       
