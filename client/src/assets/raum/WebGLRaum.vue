@@ -141,7 +141,7 @@ export default {
         
         //camera
         this.camera = new this.$three.PerspectiveCamera(100, container.clientWidth/container.clientHeight, 0.1, 100);
-        console.log( container.clientWidth)
+        //console.log( container.clientWidth)
     
         
         this.camera.position.z = 11
@@ -210,7 +210,7 @@ export default {
       window.addEventListener( 'resize', this.onWindowResize(), false );
     },
    onWindowResize: function() {
-        console.log("resize")
+        //console.log("resize: " + container.clientWidth)
 			//	this.scamera.aspect = window.innerWidth / window.innerHeight;
 			//	this.camera.updateProjectionMatrix();
 

@@ -21,8 +21,7 @@
     </div>
 
  
-    <div class="row" >
-       
+    <div class="row" v-if="desktop" >   
         <!-- WebGL -->
         <div class="col-8">
            <div ref="webGLSpeelveld" v-on:click="startlivestream"  id="speelveld"> 
@@ -35,8 +34,23 @@
           <div class="livefeed">            
              <video mute='true' playsinline autoplay id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
           </div>
-        </div>
+        </div>  
+   </div>
+    <div v-if="mobile" > 
+
+      <!-- video livestream -->
+        <div class="row" id="video">
+                  
+             <video mute='true' playsinline autoplay id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
       
+        </div>   
+      <!-- WebGL -->
+        <div class="row">
+          <div ref="webGLSpeelveld" v-on:click="startlivestream"  id="speelveld"> 
+               <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition"></WebGLRaum> 
+          </div>
+        </div>
+       
    </div>
  
    
@@ -66,7 +80,10 @@ export default {
     mouseX: null,
     mouseY: null,
    visibility: 'block',
-   show: true
+   show: true,
+   desktop: true,
+   mobile: false,
+   windowWidth: 0,
        
   }
   },
@@ -95,11 +112,22 @@ export default {
       this.bigBall = document.querySelector('.cursor__ball--big');
       this.smallBall = document.querySelector('.cursor__ball--small');
 
-        
 
-      
       //window.addEventListener('touchmove',this.mouseMobile);
     
+  
+        this.windowWidth = window.innerWidth;
+      if (this.windowWidth < 700){
+        console.log("device is mobile")
+        this.mobile = true
+        this.desktop = false
+      } else{
+         console.log("device is desktop")
+        this.mobile = false
+        this.desktop = true
+      }
+
+      //console.log(this.windowWidth)
     },
  
   methods:{
@@ -363,6 +391,25 @@ export default {
       width: 100%;
     height: 99vh;
       background-color: rgb(87, 87, 87);
+}
+
+@media screen and (max-width: 700px) {
+
+ .row,.col-8,.col-4{
+    margin: 0;
+    padding:0;
+  }
+  #speelveld{
+     width: 100%;
+    height: 70vh;
+    background: #474141;
+    color: white;
+  }
+  video {
+       width: 100%;
+       height: 20vh;
+       background-color: rgb(87, 87, 87);
+  }
 }
 
 }
