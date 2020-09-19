@@ -24,15 +24,15 @@
     <div class="row" v-if="desktop" >   
         <!-- WebGL -->
         <div class="col-8">
-           <div ref="webGLSpeelveld" v-on:click="startlivestream"  id="speelveld"> 
+           <div ref="webGLSpeelveld"  id="speelveld"> 
                 <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition"></WebGLRaum> 
             </div>
 
         </div>
           <!-- video livestream -->
-        <div class="col-4" id="video">
+        <div class="col-4" id="video" v-on:click="startlivestream" >
           <div class="livefeed">            
-             <video mute='true' playsinline autoplay id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
+             <video mute='muted'  autoplay="true" playsinline  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
           </div>
         </div>  
    </div>
