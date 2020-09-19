@@ -39,14 +39,14 @@
     <div v-if="mobile" > 
 
       <!-- video livestream -->
-        <div class="row" id="video">
+        <div class="row" id="video" v-on:click="startlivestream" >
                   
              <video mute='muted'  autoplay="true" playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
       
         </div>   
       <!-- WebGL -->
         <div class="row">
-          <div ref="webGLSpeelveld" v-on:click="startlivestream"  id="speelveld"> 
+          <div ref="webGLSpeelveld" id="speelveld"> 
                <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition"></WebGLRaum> 
           </div>
         </div>
