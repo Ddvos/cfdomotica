@@ -41,7 +41,7 @@
       <!-- video livestream -->
         <div class="row" id="video">
                   
-             <video mute='true' playsinline autoplay id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
+             <video mute='muted'  autoplay="true" playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
       
         </div>   
       <!-- WebGL -->
@@ -272,7 +272,7 @@ export default {
               peerConnection.ontrack = (e) => {
                 console.log('on track', e);
                 window.v.srcObject = e.streams[0];
-                 window.v.play();
+                // window.v.play();
                 window.wait.classList.add('hidden');
                 window.controls.classList.remove('hidden');
               };
