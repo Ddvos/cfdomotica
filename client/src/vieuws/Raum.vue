@@ -30,16 +30,16 @@
 
         </div>
           <!-- video livestream -->
-        <div class="col-4" id="video" v-on:click="startlivestream" >
+        <div class="col-4" id="video" >
           <div class="livefeed">            
-             <video mute='muted'  autoplay="true" playsinline  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
+             <video mute='muted'  autoplay="true" playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
           </div>
         </div>  
    </div>
     <div v-if="mobile" > 
 
       <!-- video livestream -->
-        <div class="row" id="video" v-on:click="startlivestream" >
+        <div class="row" id="video" >
                   
              <video mute='muted'  autoplay="true" playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
       
@@ -272,9 +272,10 @@ export default {
               peerConnection.ontrack = (e) => {
                 console.log('on track', e);
                 window.v.srcObject = e.streams[0];
-                // window.v.play();
-                window.wait.classList.add('hidden');
-                window.controls.classList.remove('hidden');
+                window.v.muted = true;
+                window.v.play();
+               // window.wait.classList.add('hidden');
+                //window.controls.classList.remove('hidden');
               };
 
               peerConnection.onicecandidate = (e) => {
@@ -401,13 +402,13 @@ export default {
   }
   #speelveld{
      width: 100%;
-    height: 59vh;
+    height: 69vh;
     background: #474141;
     color: white;
   }
   video {
        width: 100%;
-       height: 40vh;
+       height: 30vh;
        background-color: rgb(87, 87, 87);
   }
 }

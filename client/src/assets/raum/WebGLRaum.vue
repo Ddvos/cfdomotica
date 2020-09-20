@@ -71,6 +71,9 @@ export default {
        OSCconnectionStatus: false,
        mouse: null, 
        raycaster: null,
+       mobile: false,
+       desktop: true,
+       ypostion: 0,
         
    }
   },
@@ -143,7 +146,8 @@ export default {
         var pointofview = 100
 
         if(container.clientWidth<501){
-
+          this.mobile = true
+          this.desktop = false
           pointofview = ((100/container.clientWidth)*70) +100
             console.log( "point: "+pointofview)
         }
@@ -240,9 +244,14 @@ export default {
                 this.posSmall = this.camera.position.clone().add( dirSmall.multiplyScalar( distanceSmall ) );
 
             
+                if(this.mobile ==true){
+                  this.ypostion = 16
+                }
+
+            
           //  console.log(intersects )
           this.mouseSmallMesh.position.x =this.posSmall.x -0.0000*container.clientWidth
-          this.mouseSmallMesh.position.y =(this.posSmall.y)*-1 +0
+          this.mouseSmallMesh.position.y =(this.posSmall.y)*-1 +this.ypostion
                   // TweenMax.to(this.mouseSmallMesh.position, .01, {
                   //     x:  this.posSmall.x -3,
                   //     y:  (this.posSmall.y)*-1 
@@ -253,8 +262,9 @@ export default {
         //console.log(this.$props.bigBallPosition.x)
         if(this.$props.bigBallPosition !=null){ // als bigball niet 0 is
          if(this.collisionPole ==false){
+
+
            
-  
             
               // standaard code om 2de muis positie om te zetten naar een 3D object in three.js
                var vector = new this.$three.Vector3(((this.$props.bigBallPosition.x/container.clientWidth)* 2 -1), (this.$props.bigBallPosition.y/container.clientHeight) *2-1, 0.0)
@@ -267,7 +277,7 @@ export default {
                   TweenMax.to(this.mouseMesh.position, 3
                   ,{
                       x: this.posBig.x -0.0000*container.clientWidth,
-                      y: (this.posBig.y - 0)*-1     
+                      y: (this.posBig.y - this.ypostion)*-1     
                       })
                   //this.mouseMesh.position.copy(pos);
             }
@@ -485,7 +495,7 @@ export default {
       this.totalPole=[id]
      // console.log("aantal palen: "+ this.totalPole )
          // variable to make 1 pole
-        this.widthPole =5.7
+        this.widthPole =5.9
         this.x = x
         this.y = y
         //this.id = id
@@ -833,7 +843,7 @@ export default {
 
 canvas{
   margin: auto;
-  height: 60%;
+  height: 70%;
   width: 100%;
   cursor: none;
 }
