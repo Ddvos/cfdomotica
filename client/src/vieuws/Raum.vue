@@ -348,7 +348,7 @@ export default {
 .background {
   width: 100vw;
   height: 100vh;
-  background: #0d0d0d;
+  background: #1e3a42;
   color: white;
   cursor: none;
   
@@ -402,8 +402,8 @@ export default {
   }
   #speelveld{
      width: 100%;
-    height: 49vh;
-    background: #474141;
+    height: 69vh;
+    background: #0d0d0d;
     color: white;
   }
   video {
