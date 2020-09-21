@@ -848,4 +848,17 @@ canvas{
   cursor: none;
 }
 
+@media screen and (max-width: 700px) {
+
+#container {
+     margin: auto;
+     
+  height: 100%;
+  width: 100%;
+  
+  cursor: none;
+
+} 
+}
+
 </style>
