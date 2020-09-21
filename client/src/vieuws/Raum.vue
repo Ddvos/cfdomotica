@@ -402,7 +402,7 @@ export default {
   }
   #speelveld{
      width: 100%;
-    height: 69vh;
+    height: 59vh;
     background: #0d0d0d;
     color: white;
   }
