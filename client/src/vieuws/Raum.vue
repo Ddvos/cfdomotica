@@ -6,34 +6,34 @@
 
     <div class="cursor" >  <!--if cursor is not in webGL element mouse vissible-->
       <div ref="ballBig" class="cursor__ball cursor__ball--big ">
-         <transition name="fade" v-on:enter="enter">
-          <svg  v-if="show"  height="30" width="30" >     <!--display= "none" -->
+        
+          <svg   height="30" width="30" display= "none" >     <!--display= "none" -->
               <circle cx="15" cy="15" r="12" stroke-width="0"></circle>
           </svg>
-       </transition>
+   
       </div>
       
       <div ref="ballSmall" class="cursor__ball cursor__ball--small">
-        <svg height="10" width="10"  v-bind:style="{ 'display': this.visibility}" >  
-          <circle cx="5" cy="5" r="4" stroke-width="0"></circle>
-        </svg>
+         <transition name="fade" v-on:enter="enter">
+          <svg  v-if="show" height="10" width="10"  v-bind:style="{ 'display': this.visibility}" >  
+            <circle cx="5" cy="5" r="3" stroke-width="0"></circle>
+          </svg>
+         </transition>
       </div>
     </div>
 
  
     <div class="row" v-if="desktop" >   
         <!-- WebGL -->
-        <div class="col-8">
-           <div ref="webGLSpeelveld"  id="speelveld"> 
+        <div class="col-8"  ref="webGLSpeelveld">
+           <div  id="speelveld"> 
                 <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition"></WebGLRaum> 
             </div>
 
         </div>
           <!-- video livestream -->
-        <div class="col-4" id="video" >
-          <div class="livefeed">            
-             <video mute='muted'  autoplay="true" playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
-          </div>
+        <div class="col-4" id="stream" >           
+             <video mute='muted'  autoplay="true"  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
         </div>  
    </div>
     <div v-if="mobile" > 
@@ -143,9 +143,9 @@ export default {
            x: event.x -10,
            y: event.y - 10      
            })
-           TweenMax.to(this.smallBall, .1, {
-             x: event.x -2,
-            y: event.y - 1
+           TweenMax.to(this.smallBall, .001, {
+             x: event.x -0,
+            y: event.y - 0
           }) 
 
           this.ballXYposition()
@@ -175,14 +175,15 @@ export default {
 
         
       
-        const rect2 = this.$refs.webGLSpeelveld.getBoundingClientRect()  //positie bigball
+        const rect2 = this.$refs.webGLSpeelveld.getBoundingClientRect()  //positie webgl speelveld
         //console.log( this.ballposition)
-        const isInHoriztonalBounds = this.ballposition.x < rect2.x + rect2.width &&  this.ballposition.x -  this.ballposition.width > rect2.x;
-        const isInVerticalBounds = this.ballposition.y < rect2.y + rect2.height && this.ballposition.y - this.ballposition.height > rect2.y;
+        const isInHoriztonalBounds = this.smalBallposition.x < rect2.x + rect2.width &&  this.smalBallposition.x -  this.smalBallposition.width > rect2.x;
+        const isInVerticalBounds = this.smalBallposition.y < rect2.y + rect2.height && this.smalBallposition.y - this.smalBallposition.height > rect2.y;
         const isOverlapping = isInHoriztonalBounds && isInVerticalBounds;
         
         if(isOverlapping== true){ // muis gaat uit
         this.show = false
+        //console.log("muis uit")
               this.visibility = 'none'
         }else if(isOverlapping== false){ // muis gaat aan
            this.show = true
@@ -192,9 +193,10 @@ export default {
       
       },
       enter: function() {
+        console.log("fade")
         setTimeout(function() {
           this.show = false;
-        }, 1000); // hide the message after 3 seconds
+        }, 500); // hide the message after 3 seconds
     },
       startlivestream: function(){
           this.videoStream()
@@ -359,12 +361,12 @@ export default {
       position: fixed;
       top: 0;
       left: 0;
-      mix-blend-mode: difference;
+     // mix-blend-mode: difference;
       z-index: 1000;
       
       
       circle {
-        fill: #f7f8fa;
+        fill: #ffffff;
       }
     }      
   } 
@@ -387,10 +389,16 @@ export default {
     padding:0;
   }
 
+  #stream{
+      position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  }
+
   video{
-    
-      width: 100%;
-    height: 99vh;
+      position: absolute;
+     margin-left: -420px;
       background-color: rgb(87, 87, 87);
 }
 
@@ -406,7 +414,10 @@ export default {
     background: #0d0d0d;
     color: white;
   }
+
   video {
+      position: static;
+        margin-left: 0px;
        width: 100%;
        height: 30vh;
        background-color: rgb(87, 87, 87);
