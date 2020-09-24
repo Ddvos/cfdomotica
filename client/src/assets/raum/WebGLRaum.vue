@@ -322,18 +322,18 @@ export default {
                
                if(mouseCollision.intersectsBox( this.detectionArray[i-1]) && this.sendPole[i] == false &&  this.OSCconnectionStatus == true){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd
                
-                  // console.log("side"+i+" pole"+p+" active")
+                   //console.log("side"+i+" pole"+p+" active")
                    port.send({
-                        address: "/pole"+p+"_"+i+"_"+this.$props.raumid,
-                        args:  [1]
+                        address: "/pole"+p+"_"+i,
+                        args:  [1,this.$props.raumid]
                     });  
                       this.sendPole[i] =true              
                }
                if(this.sendPole[i] ==true && mouseCollision.intersectsBox( this.detectionArray[i-1]) == false &&  this.OSCconnectionStatus == true) {
                // console.log("side"+i+" pole1 dissable")
                     port.send({
-                        address: "/pole"+p+"_"+i+"_"+this.$props.raumid,
-                        args:  [0]
+                        address: "/pole"+p+"_"+i,
+                        args:  [0,this.$props.raumid]
                     });
                 this.sendPole[i] =false
                }
@@ -786,21 +786,25 @@ export default {
       
         this.mesh1Detection[id] = new this.$three.Mesh( detection1, materialDetection );
         this.mesh1Detection[id].position.x += this.x
+        this.mesh1Detection[id].position.z = 0.01  
         this.mesh1Detection[id].position.y = this.mesh1[id].geometry.vertices[1].y-(this.widthPole/8);
 
         this.mesh2Detection[id] = new this.$three.Mesh( detection1, materialDetection );
         this.mesh2Detection[id].position.x = this.mesh2[id].geometry.vertices[1].x-(this.widthPole/8);
         this.mesh2Detection[id].position.y += this.y
+        this.mesh2Detection[id].position.z = 0.01  
         this.mesh2Detection[id].rotation.z = ( Math.PI / 2 );
 
         this.mesh3Detection[id] = new this.$three.Mesh( detection1, materialDetection );
         this.mesh3Detection[id].position.y = this.mesh3[id].geometry.vertices[1].y+(this.widthPole/8);
         this.mesh3Detection[id].position.x += this.x
+        this.mesh3Detection[id].position.z = 0.01  
         this.mesh3Detection[id].rotation.z = ( Math.PI);
 
         this.mesh4Detection[id] = new this.$three.Mesh( detection1, materialDetection );
         this.mesh4Detection[id].position.x= this.mesh4[id].geometry.vertices[1].x+(this.widthPole/8);
         this.mesh4Detection[id].position.y += this.y
+        this.mesh4Detection[id].position.z = 0.01  
         this.mesh4Detection[id].rotation.z = ( Math.PI/2);
 
         // paal detectie
@@ -822,7 +826,7 @@ export default {
           this.meshPilaar = new this.$three.Mesh( PilaarGeometry, materialPilaar  );
         
 
-         this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar,)
+         this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar,this.mesh1Detection[1])
       
 
     }

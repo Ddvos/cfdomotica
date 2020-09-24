@@ -267,9 +267,9 @@ export default {
     },
 
     infobutton: function(){
-      var  abox = document.getElementsByClassName("infobutton")[0];
+      var  abox = document.getElementsByClassName("overlay")[0];
 
-       abox.classList.toggle("overlay");
+       abox.classList.toggle("overlayhide");
     },
       startlivestream: function(){
           this.videoStream()
@@ -480,7 +480,21 @@ export default {
 
 @keyframes myfirst {
       from {right: 480px;} 
-                to{right:20px;} 
+      to{right:0px;} 
+}
+
+  .overlayhide{
+       position:absolute;
+     background-color: rgb(25,100,233);
+         width: 100%;
+    height: 100vh;
+  animation: overlayhide 3s 1;
+  animation-direction: alternate;
+  }
+
+@keyframes overlayhide {
+      from {right: 0px;} 
+      to{right:480px;} 
 }
   
 
