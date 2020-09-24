@@ -24,17 +24,28 @@
 
  
     <div class="row" v-if="desktop" >   
-        <!-- WebGL -->
-        <div class="col-8"  ref="webGLSpeelveld">
-           <div  id="speelveld"> 
-                <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition"></WebGLRaum> 
-            </div>
-
+       
+        <div class="splash" v-if="splash">
+           <div class="splash">links</div>
+           <div class="col-4">Harmonie</div>
+           <div class="col-4">rechts</div>
         </div>
-          <!-- video livestream -->
-        <div class="col-4" id="stream" >           
-             <video mute='muted'  autoplay="true"  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
-        </div>  
+
+          <!-- WebGL -->
+          <div class="col-8"  ref="webGLSpeelveld" v-if="mainpage">
+            <div  id="speelveld"> 
+                  <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition"></WebGLRaum> 
+              </div>
+
+          </div>
+            <!-- video livestream -->
+          <div class="col-4" id="stream" v-if="mainpage"> 
+              <div class="overlay">
+                <button class="infobutton" v-on:click="infobutton">click</button>
+                </div>          
+              <video mute='muted'  autoplay="true"  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
+          </div>  
+    
    </div>
     <div v-if="mobile" > 
 
@@ -81,6 +92,8 @@ export default {
     mouseY: null,
    visibility: 'block',
    show: true,
+   splash: false,
+   mainpage: true,
    desktop: true,
    mobile: false,
    windowWidth: 0,
@@ -197,6 +210,12 @@ export default {
         setTimeout(function() {
           this.show = false;
         }, 500); // hide the message after 3 seconds
+    },
+
+    infobutton: function(){
+      var  abox = document.getElementsByClassName("infobutton")[0];
+
+       abox.classList.toggle("overlay");
     },
       startlivestream: function(){
           this.videoStream()
@@ -396,6 +415,21 @@ export default {
   overflow: hidden;
   }
 
+  .overlay{
+       position:absolute;
+     background-color: rgb(25,100,233);
+         width: 100%;
+    height: 100vh;
+  animation: myfirst 3s 1;
+  animation-direction: alternate;
+  }
+
+@keyframes myfirst {
+      from {right: 480px;} 
+                to{right:20px;} 
+}
+  
+
   video{
       position: absolute;
      margin-left: -420px;
@@ -414,6 +448,8 @@ export default {
     background: #0d0d0d;
     color: white;
   }
+
+ 
 
   video {
       position: static;
