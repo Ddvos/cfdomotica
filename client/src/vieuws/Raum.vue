@@ -34,13 +34,14 @@
           <!-- WebGL -->
           <div class="col-8"  ref="webGLSpeelveld" v-if="mainpage">
             <div  id="speelveld"> 
-                  <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition"></WebGLRaum> 
+                  <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition" v-bind:raumid="raumid"></WebGLRaum> 
               </div>
 
           </div>
             <!-- video livestream -->
           <div class="col-4" id="stream" v-if="mainpage"> 
               <div class="overlay">
+                  <p> Totaal online bezoekers: {{totalClients}}</p>
                 <button class="infobutton" v-on:click="infobutton">click</button>
                 </div>          
               <video mute='muted'  autoplay="true"  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
@@ -58,7 +59,7 @@
       <!-- WebGL -->
         <div class="row">
           <div ref="webGLSpeelveld" id="speelveld"> 
-               <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition"></WebGLRaum> 
+               <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition" v-bind:raumid="raumid"></WebGLRaum> 
           </div>
         </div>
        
@@ -73,9 +74,19 @@
 // import raumSVGgrid from '../assets/raum/raumSVGgrid';
 // import pilaar from '../assets/raum/pilaar';
  import WebGLRaum from '../assets/raum/WebGLRaum';
-
+ import osc from "osc";
+import io from "socket.io-client";
 //const $hoverables = document.querySelectorAll('.hoverable');
+ // for sending osc
+ var port = new osc.WebSocketPort({
+          url: "wss://circusfamilyprojects.nl:8084" //  ws://localhost:8083 online server wss://circusfamilyprojects.nl:8084
+        }); 
 
+ port.open();
+
+//connect to server
+let raum = io.connect("https://circusfamilyprojects.nl:6500/raum") // poort to connect with
+//let allUsers = socket.adapter.rooms;
 
 
 export default {
@@ -97,6 +108,8 @@ export default {
    desktop: true,
    mobile: false,
    windowWidth: 0,
+   totalClients: null,
+   raumid: "3423",
        
   }
   },
@@ -107,7 +120,9 @@ export default {
   
   },
   created() {
+     this.siteVisitor();  
      this.videoStream()
+     
     
     },
     beforeDestroy() {
@@ -131,11 +146,11 @@ export default {
   
         this.windowWidth = window.innerWidth;
       if (this.windowWidth < 700){
-        console.log("device is mobile")
+        //console.log("device is mobile")
         this.mobile = true
         this.desktop = false
       } else{
-         console.log("device is desktop")
+        // console.log("device is desktop")
         this.mobile = false
         this.desktop = true
       }
@@ -144,6 +159,45 @@ export default {
     },
  
   methods:{
+    siteVisitor: function(){
+
+       raum.on("welcome",(data)=>{
+         this.siteVisitors(data);
+        })
+
+         raum.on("clientList",(clients)=>{
+         this.someAllClients(clients);
+        })
+
+        raum.emit("joinRaum", "clientRoom");
+
+        raum.on("newUser",(res) =>{
+          console.log(res)
+          this.newUser = true;
+
+          setTimeout(() => this.newUser= false, 3000);
+        })
+
+       ///raum.on("err",(err)=> console.log(err))
+       //raum.on("succes",(res)=> console.log(res))
+     },
+       siteVisitors: function(data) {
+      
+      console.log(data);
+      // console.log(raum.id);
+       this.raumid = raum.id;
+
+     },
+     someAllClients: function(clients){
+       this.totalClients = clients.length
+       this.clientsIDArray =clients
+       console.log( clients)
+
+          port.send({
+            address: "/clientsID",
+            args:  this.clientsIDArray
+         });
+     },
     
 
     mousePC: function(event){
@@ -206,7 +260,7 @@ export default {
       
       },
       enter: function() {
-        console.log("fade")
+       // console.log("fade")
         setTimeout(function() {
           this.show = false;
         }, 500); // hide the message after 3 seconds
@@ -244,7 +298,7 @@ export default {
       const peerType = 'screen';
       const connections = new Map();
 
-      console.log("peerId is: " +peerId)
+      //console.log("peerId is: " +peerId)
 
       let ws;
       const getSocket = async (peerId, peerType) => {
@@ -279,7 +333,7 @@ export default {
       };
 
       try {
-        console.log('in screen');
+       // console.log('in screen');
         const socket = await getSocket(peerId, peerType);
         socket.addEventListener('message', async (e) => {
           try {

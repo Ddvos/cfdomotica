@@ -18,6 +18,7 @@ export default {
   props: {
         bigBallPosition: Array,
         smallBallPosition: Array,
+        raumid: String,
      },
    
   data() {
@@ -142,7 +143,7 @@ export default {
         container.appendChild(this.renderer.domElement);
 
         // point of view
-        console.log("resize: " + container.clientWidth)
+       // console.log("resize: " + container.clientWidth)
         var pointofview = 100
 
         if(container.clientWidth<501){
@@ -186,7 +187,7 @@ export default {
         this.pole(9,-3,15) // paal variable x,y,id
         this.pole(9,-9,16) // paal variable x,y,id
       
-
+       // console.log("this je id: "+this.$props.raumid)
 
          // grote bal
         var mouseGeometry = new this.$three.CircleGeometry( 0.4, 60 );
@@ -323,7 +324,7 @@ export default {
                
                   // console.log("side"+i+" pole"+p+" active")
                    port.send({
-                        address: "/pole"+p+"_"+i,
+                        address: "/pole"+p+"_"+i+"_"+this.$props.raumid,
                         args:  [1]
                     });  
                       this.sendPole[i] =true              
@@ -331,7 +332,7 @@ export default {
                if(this.sendPole[i] ==true && mouseCollision.intersectsBox( this.detectionArray[i-1]) == false &&  this.OSCconnectionStatus == true) {
                // console.log("side"+i+" pole1 dissable")
                     port.send({
-                        address: "/pole"+p+"_"+i,
+                        address: "/pole"+p+"_"+i+"_"+this.$props.raumid,
                         args:  [0]
                     });
                 this.sendPole[i] =false
