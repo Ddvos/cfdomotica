@@ -52,14 +52,14 @@
 
       <!-- video livestream -->
         <div class="row" id="video" >
-                  
+                   <p> Totaal online bezoekers: {{totalClients}}</p>
              <video mute='muted'  autoplay="true" playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
       
         </div>   
       <!-- WebGL -->
         <div class="row">
           <div ref="webGLSpeelveld" id="speelveld"> 
-               <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition" v-bind:raumid="raumid"></WebGLRaum> 
+               <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition" v-bind:raumid="raumid" v-bind:mousecolor="mousecolor"></WebGLRaum> 
           </div>
         </div>
        
@@ -190,6 +190,11 @@ export default {
  
        this.raumid = raum.id;
 
+          port.send({
+            address: "/newID",
+            args:  this.raumid
+         });
+
      },
      someAllClients: function(clients){
        this.totalClients = clients.length
@@ -200,11 +205,8 @@ export default {
             address: "/clientsID",
             args:  this.clientsIDArray
          });
-     console.log("mijn id is: "+this.raumid);
-          port.send({
-            address: "/newID",
-            args:  this.raumid
-         });
+    
+       
      },
     OSCMessage: function(){        
         port.on("message", (oscMessage) => {
