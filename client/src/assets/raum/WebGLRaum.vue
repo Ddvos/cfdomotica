@@ -19,6 +19,7 @@ export default {
         bigBallPosition: Array,
         smallBallPosition: Array,
         raumid: String,
+        mousecolor: Array
      },
    
   data() {
@@ -239,6 +240,13 @@ export default {
        let container = document.getElementById('container');
         // three.js mouseposition small ball
         if(this.$props.smallBallPosition !=null){
+
+             // console.log(this.$props.mousecolor)
+  // console.log( this.$props.mousecolor)
+   this.mouseMesh.material.color.setRGB(this.$props.mousecolor[0],+this.$props.mousecolor[1],this.$props.mousecolor[2])
+     // this.mouseMesh.material.color[0]=0.3
+     // this.mouseMesh.material.color[1]=0.1
+     // this.mouseMesh.material.color[2]=0.5
            //(((this.$props.smallBallPosition.x/container.clientWidth)* 2 -1), (this.$props.smallBallPosition.y/container.clientHeight) *2-1, 0.3)
       var vectorSmall = new this.$three.Vector3(((this.$props.smallBallPosition.x/container.clientWidth)* 2 -1), (this.$props.smallBallPosition.y/container.clientHeight) *2-1 ,0.0);
                 vectorSmall.unproject( this.camera );
@@ -322,7 +330,7 @@ export default {
               for(var i = 1; i<5; i++){ // loops through every side 
                    // console.log( 'mesh'+i+'Collision')
                
-               if(mouseCollision.intersectsBox( this.detectionArray[i-1])  && this.sendSide[i] == false && this.sendPole[i] == false  ){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd &&  this.OSCconnectionStatus == true && this.sendPole[i] == false 
+               if(mouseCollision.intersectsBox( this.detectionArray[i-1])  && this.sendSide[i] == false && this.sendPole[i] == false &&  this.OSCconnectionStatus == true ){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd &&  this.OSCconnectionStatus == true && this.sendPole[i] == false 
                 //console.log(mouseCollision.intersectsBox( this.detectionArray[i-1]))
                 
                 //console.log("side"+i+" pole"+p+" active")
@@ -338,7 +346,7 @@ export default {
                 // console.log("false")
                }
                
-               if((mouseCollision.intersectsBox( this.detectionArray[i-1]) == false) &&   this.sendSide[i] ==true &&  this.sendPole[p] ==true ) {
+               if((mouseCollision.intersectsBox( this.detectionArray[i-1]) == false) &&   this.sendSide[i] ==true &&  this.sendPole[p] ==true &&  this.OSCconnectionStatus == true ) {
                  //console.log(i+"wordt niet aangeraakt")
                //console.log("side"+i+" pole"+p+" dissable")
                      port.send({
@@ -838,7 +846,7 @@ export default {
           this.meshPilaar = new this.$three.Mesh( PilaarGeometry, materialPilaar  );
         
 
-         this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar, this.mesh3Detection[1],this.mesh4Detection[1],this.mesh1Detection[2],this.mesh4Detection[2])
+         this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar,)
       
 
     }

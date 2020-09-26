@@ -34,7 +34,7 @@
           <!-- WebGL -->
           <div class="col-8"  ref="webGLSpeelveld" v-if="mainpage">
             <div  id="speelveld"> 
-                  <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition" v-bind:raumid="raumid"></WebGLRaum> 
+                  <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition" v-bind:raumid="raumid" v-bind:mousecolor="mousecolor"></WebGLRaum> 
               </div>
 
           </div>
@@ -101,6 +101,7 @@ export default {
     ballpositionmobile:[],
     mouseX: null,
     mouseY: null,
+    mousecolor:[],
    visibility: 'block',
    show: true,
    splash: false,
@@ -122,6 +123,7 @@ export default {
   created() {
      this.siteVisitor();  
      this.videoStream()
+     this.OSCMessage(); 
      
     
     },
@@ -181,10 +183,11 @@ export default {
        ///raum.on("err",(err)=> console.log(err))
        //raum.on("succes",(res)=> console.log(res))
      },
+     
        siteVisitors: function(data) {
       
       console.log(data);
-      // console.log(raum.id);
+ 
        this.raumid = raum.id;
 
      },
@@ -197,11 +200,25 @@ export default {
             address: "/clientsID",
             args:  this.clientsIDArray
          });
-
+     console.log("mijn id is: "+this.raumid);
           port.send({
             address: "/newID",
             args:  this.raumid
          });
+     },
+    OSCMessage: function(){        
+        port.on("message", (oscMessage) => {
+             this.OSCMessages(oscMessage);
+          //  console.log(oscMessage);
+        });
+     },
+     OSCMessages: function(oscMessage){ 
+      
+       /// als id's overeen komen zet hij de kleur vand de muis
+       if(oscMessage.address == this.raumid){
+       this.mousecolor = oscMessage.args
+       console.log(this.mousecolor)
+       }
      },
     
 
