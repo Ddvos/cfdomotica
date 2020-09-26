@@ -191,11 +191,16 @@ export default {
      someAllClients: function(clients){
        this.totalClients = clients.length
        this.clientsIDArray =clients
-       console.log( clients)
+       //console.log(this.raumid)
 
           port.send({
             address: "/clientsID",
             args:  this.clientsIDArray
+         });
+
+          port.send({
+            address: "/newID",
+            args:  this.raumid
          });
      },
     

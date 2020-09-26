@@ -322,7 +322,7 @@ export default {
               for(var i = 1; i<5; i++){ // loops through every side 
                    // console.log( 'mesh'+i+'Collision')
                
-               if(mouseCollision.intersectsBox( this.detectionArray[i-1])  && this.sendSide[i] == false && this.sendPole[i] == false   ){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd &&  this.OSCconnectionStatus == true && this.sendPole[i] == false 
+               if(mouseCollision.intersectsBox( this.detectionArray[i-1])  && this.sendSide[i] == false && this.sendPole[i] == false  ){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd &&  this.OSCconnectionStatus == true && this.sendPole[i] == false 
                 //console.log(mouseCollision.intersectsBox( this.detectionArray[i-1]))
                 
                 //console.log("side"+i+" pole"+p+" active")
@@ -338,9 +338,9 @@ export default {
                 // console.log("false")
                }
                
-               if((mouseCollision.intersectsBox( this.detectionArray[i-1]) == false) &&   this.sendSide[i] ==true &&  this.sendPole[p] ==true) {
+               if((mouseCollision.intersectsBox( this.detectionArray[i-1]) == false) &&   this.sendSide[i] ==true &&  this.sendPole[p] ==true ) {
                  //console.log(i+"wordt niet aangeraakt")
-              // console.log("side"+i+" pole"+p+" dissable")
+               //console.log("side"+i+" pole"+p+" dissable")
                      port.send({
                          address: "/pole"+p+"_"+i,
                         args:  [0,this.$props.raumid]
@@ -838,7 +838,7 @@ export default {
           this.meshPilaar = new this.$three.Mesh( PilaarGeometry, materialPilaar  );
         
 
-         this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar)
+         this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar, this.mesh3Detection[1],this.mesh4Detection[1],this.mesh1Detection[2],this.mesh4Detection[2])
       
 
     }
