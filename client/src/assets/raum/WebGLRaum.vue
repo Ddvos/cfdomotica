@@ -529,7 +529,7 @@ export default {
 
 
           //detection
-         var detection1 = new this.$three.PlaneGeometry( this.widthPole/3.0, this.widthPole/4, 1); // dit is detectie met een specifiek vlak bv vlak1
+         var detection1 = new this.$three.PlaneGeometry( this.widthPole/4.2, this.widthPole/4.2, 1); // dit is detectie met een specifiek vlak bv vlak1
          var poleDetection = new this.$three.PlaneGeometry(this.widthPole/2.4, this.widthPole/2.4, 1);  // afrol van bal en detectie tussen bal en algemene paal
 
            var cornerRightTop = [this.x+(this.widthPole/2),this.y+(this.widthPole/2)]
