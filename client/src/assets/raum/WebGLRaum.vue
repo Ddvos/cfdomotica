@@ -342,9 +342,7 @@ export default {
                       this.sendPole[p] =true
                
                               
-               }else{
-                // console.log("false")
-               }
+               }else
                
                if((mouseCollision.intersectsBox( this.detectionArray[i-1]) == false) &&   this.sendSide[i] ==true &&  this.sendPole[p] ==true && this.OSCconnectionStatus == true ) {
                  //console.log(i+"wordt niet aangeraakt")
