@@ -5,6 +5,7 @@ const http = require('http');
 const cors = require('cors');
 //const path = require('path');
 const WebSocket = require('ws');
+
 //var FileSaver = require('file-saver');
 //let img = '';
 
@@ -113,56 +114,6 @@ wsUploadServer.on('connection', (ws, req)=>{
 //////////////////////////////////////////
 
 
-///////////////////////////////////////
-  // registratie bezoekers Raum
-//////////////////////////////
- const userCountserver = http.createServer(app);
- const io = require("socket.io")(userCountserver); 
-
- const raumRooms = ["clientRoom"]
-
- io.of("/raum").on("connection",(socket)=>{
-
-  //var room = io.sockets.adapter.rooms[''];
-   socket.emit("welcome", "Hello and welcome to the RAUM Area");
-
-   socket.on("joinRaum",(room)=>{
-     if(raumRooms.includes(room)){
-        socket.join(room);
-        io.of("/raum").to(room).emit("newUser", "new visistor has joined the room " + room)  //melding nieuwe deelnemer
-
-        io.of('/raum').in(room).clients((error, clients) => { // get all the clients which are connected with the room: clientRoom
-          if (error) throw error;
-          io.of("/raum").to(room).emit("clientList", clients)  // sends/emits a array with all the clients
-         // console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
-        });
-      
-        /// enf of code get all users in room
-
-        return socket.emit("succes","You have succesfully joined the room " + room);
-     }else{
-       return socket.emit("err","Error: No room named " + room);
-     }
-  });
-
-   //socket.disconnect();
-    socket.on('disconnect', () => {
-      io.of('/raum').in("clientRoom").clients((error, clients) => { // get all the clients which are connected with the room: clientRoom
-        if (error) throw error;
-        io.of("/raum").to("clientRoom").emit("clientList", clients)  // sends/emits a array with all the clients
-        console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
-      });
-    //console.log('user disconnected');
-  });
-});  
-
- 
-
-
-
- userCountserver.listen(6583,() => console.log('vister counter RAUM is listening on port: 6500'))
-
-/// einde registratie bezoekers
 
 ////////////////////////////////////
        // begin livestream test
@@ -408,6 +359,73 @@ var osc = require("osc");
          raw: true
      });
 });
+
+/// conncection to own server
+var porttoserver = new osc.WebSocketPort({
+  url: "wss://circusfamilyprojects.nl:8084" //  ws://localhost:8083 online server wss://circusfamilyprojects.nl:8084
+}); 
+
+porttoserver.open();
+
+///////////////////////////////////////
+  // registratie bezoekers Raum
+//////////////////////////////
+const userCountserver = http.createServer(app);
+const io = require("socket.io")(userCountserver); 
+
+const raumRooms = ["clientRoom"]
+
+io.of("/raum").on("connection",(socket)=>{
+
+ //var room = io.sockets.adapter.rooms[''];
+  socket.emit("welcome", "Hello and welcome to the RAUM Area");
+
+  socket.on("joinRaum",(room)=>{
+    if(raumRooms.includes(room)){
+       socket.join(room);
+       io.of("/raum").to(room).emit("newUser", "new visistor has joined the room " + room)  //melding nieuwe deelnemer
+
+       io.of('/raum').in(room).clients((error, clients) => { // get all the clients which are connected with the room: clientRoom
+         if (error) throw error;
+         io.of("/raum").to(room).emit("clientList", clients)  // sends/emits a array with all the clients
+        // console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
+       });
+     
+       /// enf of code get all users in room
+
+       return socket.emit("succes","You have succesfully joined the room " + room);
+    }else{
+      return socket.emit("err","Error: No room named " + room);
+    }
+ });
+
+  //socket.disconnect();
+   socket.on('disconnect', () => {
+     io.of('/raum').in("clientRoom").clients((error, clients) => { // get all the clients which are connected with the room: clientRoom
+       if (error) throw error;
+       io.of("/raum").to("clientRoom").emit("clientList", clients)  // sends/emits a array with all the clients
+       console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
+     });
+
+    
+     // maakt verbinidng met deze server en stuurt via OSC de huidige lijst met klanten naar de studio in amsterdam
+      porttoserver.send({
+        address: "/clientsID",
+        args:  clients
+      });
+   //console.log('user disconnected');
+ });
+});  
+
+
+
+
+
+userCountserver.listen(6583,() => console.log('vister counter RAUM is listening on port: 6500'))
+
+/// einde registratie bezoekers
+
+
 
 // end OSC websocket 
 app.listen(port,()=>console.log(`Server started on port ${port}`));
