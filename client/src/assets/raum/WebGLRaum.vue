@@ -19,7 +19,6 @@ export default {
         bigBallPosition: Array,
         smallBallPosition: Array,
         raumid: String,
-        mousecolor: Array
      },
    
   data() {
@@ -50,6 +49,7 @@ export default {
       colorVlak4: ['rgb(35, 100, 233)','rgb(202, 26, 47)',0.3], // kleuren en positie van vlakken
       // breedite driehoeken
       width: null,
+      mousecolor:[255,125,10],
       // detection
       mesh1Detection:[],
       mesh2Detection: [],
@@ -127,6 +127,12 @@ export default {
                  this.mesh4[p].material.uniforms.positionVlak4.value = (this.width)/1*this.colorVlak4[2]
                  }
             }
+          if(oscMessage.address == this.$props.raumid){
+              // hierbij zet hij de kleur van de muis naar de binnengekomden waarde
+            //console.log( this.mouseMesh)
+           this.mouseMesh.material.color.set('rgb('+oscMessage.args[0]+','+oscMessage.args[1]+', '+oscMessage.args[2]+')')
+            // console.log("ids kloppen " this.$props.mousecolor[1])
+       }
                  
               
                   
@@ -208,7 +214,7 @@ export default {
           //this.groundMesh.rotation.y += 3.1        
 
           // mouse big
-          var mouseMaterial = new  this.$three.LineBasicMaterial( { color: '#FFFFFF'} );
+          var mouseMaterial = new  this.$three.LineBasicMaterial( { color: '#FFFFFF', } );
           this.mouseMesh = new  this.$three.LineLoop( mouseGeometry, mouseMaterial );
           
           this.mouseMesh.position.x = 8
@@ -241,12 +247,6 @@ export default {
         // three.js mouseposition small ball
         if(this.$props.smallBallPosition !=null){
 
-             // console.log(this.$props.mousecolor)
-  // console.log( this.$props.mousecolor)
-   this.mouseMesh.material.color.setRGB(this.$props.mousecolor[0],+this.$props.mousecolor[1],this.$props.mousecolor[2])
-     // this.mouseMesh.material.color[0]=0.3
-     // this.mouseMesh.material.color[1]=0.1
-     // this.mouseMesh.material.color[2]=0.5
            //(((this.$props.smallBallPosition.x/container.clientWidth)* 2 -1), (this.$props.smallBallPosition.y/container.clientHeight) *2-1, 0.3)
       var vectorSmall = new this.$three.Vector3(((this.$props.smallBallPosition.x/container.clientWidth)* 2 -1), (this.$props.smallBallPosition.y/container.clientHeight) *2-1 ,0.0);
                 vectorSmall.unproject( this.camera );
@@ -330,14 +330,14 @@ export default {
               for(var i = 1; i<5; i++){ // loops through every side 
                    // console.log( 'mesh'+i+'Collision')
                
-               if(mouseCollision.intersectsBox( this.detectionArray[i-1])  && this.sendSide[i] == false && this.sendPole[i] == false &&  this.OSCconnectionStatus == true ){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd &&  this.OSCconnectionStatus == true && this.sendPole[i] == false 
+               if(mouseCollision.intersectsBox( this.detectionArray[i-1])  && this.sendSide[i] == false && this.sendPole[i] == false  ){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd &&  this.OSCconnectionStatus == true && this.sendPole[i] == false 
                 //console.log(mouseCollision.intersectsBox( this.detectionArray[i-1]))
                 
-                //console.log("side"+i+" pole"+p+" active")
-                   port.send({
-                        address: "/pole"+p+"_"+i,
-                         args:  [1,this.$props.raumid]
-                     });  
+               // console.log("side"+i+" pole"+p+" active")
+                  //  port.send({
+                  //       address: "/pole"+p+"_"+i,
+                  //        args:  [1,this.$props.raumid]
+                  //    });  
                       this.sendSide[i] =true
                       this.sendPole[p] =true
                
@@ -346,9 +346,9 @@ export default {
                 // console.log("false")
                }
                
-               if((mouseCollision.intersectsBox( this.detectionArray[i-1]) == false) &&   this.sendSide[i] ==true &&  this.sendPole[p] ==true &&  this.OSCconnectionStatus == true ) {
+               if((mouseCollision.intersectsBox( this.detectionArray[i-1]) == false) &&   this.sendSide[i] ==true &&  this.sendPole[p] ==true  ) {
                  //console.log(i+"wordt niet aangeraakt")
-               //console.log("side"+i+" pole"+p+" dissable")
+              // console.log("side"+i+" pole"+p+" dissable")
                      port.send({
                          address: "/pole"+p+"_"+i,
                         args:  [0,this.$props.raumid]
@@ -531,7 +531,7 @@ export default {
 
 
           //detection
-         var detection1 = new this.$three.PlaneGeometry( this.widthPole/2.4, this.widthPole/3, 1); // dit is detectie met een specifiek vlak bv vlak1
+         var detection1 = new this.$three.PlaneGeometry( this.widthPole/3.0, this.widthPole/4, 1); // dit is detectie met een specifiek vlak bv vlak1
          var poleDetection = new this.$three.PlaneGeometry(this.widthPole/2.4, this.widthPole/2.4, 1);  // afrol van bal en detectie tussen bal en algemene paal
 
            var cornerRightTop = [this.x+(this.widthPole/2),this.y+(this.widthPole/2)]
@@ -807,22 +807,22 @@ export default {
         this.mesh1Detection[id] = new this.$three.Mesh( detection1, materialDetection );
         this.mesh1Detection[id].position.x += this.x
         this.mesh1Detection[id].position.z = 0.01  
-        this.mesh1Detection[id].position.y = this.mesh1[id].geometry.vertices[1].y-(this.widthPole/8);
+        this.mesh1Detection[id].position.y = this.mesh1[id].geometry.vertices[1].y-(this.widthPole/5);
 
         this.mesh2Detection[id] = new this.$three.Mesh( detection1, materialDetection );
-        this.mesh2Detection[id].position.x = this.mesh2[id].geometry.vertices[1].x-(this.widthPole/8);
+        this.mesh2Detection[id].position.x = this.mesh2[id].geometry.vertices[1].x-(this.widthPole/5);
         this.mesh2Detection[id].position.y += this.y
         this.mesh2Detection[id].position.z = 0.01  
         this.mesh2Detection[id].rotation.z = ( Math.PI / 2 );
 
         this.mesh3Detection[id] = new this.$three.Mesh( detection1, materialDetection );
-        this.mesh3Detection[id].position.y = this.mesh3[id].geometry.vertices[1].y+(this.widthPole/8);
+        this.mesh3Detection[id].position.y = this.mesh3[id].geometry.vertices[1].y+(this.widthPole/5);
         this.mesh3Detection[id].position.x += this.x
         this.mesh3Detection[id].position.z = 0.01  
         this.mesh3Detection[id].rotation.z = ( Math.PI);
 
         this.mesh4Detection[id] = new this.$three.Mesh( detection1, materialDetection );
-        this.mesh4Detection[id].position.x= this.mesh4[id].geometry.vertices[1].x+(this.widthPole/8);
+        this.mesh4Detection[id].position.x= this.mesh4[id].geometry.vertices[1].x+(this.widthPole/5);
         this.mesh4Detection[id].position.y += this.y
         this.mesh4Detection[id].position.z = 0.01  
         this.mesh4Detection[id].rotation.z = ( Math.PI/2);
@@ -846,7 +846,7 @@ export default {
           this.meshPilaar = new this.$three.Mesh( PilaarGeometry, materialPilaar  );
         
 
-         this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar,)
+         this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar)
       
 
     }

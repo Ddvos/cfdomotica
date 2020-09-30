@@ -34,7 +34,7 @@
           <!-- WebGL -->
           <div class="col-8"  ref="webGLSpeelveld" v-if="mainpage">
             <div  id="speelveld"> 
-                  <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition" v-bind:raumid="raumid" v-bind:mousecolor="mousecolor"></WebGLRaum> 
+                  <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition" v-bind:raumid="raumid"></WebGLRaum> 
               </div>
 
           </div>
@@ -59,7 +59,7 @@
       <!-- WebGL -->
         <div class="row">
           <div ref="webGLSpeelveld" id="speelveld"> 
-               <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition" v-bind:raumid="raumid" v-bind:mousecolor="mousecolor"></WebGLRaum> 
+               <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition" v-bind:raumid="raumid"></WebGLRaum> 
           </div>
         </div>
        
@@ -189,7 +189,7 @@ export default {
       console.log(data);
  
        this.raumid = raum.id;
-
+      console.log(this.raumid)
           port.send({
             address: "/newID",
             args:  this.raumid
@@ -199,7 +199,7 @@ export default {
      someAllClients: function(clients){
        this.totalClients = clients.length
        this.clientsIDArray =clients
-       //console.log(this.raumid)
+      // console.log(this.clientsIDArray)
 
           port.send({
             address: "/clientsID",
@@ -208,22 +208,7 @@ export default {
     
        
      },
-    OSCMessage: function(){        
-        port.on("message", (oscMessage) => {
-             this.OSCMessages(oscMessage);
-          //  console.log(oscMessage);
-        });
-     },
-     OSCMessages: function(oscMessage){ 
-      
-       /// als id's overeen komen zet hij de kleur vand de muis
-       if(oscMessage.address == this.raumid){
-       this.mousecolor = oscMessage.args
-       console.log(this.mousecolor)
-       }
-     },
     
-
     mousePC: function(event){
         
         this.mouseX = event.x;
