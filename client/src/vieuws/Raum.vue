@@ -199,7 +199,7 @@ export default {
      someAllClients: function(clients){
        this.totalClients = clients.length
        this.clientsIDArray =clients
-      // console.log(this.clientsIDArray)
+       //console.log(this.clientsIDArray)
 
           port.send({
             address: "/clientsID",
