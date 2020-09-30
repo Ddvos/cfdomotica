@@ -402,7 +402,8 @@ export default {
                       // als de bodem of bovenkant is geraakt
                           if(this.hitBottom == true || this.hitTop== true){ 
                            
-                            this.speed = 0.0009*(-distanceYas>0 ? -distanceYas : distanceYas)*20 // maakt de snelheid op de X as altijd een positief getal
+                           //console.log(1/(-distanceYas>0 ? -distanceYas : distanceYas))
+                            this.speed = 1/(-distanceYas>0 ? -distanceYas : distanceYas) // maakt de snelheid op de X as altijd een positief getal
                         
                             if(this.mouseSmallMesh.position.x>halfx){
                                 //big ball is going to the right
@@ -436,7 +437,7 @@ export default {
 
                           // als de rechter of linker kant is geraakt
                           if(this.hitLeft == true || this.hitRight== true){ 
-                            this.speed = 0.0009*(-distanceXas>0 ? -distanceXas : distanceXas)*20 // maakt de snelheid op de X as altijd een positief getal
+                            this.speed = 1/(-distanceXas>0 ? -distanceXas : distanceXas) // maakt de snelheid op de X as altijd een positief getal
                             if(this.mouseSmallMesh.position.y>halfy){
                                 //big ball is going to the top
                                 //console.log("rol to top")

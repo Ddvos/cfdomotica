@@ -123,7 +123,7 @@ export default {
   created() {
      this.siteVisitor();  
      this.videoStream()
-     this.OSCMessage(); 
+   
      
     
     },
