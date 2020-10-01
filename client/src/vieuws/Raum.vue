@@ -40,11 +40,12 @@
           </div>
             <!-- video livestream -->
           <div class="col-4" id="stream" v-if="mainpage"> 
-              <div class="overlay">
+              <div class="overlay" v-on:click="infobutton">
                   <p> Totaal online bezoekers: {{totalClients}}</p>
-                <button class="infobutton" v-on:click="infobutton">click</button>
-                </div>          
+              
+                    </div>       
               <video mute='muted'  autoplay="true"  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
+             
           </div>  
     
    </div>
@@ -480,11 +481,12 @@ export default {
 
   .overlay{
        position:absolute;
-     background-color: rgb(25,100,233);
+     background-color: rgba(25, 101, 233, 0.5);
          width: 100%;
     height: 100vh;
   animation: myfirst 3s 1;
   animation-direction: alternate;
+    z-index:3;
   }
 
 @keyframes myfirst {
@@ -494,16 +496,18 @@ export default {
 
   .overlayhide{
        position:absolute;
-     background-color: rgb(25,100,233);
-         width: 100%;
-    height: 100vh;
-  animation: overlayhide 3s 1;
-  animation-direction: alternate;
+       background-color: rgba(25, 101, 233, 0.5);
+       width: 100%;
+       height: 100vh;
+       animation: overlayhide 3s ;
+       animation-fill-mode: forwards;
+       animation-direction: alternate;
   }
 
 @keyframes overlayhide {
+
       from {right: 0px;} 
-      to{right:480px;} 
+      to{right:500px;} 
 }
   
 
@@ -511,6 +515,7 @@ export default {
       position: absolute;
      margin-left: -420px;
       background-color: rgb(87, 87, 87);
+        z-index:1;
 }
 
 @media screen and (max-width: 700px) {

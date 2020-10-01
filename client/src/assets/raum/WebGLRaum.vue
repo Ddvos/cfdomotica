@@ -845,7 +845,7 @@ export default {
           this.meshPilaar = new this.$three.Mesh( PilaarGeometry, materialPilaar  );
         
 
-         this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar,this.mesh1Detection[1],this.mesh1Detection[2],this.mesh3Detection[1],this.mesh2Detection[1])
+         this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar,)
       
 
     }
