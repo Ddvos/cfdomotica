@@ -405,15 +405,16 @@ io.of("/raum").on("connection",(socket)=>{
        if (error) throw error;
        io.of("/raum").to("clientRoom").emit("clientList", clients)  // sends/emits a array with all the clients
        console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
-     });
 
-    
-     // maakt verbinidng met deze server en stuurt via OSC de huidige lijst met klanten naar de studio in amsterdam
+         // maakt verbinidng met deze server en stuurt via OSC de huidige lijst met klanten naar de studio in amsterdam
       porttoserver.send({
         address: "/clientsID",
         args:  clients
       });
-   //console.log('user disconnected');
+      //console.log('user disconnected');
+     });
+
+    
  });
 });  
 
