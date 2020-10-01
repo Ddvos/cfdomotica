@@ -45,11 +45,12 @@
                   <h1 id="info-title"> HARMONIE</h1>
                   <p>Living apart together installation</p>
 
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                  <p class="info-tekst">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
                     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad 
                     minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
                 </p>
+                <div class="info-button"></div>
               
                     </div>       
               <video mute='muted'  autoplay="true"  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
@@ -58,10 +59,21 @@
     
    </div>
     <div v-if="mobile" > 
+<div class="overlay" v-on:click="infobutton">
+                  <p> Totaal online bezoekers: {{totalClients}}</p>
+                  <h1 id="info-title"> HARMONIE</h1>
+                  <p>Living apart together installation</p>
 
+                  <p class="info-tekst">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad 
+                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                </p>
+                <div class="info-button"></div>
+              
+          </div> 
       <!-- video livestream -->
         <div class="row" id="video" >
-                   <p> Totaal online bezoekers: {{totalClients}}</p>
              <video mute='muted'  autoplay="true" playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
       
         </div>   
@@ -493,6 +505,14 @@ export default {
 
   } 
 
+  .info-tekst{
+      font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+
+  }
+
+ 
+
   .overlay{
 
       position:absolute;
@@ -505,9 +525,24 @@ export default {
     z-index:3;
   }
 
+   .info-button{
+    
+     margin-top: 10vh;
+     margin-left: 95%;
+     width: 0;
+	height: 0;
+
+	border-top: 50px solid transparent;
+	border-left: 50px solid grey;
+	border-bottom: 50px solid transparent;
+   
+    
+
+  }
+
 @keyframes myfirst {
-      from {right: 480px;} 
-      to{right:0px;} 
+      from {right: 100%;} 
+      to{right:0%;} 
 }
 
   .overlayhide{
@@ -522,18 +557,21 @@ export default {
   }
 
 @keyframes overlayhide {
-
-      from {right: 0px;} 
-      to{right:500px;} 
+      from {right: 0%;} 
+      to{right:100%;} 
 }
   
 
   video{
-      position: absolute;
+    position: absolute;
      margin-left: -420px;
-      background-color: rgb(87, 87, 87);
-        z-index:1;
+    background-color: rgb(87, 87, 87);
+    z-index:1;
 }
+
+//
+ // code bellow is for mobile
+//
 
 @media screen and (max-width: 700px) {
 
@@ -547,6 +585,54 @@ export default {
     background: #0d0d0d;
     color: white;
   }
+
+   .overlay{
+
+      position:absolute;
+     background: rgb(35,100,233);
+     background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
+     width: 100%;
+    height: 100vh;
+    animation: myfirst 3s 1;
+    animation-direction: alternate;
+    z-index:3;
+  }
+
+   .info-button{
+    
+     margin-top: 110%;
+     margin-left: 40%;
+     width: 0;
+	height: 0;
+
+	border-right: 50px solid transparent;
+	border-left: 50px solid transparent;
+	border-top: 50px solid grey;
+   
+    
+
+  }
+
+@keyframes myfirst {
+      from {bottom: 90%;} 
+      to{bottom:0%;} 
+}
+
+  .overlayhide{
+       position:absolute;
+       background: rgb(35,100,233);
+       background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
+       width: 100%;
+       height: 100vh;
+       animation: overlayhide 3s ;
+       animation-fill-mode: forwards;
+       animation-direction: alternate;
+  }
+
+@keyframes overlayhide {
+      from {bottom: 0%;} 
+      to{bottom:100%;} 
+}
 
  
 
