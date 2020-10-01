@@ -42,6 +42,14 @@
           <div class="col-4" id="stream" v-if="mainpage"> 
               <div class="overlay" v-on:click="infobutton">
                   <p> Totaal online bezoekers: {{totalClients}}</p>
+                  <h1 id="info-title"> HARMONIE</h1>
+                  <p>Living apart together installation</p>
+
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad 
+                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                </p>
               
                     </div>       
               <video mute='muted'  autoplay="true"  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
@@ -478,14 +486,22 @@ export default {
   height: 100vh;
   overflow: hidden;
   }
+  #info-title{
+    font-family: 'Prompt', sans-serif;
+    font-weight: bold;
+   font-style: italic;
+
+  } 
 
   .overlay{
-       position:absolute;
-     background-color: rgba(25, 101, 233, 0.5);
-         width: 100%;
+
+      position:absolute;
+     background: rgb(35,100,233);
+     background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
+     width: 100%;
     height: 100vh;
-  animation: myfirst 3s 1;
-  animation-direction: alternate;
+    animation: myfirst 3s 1;
+    animation-direction: alternate;
     z-index:3;
   }
 
@@ -496,7 +512,8 @@ export default {
 
   .overlayhide{
        position:absolute;
-       background-color: rgba(25, 101, 233, 0.5);
+       background: rgb(35,100,233);
+       background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
        width: 100%;
        height: 100vh;
        animation: overlayhide 3s ;
