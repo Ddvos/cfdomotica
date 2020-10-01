@@ -602,8 +602,6 @@ export default {
     
      margin-top: 110%;
      margin-left: 40%;
-     width: 0;
-	height: 0;
 
 	border-right: 50px solid transparent;
 	border-left: 50px solid transparent;
@@ -614,7 +612,7 @@ export default {
   }
 
 @keyframes myfirst {
-      from {bottom: 90%;} 
+      from {bottom: 100%;} 
       to{bottom:0%;} 
 }
 
