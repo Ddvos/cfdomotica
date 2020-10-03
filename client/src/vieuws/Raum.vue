@@ -600,7 +600,7 @@ export default {
 
    .info-button{
     
-     margin-top: 110%;
+     margin-top: 100%;
      margin-left: 40%;
 
 	border-right: 50px solid transparent;
