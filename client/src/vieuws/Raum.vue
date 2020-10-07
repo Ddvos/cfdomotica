@@ -522,34 +522,43 @@ export default {
     height: 100vh;
     animation: myfirst 3s 1;
     animation-direction: alternate;
+     clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
     z-index:3;
   }
 
    .info-button{
     
-     margin-top: 10vh;
-     margin-left: 95%;
+     margin-top: 7.5vh;
+     margin-left: 93%;
      width: 0;
 	height: 0;
+//visibility: hidden;
+ border: solid rgb(255, 255, 255);
+  border-width: 0 4px 4px 0;
+  display: inline-block;
+  padding: 4px;
 
-	border-top: 50px solid transparent;
-	border-left: 50px solid grey;
-	border-bottom: 50px solid transparent;
+   transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg)
    
     
 
   }
 
 @keyframes myfirst {
-      from {right: 100%;} 
-      to{right:0%;} 
+      from {right: 100%;
+       clip-path: polygon(0 0, 95% 0, 95% 40%, 100% 50%, 95% 60%, 95% 100%, 0 100%)}  
+      to{right:0%;
+         clip-path: polygon(0 0, 100% 0, 100% 40%, 100% 50%, 100% 60%, 100% 100%, 0 100%);
+      } 
+      
 }
 
   .overlayhide{
        position:absolute;
        background: rgb(35,100,233);
        background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
-       width: 100%;
+       width: 105%;
        height: 100vh;
        animation: overlayhide 3s ;
        animation-fill-mode: forwards;
@@ -557,8 +566,11 @@ export default {
   }
 
 @keyframes overlayhide {
-      from {right: 0%;} 
-      to{right:100%;} 
+      from {right: 5%;
+       clip-path: polygon(0 0, 100% 0, 100% 40%, 100% 50%, 100% 60%, 100% 100%, 0 100%);
+      } 
+      to{right:95%;
+      clip-path: polygon(0 0, 95% 0, 95% 40%, 100% 50%, 95% 60%, 95% 100%, 0 100%)} 
 }
   
 
@@ -595,6 +607,7 @@ export default {
     height: 100vh;
     animation: myfirst 3s 1;
     animation-direction: alternate;
+     
     z-index:3;
   }
 
