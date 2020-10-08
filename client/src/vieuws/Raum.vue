@@ -52,6 +52,8 @@
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
                 </p>
                 </div>
+
+                <!-- <img src="assets/raum/RAUM.svg" alt="logo Raum" height="87" width="100" /> -->
                
                   <div class="info-button"></div>
               
