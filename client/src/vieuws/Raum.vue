@@ -659,7 +659,7 @@ export default {
 
 @keyframes myfirst {
       from {bottom: 100%;
-      clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 70% 95%, 50% 100%, 30% 95%, 0 95%);} 
+      clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 65% 95%, 50% 100%, 35% 95%, 0 95%);} 
       to{bottom:0%;
        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 60% 100%, 50% 100%, 40% 100%, 0 100%);;
       } 
@@ -667,11 +667,45 @@ export default {
 
    .info-button{
     
-     margin-top: 100%;
-     margin-left: 40%;
-     clip-path: polygon(98% 47.5%, 96.5% 50%, 98% 52.5%, 97.5% 52.5%, 96% 50%, 97.5% 47.5%);
-     background-color:  rgb(255, 255, 255);
+    position:absolute;
+     display: 1;
+     margin-left: 0%;
+     width: 100%;
+	height: 100vh;
+  animation: button 3s 1;
+    animation-direction: alternate;
+    //clip-path: polygon(98% 47.5%,    96.5% 50%,    98% 52.5%,   97.5% 52.5%,   96% 50%,   97.5% 47.5%);
+    clip-path: polygon(52.5% 97.5%,    52.5% 98%,    50% 96.5%,   47.5% 98%,   47.5% 97.5%,   50% 96%);
+ background-color:  rgb(255, 255, 255);
   }
+
+    @keyframes button { //hiermee gaat de overlay van links naar rechts en vervormt hij
+      from {
+       clip-path: polygon(52.5% 96%,    52.5% 96.5%,    50% 98%,   47.5% 96.5%,   47.5% 96%,   50% 97.5%)}  
+      to{
+       clip-path: polygon(52.5% 97.5%,    52.5% 98%,    50% 96.5%,   47.5% 98%,   47.5% 97.5%,   50% 96%);
+      }    
+   }
+
+     .info-button-hide{
+     position:absolute;
+     display: 1;
+     margin-left: 0%;
+     width: 100%;
+	height: 100vh;
+  animation: buttonhide 3s 1;
+    animation-direction: alternate;
+    clip-path: polygon(52.5% 96%,    52.5% 96.5%,    50% 98%,   47.5% 96.5%,   47.5% 96%,   50% 97.5%);
+ background-color:  rgb(255, 255, 255);
+  }
+
+     @keyframes buttonhide { //hiermee gaat de overlay van links naar rechts en vervormt hij
+      from {
+       clip-path: polygon(52.5% 97.5%,    52.5% 98%,    50% 96.5%,   47.5% 98%,   47.5% 97.5%,   50% 96%)}  
+      to{
+       clip-path: polygon(52.5% 96%,    52.5% 96.5%,    50% 98%,   47.5% 96.5%,   47.5% 96%,   50% 97.5%);
+      }    
+   }
 
 
   .overlayhide{
@@ -689,7 +723,7 @@ export default {
       from {bottom: 0%;
       clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 60% 100%, 50% 100%, 40% 100%, 0 100%);} 
       to{bottom:95%;
-      clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 70% 95%, 50% 100%, 30% 95%, 0 95%);
+      clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 65% 95%, 50% 100%, 35% 95%, 0 95%);
       } 
 }
 
