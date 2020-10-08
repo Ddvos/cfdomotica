@@ -66,6 +66,7 @@
    </div>
     <div v-if="mobile" > 
 <div class="overlay" v-on:click="infobutton">
+               <div class="tekst">
                   <p> Totaal online bezoekers: {{totalClients}}</p>
                   <h1 id="info-title"> HARMONIE</h1>
                   <p>Living apart together installation</p>
@@ -75,7 +76,7 @@
                     minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
                 </p>
-                
+                </div>
                 <div class="info-button"></div>
           </div> 
         
@@ -621,9 +622,9 @@ export default {
     z-index:1;
 }
 
-//
+/////////////////////////////////////////////////////////
  // code bellow is for mobile
-//
+/////////////////////////////////////////////////////////
 
 @media screen and (max-width: 700px) {
 
@@ -638,36 +639,40 @@ export default {
     color: white;
   }
 
+  .tekst{
+    flex: 0% 0 100vh;
+  }
+
    .overlay{
 
       position:absolute;
      background: rgb(35,100,233);
      background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
      width: 100%;
-    height: 100vh;
+    height: 100%;
     animation: myfirst 3s 1;
     animation-direction: alternate;
-     
+      clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
     z-index:3;
   }
+
+
+@keyframes myfirst {
+      from {bottom: 100%;
+      clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 70% 95%, 50% 100%, 30% 95%, 0 95%);} 
+      to{bottom:0%;
+       clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 60% 100%, 50% 100%, 40% 100%, 0 100%);;
+      } 
+}
 
    .info-button{
     
      margin-top: 100%;
      margin-left: 40%;
-
-	border-right: 50px solid transparent;
-	border-left: 50px solid transparent;
-	border-top: 50px solid grey;
-   
-    
-
+     clip-path: polygon(98% 47.5%, 96.5% 50%, 98% 52.5%, 97.5% 52.5%, 96% 50%, 97.5% 47.5%);
+     background-color:  rgb(255, 255, 255);
   }
 
-@keyframes myfirst {
-      from {bottom: 100%;} 
-      to{bottom:0%;} 
-}
 
   .overlayhide{
        position:absolute;
@@ -681,8 +686,11 @@ export default {
   }
 
 @keyframes overlayhide {
-      from {bottom: 0%;} 
-      to{bottom:100%;} 
+      from {bottom: 0%;
+      clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 60% 100%, 50% 100%, 40% 100%, 0 100%);} 
+      to{bottom:95%;
+      clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 70% 95%, 50% 100%, 30% 95%, 0 95%);
+      } 
 }
 
  
