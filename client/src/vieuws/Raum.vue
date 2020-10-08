@@ -712,7 +712,6 @@ export default {
 
   .overlayhide{
        position:absolute;
-       background: rgb(35,100,233);
        background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
        width: 100%;
        height: 100vh;

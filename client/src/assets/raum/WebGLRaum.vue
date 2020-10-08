@@ -5,6 +5,10 @@
 <script>
 import osc from "osc";
  import { TweenMax} from 'gsap'
+ import { Line2 } from 'three/examples/jsm/lines/Line2.js';
+import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js';
+import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry.js';
+
 //import * as Three from 'three';
 
 var port = new osc.WebSocketPort({
@@ -78,6 +82,8 @@ export default {
        mobile: false,
        desktop: true,
        ypostion: 0,
+       line1: null,
+       matLine: null,
         
    }
   },
@@ -199,9 +205,9 @@ export default {
        // console.log("this je id: "+this.$props.raumid)
 
          // grote bal
-        var mouseGeometry = new this.$three.CircleGeometry( 0.4, 60 );
+       // var mouseGeometry = new this.$three.CircleGeometry( 0.4, 60 );
             // Remove center vertex
-            mouseGeometry.vertices.shift();
+            //mouseGeometry.vertices.shift();
          // kleine bal
         var mouseSmallGeometry = new this.$three.CircleGeometry( 0.1, 100 );
 
@@ -211,14 +217,34 @@ export default {
           this.groundMesh = new this.$three.Mesh( ground, groundMaterial );
           this.groundMesh.position.set(0, 0, -1)
           //this.groundMesh.rotation.x += -0.2
-          //this.groundMesh.rotation.y += 3.1        
+          //this.groundMesh.rotation.y += 3.1   
+          
+          ////////////////////extra code////////////////////////////////////////
+        var points = [];
+         var radius =0.45
+
+      for(let i = 0; i <= 360; i++){
+        points.push(Math.sin(i*(Math.PI/180))*radius, Math.cos(i*(Math.PI/180))*radius, 0);
+    }
+     
+				// Line2 ( LineGeometry, LineMaterial )
+        var mouseGeometry = new LineGeometry();
+        mouseGeometry.setPositions( points );
+			
+				var mouseMaterial = new LineMaterial( { color: '#80ffdd', linewidth: 0.003 } )
+
+        this.mouseMesh = new Line2( mouseGeometry, mouseMaterial );
+
+
 
           // mouse big
-          var mouseMaterial = new  this.$three.LineBasicMaterial( { color: '#FFFFFF', } );
-          this.mouseMesh = new  this.$three.LineLoop( mouseGeometry, mouseMaterial );
+          //var mouseMaterial = new  this.$three.LineBasicMaterial( { color: '#FFFFFF', linewidth: 2.0} );
+          //this.mouseMesh = new  this.$three.LineLoop( mouseGeometry, mouseMaterial );
           
           this.mouseMesh.position.x = 8
           this.mouseMesh.position.z = 0.01  
+
+          ////////////////////extra code////////////////////////////////////////
           // mouse small
           var mouseSmallMaterial = new  this.$three.MeshBasicMaterial( { color: '#FFFFFF' } );
           this.mouseSmallMesh = new  this.$three.Mesh( mouseSmallGeometry, mouseSmallMaterial );

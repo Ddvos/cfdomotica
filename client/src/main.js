@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import * as Three from 'three'
+
+
 Vue.prototype.$three = Three;
 
 //import ToggleButton from 'vue-js-toggle-button'
