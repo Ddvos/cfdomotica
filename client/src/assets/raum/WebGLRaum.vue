@@ -154,6 +154,7 @@ export default {
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = this.$three.PCFShadowMap;
 
+        this.renderer.setPixelRatio( window.devicePixelRatio );
         this.renderer.setSize(container.clientWidth, container.clientHeight);
         container.appendChild(this.renderer.domElement);
 
