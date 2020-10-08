@@ -41,7 +41,8 @@
             <!-- video livestream -->
           <div class="col-4" id="stream" v-if="mainpage"> 
               <div class="overlay" v-on:click="infobutton">
-                  <p> Totaal online bezoekers: {{totalClients}}</p>
+                <div class="tekst">
+                     <p> Totaal online bezoekers: {{totalClients}}</p>
                   <h1 id="info-title"> HARMONIE</h1>
                   <p>Living apart together installation</p>
 
@@ -50,7 +51,12 @@
                     minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
                 </p>
-                <div class="info-button"></div>
+                </div>
+               
+                  <div class="info-button"></div>
+              
+               
+               
               
                     </div>       
               <video mute='muted'  autoplay="true"  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
@@ -69,9 +75,10 @@
                     minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
                 </p>
+                
                 <div class="info-button"></div>
-              
           </div> 
+        
       <!-- video livestream -->
         <div class="row" id="video" >
              <video mute='muted'  autoplay="true" playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
@@ -297,9 +304,14 @@ export default {
     },
 
     infobutton: function(){
-      var  abox = document.getElementsByClassName("overlay")[0];
 
+      //hiermee wordt de animatie voor de overlay gestart
+      var  abox = document.getElementsByClassName("overlay")[0];
        abox.classList.toggle("overlayhide");
+
+       // hiermee wordt de animatie van de cursor gestart en gaat de knop naat links
+         var  knop = document.getElementsByClassName("info-button")[0];
+       knop.classList.toggle("info-button-hide");
     },
       startlivestream: function(){
           this.videoStream()
@@ -498,6 +510,10 @@ export default {
   height: 100vh;
   overflow: hidden;
   }
+
+  .tekst{
+    flex: 10% 0 90%;
+  }
   #info-title{
     font-family: 'Prompt', sans-serif;
     font-weight: bold;
@@ -514,8 +530,8 @@ export default {
  
 
   .overlay{
-
-      position:absolute;
+  display: flex;
+      position: relative;;
      background: rgb(35,100,233);
      background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
      width: 100%;
@@ -526,26 +542,7 @@ export default {
     z-index:3;
   }
 
-   .info-button{
-    
-     margin-top: 7.5vh;
-     margin-left: 93%;
-     width: 0;
-	height: 0;
-//visibility: hidden;
- border: solid rgb(255, 255, 255);
-  border-width: 0 4px 4px 0;
-  display: inline-block;
-  padding: 4px;
-
-   transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg)
-   
-    
-
-  }
-
-@keyframes myfirst {
+  @keyframes myfirst { //hiermee gaat de overlay van links naar rechts en vervormt hij
       from {right: 100%;
        clip-path: polygon(0 0, 95% 0, 95% 40%, 100% 50%, 95% 60%, 95% 100%, 0 100%)}  
       to{right:0%;
@@ -553,6 +550,48 @@ export default {
       } 
       
 }
+
+   .info-button{
+     position:absolute;
+     display: 1;
+     margin-left: 0%;
+     width: 100%;
+	height: 100vh;
+  animation: button 3s 1;
+    animation-direction: alternate;
+    clip-path: polygon(98% 47.5%, 96.5% 50%, 98% 52.5%, 97.5% 52.5%, 96% 50%, 97.5% 47.5%);
+ background-color:  rgb(255, 255, 255);
+  }
+
+    @keyframes button { //hiermee gaat de overlay van links naar rechts en vervormt hij
+      from {
+       clip-path: polygon(96.5% 47.5%, 98% 50%, 96.5% 52.5%, 96% 52.5%, 97.5% 50%, 96% 47.5%)}  
+      to{
+       clip-path: polygon(98% 47.5%, 96.5% 50%, 98% 52.5%, 97.5% 52.5%, 96% 50%, 97.5% 47.5%);
+      }    
+   }
+
+    .info-button-hide{
+     position:absolute;
+     display: 1;
+     margin-left: 0%;
+     width: 100%;
+	height: 100vh;
+  animation: buttonhide 3s 1;
+    animation-direction: alternate;
+    clip-path: polygon(96.5% 47.5%, 98% 50%, 96.5% 52.5%, 96% 52.5%, 97.5% 50%, 96% 47.5%);
+ background-color:  rgb(255, 255, 255);
+  }
+
+     @keyframes buttonhide { //hiermee gaat de overlay van links naar rechts en vervormt hij
+      from {
+       clip-path: polygon(98% 47.5%, 96.5% 50%, 98% 52.5%, 97.5% 52.5%, 96% 50%, 97.5% 47.5%)}  
+      to{
+       clip-path: polygon(96.5% 47.5%, 98% 50%, 96.5% 52.5%, 96% 52.5%, 97.5% 50%, 96% 47.5%);
+      }    
+   }
+
+
 
   .overlayhide{
        position:absolute;
@@ -565,7 +604,7 @@ export default {
        animation-direction: alternate;
   }
 
-@keyframes overlayhide {
+@keyframes overlayhide { //hiermee gaat de overlay van rechts naar links en vervormt hij
       from {right: 5%;
        clip-path: polygon(0 0, 100% 0, 100% 40%, 100% 50%, 100% 60%, 100% 100%, 0 100%);
       } 
@@ -577,7 +616,8 @@ export default {
   video{
     position: absolute;
      margin-left: -420px;
-    background-color: rgb(87, 87, 87);
+     height: 100vh;
+    background-color: #1e3a42;
     z-index:1;
 }
 
@@ -587,7 +627,7 @@ export default {
 
 @media screen and (max-width: 700px) {
 
- .row,.col-8,.col-4{
+ .row,.col-8{
     margin: 0;
     padding:0;
   }
