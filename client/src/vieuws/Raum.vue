@@ -51,16 +51,18 @@
                     minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
                 </p>
+
+                <div class="logos">
+                  <img src="../assets/raum/RAUM.svg" alt="logo Raum" height="67" width="80" /> 
+                  <img src="../assets/raum/CIRCUS_FAMILY.svg" alt="logo Raum" height="67" width="80" /> 
+               </div>
                 </div>
 
-                <!-- <img src="assets/raum/RAUM.svg" alt="logo Raum" height="87" width="100" /> -->
-               
+              
                   <div class="info-button"></div>
-              
-               
                
               
-                    </div>       
+              </div>       
               <video mute='muted'  autoplay="true"  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
              
           </div>  
@@ -78,6 +80,11 @@
                     minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
                 </p>
+
+                   <div class="logos">
+                      <img src="../assets/raum/RAUM.svg" alt="logo Raum" height="67" width="80" /> 
+                      <img src="../assets/raum/CIRCUS_FAMILY.svg" alt="logo Raum" height="67" width="80" /> 
+                   </div>
                 </div>
                 <div class="info-button"></div>
           </div> 
@@ -530,6 +537,11 @@ export default {
 
   }
 
+  .logos{
+   
+     margin-top: 45vh;
+  }
+
  
 
   .overlay{
@@ -645,6 +657,12 @@ export default {
     flex: 0% 0 100vh;
   }
 
+  .logos{
+    margin-top: 35vh;
+  }
+
+  
+
    .overlay{
 
       position:absolute;
@@ -661,9 +679,9 @@ export default {
 
 @keyframes myfirst {
       from {bottom: 100%;
-      clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 65% 95%, 50% 100%, 35% 95%, 0 95%);} 
+      clip-path: polygon(0% 0%,   100% 0%,   100% 95%,   65% 95%,   50% 100%,   35% 95%,   0 95%);} 
       to{bottom:0%;
-       clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 60% 100%, 50% 100%, 40% 100%, 0 100%);;
+       clip-path: polygon(0% 0%,   100% 0%,   100% 100%,   60% 100%,   50% 100%,   40% 100%,   0 100%);;
       } 
 }
 
@@ -677,15 +695,15 @@ export default {
   animation: button 3s 1;
     animation-direction: alternate;
     //clip-path: polygon(98% 47.5%,    96.5% 50%,    98% 52.5%,   97.5% 52.5%,   96% 50%,   97.5% 47.5%);
-    clip-path: polygon(52.5% 97.5%,    52.5% 98%,    50% 96.5%,   47.5% 98%,   47.5% 97.5%,   50% 96%);
+    clip-path: polygon(53% 97.5%,    53% 98%,    50% 96.5%,   47% 98%,   47% 97.5%,   50% 96%);
  background-color:  rgb(255, 255, 255);
   }
 
     @keyframes button { //hiermee gaat de overlay van links naar rechts en vervormt hij
       from {
-       clip-path: polygon(52.5% 96%,    52.5% 96.5%,    50% 98%,   47.5% 96.5%,   47.5% 96%,   50% 97.5%)}  
+       clip-path: polygon(53% 96%,    53% 96.5%,    50% 98%,   47% 96.5%,   47% 96%,   50% 97.5%)}  
       to{
-       clip-path: polygon(52.5% 97.5%,    52.5% 98%,    50% 96.5%,   47.5% 98%,   47.5% 97.5%,   50% 96%);
+       clip-path: polygon(53% 97.5%,    53% 98%,    50% 96.5%,   47% 98%,   47% 97.5%,   50% 96%);
       }    
    }
 
@@ -697,15 +715,15 @@ export default {
 	height: 100vh;
   animation: buttonhide 3s 1;
     animation-direction: alternate;
-    clip-path: polygon(52.5% 96%,    52.5% 96.5%,    50% 98%,   47.5% 96.5%,   47.5% 96%,   50% 97.5%);
+    clip-path: polygon(53% 96%,    53% 96.5%,    50% 98%,   47% 96.5%,   47% 96%,   50% 97.5%);
  background-color:  rgb(255, 255, 255);
   }
 
      @keyframes buttonhide { //hiermee gaat de overlay van links naar rechts en vervormt hij
       from {
-       clip-path: polygon(52.5% 97.5%,    52.5% 98%,    50% 96.5%,   47.5% 98%,   47.5% 97.5%,   50% 96%)}  
+       clip-path: polygon(53% 97.5%,    53% 98%,    50% 96.5%,   47% 98%,   47% 97.5%,   50% 96%)}  
       to{
-       clip-path: polygon(52.5% 96%,    52.5% 96.5%,    50% 98%,   47.5% 96.5%,   47.5% 96%,   50% 97.5%);
+       clip-path: polygon(53% 96%,    53% 96.5%,    50% 98%,   47% 96.5%,   47% 96%,   50% 97.5%);
       }    
    }
 

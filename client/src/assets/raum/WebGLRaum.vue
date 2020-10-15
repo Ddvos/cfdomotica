@@ -220,9 +220,9 @@ export default {
           //this.groundMesh.rotation.x += -0.2
           //this.groundMesh.rotation.y += 3.1   
           
-          ////////////////////extra code////////////////////////////////////////
+          ////////////////////extra code voor grote bal////////////////////////////////////////
         var points = [];
-         var radius =0.45
+         var radius =0.35
 
       for(let i = 0; i <= 360; i++){
         points.push(Math.sin(i*(Math.PI/180))*radius, Math.cos(i*(Math.PI/180))*radius, 0);
