@@ -678,7 +678,7 @@ export default {
 
 
 @keyframes myfirst {
-      from {bottom: 100%;
+      from {bottom: 95%;
       clip-path: polygon(0% 0%,   100% 0%,   100% 95%,   65% 95%,   50% 100%,   35% 95%,   0 95%);} 
       to{bottom:0%;
        clip-path: polygon(0% 0%,   100% 0%,   100% 100%,   60% 100%,   50% 100%,   40% 100%,   0 100%);;
@@ -695,7 +695,7 @@ export default {
   animation: button 3s 1;
     animation-direction: alternate;
     //clip-path: polygon(98% 47.5%,    96.5% 50%,    98% 52.5%,   97.5% 52.5%,   96% 50%,   97.5% 47.5%);
-    clip-path: polygon(53% 97.5%,    53% 98%,    50% 96.5%,   47% 98%,   47% 97.5%,   50% 96%);
+    clip-path: polygon(53% 95.5%,    53% 96%,    50% 94.5%,   47% 96%,   47% 95.5%,   50% 94%);
  background-color:  rgb(255, 255, 255);
   }
 
@@ -703,7 +703,7 @@ export default {
       from {
        clip-path: polygon(53% 96%,    53% 96.5%,    50% 98%,   47% 96.5%,   47% 96%,   50% 97.5%)}  
       to{
-       clip-path: polygon(53% 97.5%,    53% 98%,    50% 96.5%,   47% 98%,   47% 97.5%,   50% 96%);
+       clip-path: polygon(53% 95.5%,    53% 96%,    50% 94.5%,   47% 96%,   47% 95.5%,   50% 94%);
       }    
    }
 
@@ -719,7 +719,7 @@ export default {
  background-color:  rgb(255, 255, 255);
   }
 
-     @keyframes buttonhide { //hiermee gaat de overlay van links naar rechts en vervormt hij
+     @keyframes buttonhide { //hiermee gaat de overlay van onder naar boven
       from {
        clip-path: polygon(53% 97.5%,    53% 98%,    50% 96.5%,   47% 98%,   47% 97.5%,   50% 96%)}  
       to{
