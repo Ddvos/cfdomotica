@@ -72,13 +72,18 @@ export default new Router({
         {
             path:'/Raum',
             name: '/Raum',
-            component:() => import(/* webpackChunkName: "lottieTest" */ '@/vieuws/Raum'),
+            component:() => import(/* webpackChunkName: "raum" */ '@/vieuws/Raum'),
         },
         {
-        path:'/raumbroadcast',
-        name: '/raumbroadcast',
-        component:() => import(/* webpackChunkName: "lottieTest" */ '@/vieuws/RaumBroadcast'),
-    },
+            path:'/raumbroadcast',
+            name: '/raumbroadcast',
+            component:() => import(/* webpackChunkName: "raumbroadca" */ '@/vieuws/RaumBroadcast'),
+         },
+         {
+            path:'/raumstart',
+            name: '/raumstart',
+            component:() => import(/* webpackChunkName: "raumstart" */ '@/vieuws/Raumstart'),
+         },
        
     
         
