@@ -2,8 +2,17 @@
 
 
   <div class="parentBackground">
-    <div ref="mouseEvent" class="backgroundGradient" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color1.hex+' '+color1Position+'%, '+color2.hex+' '+color2Position+'%)' }">
-    </div>     <!-- <chrome-picker :value="colors" @input="updateValue"></chrome-picker> -->      
+    <div ref="mouseEvent" class="backgroundGradient" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color1+' '+color1Position+'%, '+color2+' '+color2Position+'%)' }">
+
+      <div class="boog" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color2+' '+color1BoogPosition+'%, '+color1+' '+color2BoogPosition+'%)' }">
+
+    </div>  
+
+     <div class="tekst">
+                  <h1 id="info-title"> HARMONIE</h1>
+                  <p>Living apart together installation</p>
+         </div>
+      </div>       
 </div>
 
 
@@ -22,23 +31,18 @@ import osc from "osc";
 
  port.open();
 
-let color1Props = {
-  hex: '#2364e9',
-}
-
-let color2Props = {
-  hex: '#ca1a2f',
-}
 
 export default {
   
 
   data() {
   return{
-    color1: color1Props,
-    color2: color2Props,
+    color1: 'rgb(35,100,233)', // blauw
+    color2: 'rgba(202,26,47)', // rood
     color1Position: 0,
     color2Position: 60,
+    color1BoogPosition: 0,
+    color2BoogPosition: 60,
     desktopXpostion: null,
     windowWidth: null
 
@@ -85,8 +89,10 @@ export default {
         // linker kant scherm background transitie
         if (mouseX >= 0 && mouseX <= 0.5) {
              this.color2Position = (event.x/ window.innerWidth *200)
+             this.color2BoogPosition  = (event.x / window.innerWidth * -200 + 100);
         } else{// rechterkantscherm background transitie
            this.color2Position = 200+ (event.x/ window.innerWidth *-200)
+            this.color2BoogPosition  = 200+(event.x / window.innerWidth * 200 -300);
         }
     },
         
@@ -105,68 +111,58 @@ export default {
 <style scoped>
 .parentBackground{
     position: relative;
-       z-index: 1; 
+    z-index: 1; 
 
 }
 
 .backgroundGradient {
  
   width: 100%;
-  /* background-color: rgba(71, 255, 178, 0.699); */
+  height: 100vh;
+  position: absolute;
+  z-index: 2; 
+  
+}
+
+.boog{
+    display: flex;
+      position: relative;
+     clip-path: polygon(0 0, 100% 0, 100% 100%, 67% 100%, 67% 20%, 33% 20%, 33% 100%, 0 100%);
+      margin-left: 35%;
+     width: 30%;
     height: 100vh;
-  
-      position: absolute;
-       z-index: 2; 
-  
-}
-.row{
-   width: 100%;
-  /* background-color: rgba(71, 255, 178, 0.699); */
-    height: 50vh;
-
+    z-index:3;
 }
 
-.colorPicker {
-   position: absolute;
-  margin: auto;
-
-/* background: linear-gradient(0deg, rgba(0,255,64,1) 0%, rgba(0,255,64,1) 32%, rgba(0,212,255,1) 64%, rgba(0,212,255,1) 100%); */
-  /* //background-image: linear-gradient(#25BA70E6, #FF09F7); */
-   height: 50%;
-    
-  
-  
-}
-.colorSelector1{
-   position: absolute;
-  width: 100vh;
-   height: 45vh;
-     z-index: 3; 
-
-}
-.colorSelector2{
-   position: absolute;
-   margin: 10px;
-  width:  100vh;
-   height: 45vh;
-    z-index: 3;  
-
-}
-
-.vc-chrome { 
-  margin-top: 50px;
- position: relative;
-     z-index: 4; 
-
-
- 
-}
-
-@media screen and (max-width: 600px) {
-  .col-1 {
-    visibility: hidden;
-    display: none;
+ .tekst{ 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(255, 255, 255);
+  z-index:4;
   }
-}
+
+  #info-title{
+    font-size: 550%;
+    font-family: 'Prompt', sans-serif;
+    font-weight: bold;
+   font-style: italic;
+
+  } 
+
+  .info-tekst{
+      font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+
+  }
+
+
+
+
+
+
+
+
 
 </style>
