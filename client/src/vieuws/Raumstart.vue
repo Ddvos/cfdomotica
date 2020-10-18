@@ -4,7 +4,7 @@
   <div class="parentBackground">
     <div ref="mouseEvent" class="backgroundGradient" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color1+' '+color1Position+'%, '+color2+' '+color2Position+'%)' }">
 
-      <div class="boog"   @mouseover="hover = true" @mouseleave="hover = false" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color2+' '+color1BoogPosition+'%, '+color1+' '+color2BoogPosition+'%)' }">
+      <div class="boog"   @mouseover="hover = true" @mouseleave="hover = false" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color2+' '+color2BoogPosition+'%, '+color1+' 120%)' }">
 
     </div>  
 
