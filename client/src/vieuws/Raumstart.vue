@@ -4,13 +4,15 @@
   <div class="parentBackground">
     <div ref="mouseEvent" class="backgroundGradient" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color1+' '+color1Position+'%, '+color2+' '+color2Position+'%)' }">
 
-      <div class="boog" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color2+' '+color1BoogPosition+'%, '+color1+' '+color2BoogPosition+'%)' }">
+      <div class="boog"   @mouseover="hover = true" @mouseleave="hover = false" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color2+' '+color1BoogPosition+'%, '+color1+' '+color2BoogPosition+'%)' }">
 
     </div>  
 
      <div class="tekst">
                   <h1 id="info-title"> HARMONIE</h1>
                   <p>Living apart together installation</p>
+
+                   <p>Enter the experience</p>
          </div>
       </div>       
 </div>
@@ -44,7 +46,8 @@ export default {
     color1BoogPosition: 0,
     color2BoogPosition: 60,
     desktopXpostion: null,
-    windowWidth: null
+    windowWidth: null,
+    hover: false,
 
     
     
@@ -67,10 +70,21 @@ export default {
       OSCMessage: function(){ 
                
         port.on("message", (oscMessage) => {     
-            // console.log(oscMessage);
+           //  console.log(oscMessage);
              this.OSCMessages(oscMessage);
           
       });
+     },
+
+     OSCMessages: function(oscMessage){
+
+         if(oscMessage.address == "/raumcolors" ){
+          // console.log(oscMessage)
+
+           this.color1 = "rgb("+oscMessage.args[0]+","+oscMessage.args[1]+","+oscMessage.args[2]+")"
+           this.color2 = "rgb("+oscMessage.args[3]+","+oscMessage.args[4]+","+oscMessage.args[5]+")"
+         }
+
      },
    
        
@@ -83,7 +97,7 @@ export default {
 
 
        var mouseX = (event.x/ window.innerWidth);
-       console.log(mouseX)
+       console.log(this.hover)
        // is het aantal procent
      
         // linker kant scherm background transitie
