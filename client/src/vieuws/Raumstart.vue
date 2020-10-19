@@ -7,16 +7,26 @@
       <div class="boog"   @mouseover="hover = true" @mouseleave="hover = false" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color2+' '+color2BoogPosition+'%, '+color1+' 120%)' }">
 
     </div>  
-
-     <div class="tekst">
-                  <h1 id="info-title"> HARMONIE</h1>
-                  <p>Living apart together installation</p>
-                    <transition name="fade" v-on:enter="enter">
-                      <p class="enterbutton" v-if="mouseOpBoog"> Enter the experience</p>
-                    </transition>
-         </div>
-        
-      </div>       
+    <div class="row" v-if="desktop" > 
+      <div class="tekst">
+                    <h1 id="info-title"> HARMONIE</h1>
+                    <p>Living apart together installation</p>
+                      <transition name="fade" v-on:enter="enter">
+                        <p class="enterbutton" v-if="mouseOpBoog"> Enter the experience</p>
+                      </transition>
+      </div>
+    </div>
+    <div v-if="mobile" > 
+       <div class="tekst">
+                    <h1 id="info-title"> HARMONIE</h1>
+                    <p>Living apart together installation</p>
+                        <p class="enterbutton" v-if="mouseOpBoog"> Enter the experience</p>
+                  
+      </div>
+      
+    </div>   
+    </div>   
+   
 </div>
 
 
@@ -51,6 +61,9 @@ export default {
     windowWidth: null,
     hover: false,
     mouseOpBoog: false,
+    desktop: true,
+    mobile: false,
+    starttransition:null,
 
     
     
@@ -63,7 +76,27 @@ export default {
 
      },
   mounted: function(){
-       this.$refs.mouseEvent.addEventListener('mousemove', (event)=>{this.mousePC(event)});
+
+        // check if device is desktop or mobile
+      if ( window.innerWidth < 700){
+        //console.log("device is mobile")
+        this.mobile = true
+        this.desktop = false
+
+      this.mouseMobile();
+        
+      } else{
+        // console.log("device is desktop")
+        this.mobile = false
+        this.desktop = true
+
+        this.$refs.mouseEvent.addEventListener('mousemove', (event)=>{this.mousePC(event)});
+      }
+
+      
+
+    
+      
 
       
   },
@@ -119,6 +152,27 @@ export default {
             this.color2BoogPosition  = 200+(event.x / window.innerWidth * 200 -300);
         }
     },
+     mouseMobile: function(){
+
+         
+              this.starttransition =setInterval(()=>{
+                    
+                if( this.color2Position<100 && this.color2BoogPosition >1){
+                    this.color2Position +=0.06
+                    this.color2BoogPosition  -=0.06
+
+                    if( this.color2Position>50){
+                       this.mouseOpBoog = true
+                    }
+                    
+                  }else{
+                  console.log("jaa")
+                    clearInterval( this.starttransition)
+                }
+             },0.0001)       
+        
+
+     },
 
        enter: function() {
        // console.log("fade")
@@ -192,6 +246,47 @@ export default {
     z-index:5;
  
 
+  }
+
+  
+
+  @media screen and (max-width: 700px) {
+
+     #info-title{
+    font-size: 250%;
+    font-family: 'Prompt', sans-serif;
+    font-weight: bold;
+   font-style: italic;
+
+  } 
+
+  .tekst{ 
+  position: absolute;
+  text-align: center;
+  white-space: nowrap;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(255, 255, 255);
+  z-index:4;
+  }
+  .p{
+     overflow: hidden;
+    white-space: nowrap;;
+  }
+
+  .enterbutton{
+  animation: fadeIn ease 2s;
+  -webkit-animation: fadeIn ease 2s;
+  -moz-animation: fadeIn ease 2s;
+  -o-animation: fadeIn ease 2s;
+  -ms-animation: fadeIn ease 2s;
+  }
+  
+  @keyframes fadeIn {
+      0% {opacity:0;}
+      100% {opacity:1;}
+      }
   }
 
 
