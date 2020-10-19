@@ -545,7 +545,7 @@ export default {
  
 
   .overlay{
-  display: flex;
+      display: flex;
       position: relative;;
      background: rgb(35,100,233);
      background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);

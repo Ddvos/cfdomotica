@@ -11,9 +11,11 @@
      <div class="tekst">
                   <h1 id="info-title"> HARMONIE</h1>
                   <p>Living apart together installation</p>
-
-                   <p>Enter the experience</p>
+                    <transition name="fade" v-on:enter="enter">
+                      <p class="enterbutton" v-if="mouseOpBoog"> Enter the experience</p>
+                    </transition>
          </div>
+        
       </div>       
 </div>
 
@@ -42,12 +44,13 @@ export default {
     color1: 'rgb(35,100,233)', // blauw
     color2: 'rgba(202,26,47)', // rood
     color1Position: 0,
-    color2Position: 60,
+    color2Position: 0,
     color1BoogPosition: 0,
-    color2BoogPosition: 60,
+    color2BoogPosition:100,
     desktopXpostion: null,
     windowWidth: null,
     hover: false,
+    mouseOpBoog: false,
 
     
     
@@ -97,8 +100,15 @@ export default {
 
 
        var mouseX = (event.x/ window.innerWidth);
-       console.log(this.hover)
-       // is het aantal procent
+       console.log(mouseX)
+
+
+       // kijkt of muis in het midden is van het scherm
+       if(mouseX >= 0.3 && mouseX <= 0.6){
+         this.mouseOpBoog = true
+       }else{
+         this.mouseOpBoog = false
+       }
      
         // linker kant scherm background transitie
         if (mouseX >= 0 && mouseX <= 0.5) {
@@ -108,6 +118,13 @@ export default {
            this.color2Position = 200+ (event.x/ window.innerWidth *-200)
             this.color2BoogPosition  = 200+(event.x / window.innerWidth * 200 -300);
         }
+    },
+
+       enter: function() {
+       // console.log("fade")
+        setTimeout(function() {
+         this.mouseOpBoog = false;
+        }, 500); // hide the message after 0.5 seconds
     },
         
 
@@ -165,11 +182,32 @@ export default {
 
   } 
 
-  .info-tekst{
-      font-family: 'Roboto', sans-serif;
-    font-weight: bold;
+  .enterbutton{
+    
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(255,255,255);
+    z-index:5;
+ 
 
   }
+
+
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s
+}
+
+.fade-enter,
+.fade-leave-to
+/* .fade-leave-active in <2.1.8 */
+
+{
+  opacity: 0
+}
 
 
 
