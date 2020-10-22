@@ -5,28 +5,27 @@
     <div ref="mouseEvent" class="backgroundGradient" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color1+' '+color1Position+'%, '+color2+' '+color2Position+'%)' }">
 
       <div class="boog"   @mouseover="hover = true" @mouseleave="hover = false" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color2+' '+color2BoogPosition+'%, '+color1+' 120%)' }">
+      </div>  
 
-    </div>  
-    <div class="row" v-if="desktop" > 
-      <div class="tekst">
-                    <h1 id="info-title"> HARMONIE</h1>
-                    <p>Living apart together installation</p>
-                      <transition name="fade" v-on:enter="enter">
-                        <p class="enterbutton" v-if="mouseOpBoog"> Enter the experience</p>
-                      </transition>
+      <div class="row" v-if="desktop" > 
+        <div class="tekst">
+                      <h1 id="info-title"> HARMONIE</h1>
+                      <p>Living apart together installation</p>
+                        <transition name="fade" v-on:enter="enter">
+                          <p class="enterbutton" v-if="mouseOpBoog"> Enter the experience</p>
+                        </transition>
+        </div>
       </div>
-    </div>
-    <div v-if="mobile" > 
-       <div class="tekst">
-                    <h1 id="info-title"> HARMONIE</h1>
-                    <p>Living apart together installation</p>
-                        <p class="enterbutton" v-if="mouseOpBoog"> Enter the experience</p>
-                  
-      </div>
-      
+      <div v-if="mobile" > 
+        <div class="tekst">
+                      <h1 id="info-title"> HARMONIE</h1>
+                      <p>Living apart together installation</p>
+                          <p class="enterbutton" v-if="mouseOpBoog"> Enter the experience</p>
+                    
+        </div>
+        
+      </div>   
     </div>   
-    </div>   
-   
 </div>
 
 
@@ -140,7 +139,11 @@ export default {
        // kijkt of muis in het midden is van het scherm
        if(mouseX >= 0.3 && mouseX <= 0.6){
          this.mouseOpBoog = true
-         window.addEventListener("click",()=>{ console.log(this.mainpage) });
+         window.addEventListener("click",()=>{ 
+              this.mainpage = true;
+               this.$emit('start')
+           console.log(this.mainpage)
+           });
        }else{
          this.mouseOpBoog = false
        }
@@ -165,6 +168,12 @@ export default {
 
                     if( this.color2Position>50){
                        this.mouseOpBoog = true
+                    
+                        window.addEventListener("click",()=>{ 
+                            this.mainpage = true;
+                            this.$emit('start')
+                        console.log(this.mainpage)
+                        });
                     }
                     
                   }else{

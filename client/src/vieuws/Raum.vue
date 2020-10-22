@@ -2,9 +2,7 @@
 <div class="background"  ref="mouseEvent"> <!-- v-hammer:pan="onPan"  v-on:mousemove="onMouseMovePc"  -->
 
 
- 
-
-    <div class="cursor" >  <!--if cursor is not in webGL element mouse vissible-->
+          <div class="cursor" >  <!--if cursor is not in webGL element mouse vissible-->
       <div ref="ballBig" class="cursor__ball cursor__ball--big ">
         
           <svg   height="30" width="30" display= "none" >     <!--display= "none" -->
@@ -22,7 +20,9 @@
       </div>
     </div>
 
- 
+     <transition name="splashfade" v-on:click="enter">
+         <Raumstart class="splashscreen" @start="mainstart" v-if="splashscreen"> </Raumstart> 
+   </transition>
     <div class="row" v-if="desktop" >   
        
         <div class="splash" v-if="splash">
@@ -68,8 +68,8 @@
           </div>  
     
    </div>
-    <div v-if="mobile" > 
-<div class="overlay" v-on:click="infobutton">
+  <div v-if="mobile" > 
+    <div class="overlay" v-on:click="infobutton">
                <div class="tekst">
                   <p> Totaal online bezoekers: {{totalClients}}</p>
                   <h1 id="info-title"> HARMONIE</h1>
@@ -102,7 +102,7 @@
         </div>
        
    </div>
- 
+
    
 </div>
 
@@ -112,6 +112,7 @@
 // import raumSVGgrid from '../assets/raum/raumSVGgrid';
 // import pilaar from '../assets/raum/pilaar';
  import WebGLRaum from '../assets/raum/WebGLRaum';
+ import Raumstart from '../assets/raum/Raumstart'
  import osc from "osc";
 import io from "socket.io-client";
 //const $hoverables = document.querySelectorAll('.hoverable');
@@ -149,6 +150,7 @@ export default {
    windowWidth: 0,
    totalClients: null,
    raumid: "3423",
+   splashscreen: true
        
   }
   },
@@ -156,6 +158,7 @@ export default {
   // 'raumSVGgrid': raumSVGgrid,
   //'pilaar': pilaar,
   'WebGLRaum': WebGLRaum,
+  'Raumstart': Raumstart,
   
   },
   created() {
@@ -246,6 +249,14 @@ export default {
     
        
      },
+     mainstart: function(){
+       console.log("spalshscreen uit")
+        
+  this.splashscreen = false
+          setTimeout(function() {
+        
+        }, 500); // hide the message after 0.5 seconds
+     },
     
     mousePC: function(event){
         
@@ -295,7 +306,7 @@ export default {
         const isInVerticalBounds = this.smalBallposition.y < rect2.y + rect2.height && this.smalBallposition.y - this.smalBallposition.height > rect2.y;
         const isOverlapping = isInHoriztonalBounds && isInVerticalBounds;
         
-        if(isOverlapping== true){ // muis gaat uit
+        if(isOverlapping== true && this.splashscreen==false){ // muis gaat uit
         this.show = false
         //console.log("muis uit")
               this.visibility = 'none'
@@ -308,9 +319,12 @@ export default {
       },
       enter: function() {
        // console.log("fade")
-        setTimeout(function() {
-          this.show = false;
-        }, 500); // hide the message after 3 seconds
+
+       if(this.splashscreen==false){
+          setTimeout(function() {
+            this.show = false;
+          }, 500); // hide the message after 3 seconds
+       }
     },
 
     infobutton: function(){
@@ -495,6 +509,9 @@ export default {
       }
     }      
   } 
+  .splashscreen{
+     z-index:5;
+  }
   #info{
     position: relative;  
   }
@@ -765,6 +782,19 @@ export default {
 
 .fade-enter,
 .fade-leave-to
+/* .fade-leave-active in <2.1.8 */
+
+{
+  opacity: 0
+}
+
+.splashfade-enter-active,
+.splashfade-leave-active {
+  transition: opacity 2s
+}
+
+.splashfade-enter,
+.splashfade-leave-to
 /* .fade-leave-active in <2.1.8 */
 
 {
