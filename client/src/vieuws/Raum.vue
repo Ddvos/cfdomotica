@@ -250,9 +250,9 @@ export default {
        
      },
      mainstart: function(){
-       console.log("spalshscreen uit")
+      // console.log("spalshscreen uit")
         
-  this.splashscreen = false
+           this.splashscreen = false
           setTimeout(function() {
         
         }, 500); // hide the message after 0.5 seconds

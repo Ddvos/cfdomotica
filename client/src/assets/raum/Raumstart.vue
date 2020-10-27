@@ -12,15 +12,24 @@
                       <h1 id="info-title"> HARMONIE</h1>
                       <p>Living apart together installation</p>
                         <transition name="fade" v-on:enter="enter">
-                          <p class="enterbutton" v-if="mouseOpBoog"> Enter the experience</p>
+                          <div class="enterbutton" v-if="mouseOpBoog">
+                            <div class="pijl"></div>
+                            <br>
+                            <p class="enter"> Enter the experience</p>
+                          </div>
                         </transition>
         </div>
       </div>
       <div v-if="mobile" > 
         <div class="tekst">
                       <h1 id="info-title"> HARMONIE</h1>
-                      <p>Living apart together installation</p>
-                          <p class="enterbutton" v-if="mouseOpBoog"> Enter the experience</p>
+                      <p class="underlinemobile">Living apart together installation</p>
+                
+                          <div class="enterbutton" v-if="mouseOpBoog"> 
+                              <div class="pijl"></div>
+                              <br>
+                              <p class="enter" > Enter the experience </p>
+                          </div>
                     
         </div>
         
@@ -92,12 +101,6 @@ export default {
 
         this.$refs.mouseEvent.addEventListener('mousemove', (event)=>{this.mousePC(event)});
       }
-
-      
-
-    
-      
-
       
   },
   methods:{
@@ -167,9 +170,15 @@ export default {
                     this.color2BoogPosition  -=0.06
 
                     if( this.color2Position>50){
-                       this.mouseOpBoog = true
+
+                       setTimeout(()=>{
+                          this.mouseOpBoog = true
+                        }, 1500); // hide the message after 0.5 seconds
+                      
+                     
                     
                         window.addEventListener("click",()=>{ 
+                          
                             this.mainpage = true;
                             this.$emit('start')
                         console.log(this.mainpage)
@@ -240,36 +249,77 @@ export default {
   }
 
   #info-title{
-    font-size: 550%;
+    font-size: 620%;
     font-family: 'Prompt', sans-serif;
     font-weight: bold;
    font-style: italic;
+   margin-bottom: 0px;
 
   } 
+  p{
+      font-size: 130%;
+      margin-top: -10px;
+      padding-top: 0px;
+  }
 
-  .enterbutton{
-    
+  .enterbutton {
+     margin-top: 3%;
+     font-size: 110%;
     position: absolute;
+    top: 110%;
+    left: 50%;
+   opacity: 0.57;
+    color: rgb(255,255,255);
+    z-index:5;
+ 
+  }
+
+  .enter{
+   font-size: 110%;
+  margin-top: 5%;
     top: 110%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: rgb(255,255,255);
     z-index:5;
- 
+  }
+  
 
+   .pijl{
+      margin-top: 5%;
+        margin-bottom: 2%;
+    position:absolute;
+     display: 1;
+     margin-left: -8%;
+     padding: 0%;
+     width: 2vw;
+	height: 4vh; 
+clip-path: polygon(50% 0, 100% 44%, 93% 53%, 50% 15%, 7% 53%, 0 44%);
+
+
+ background-color:  rgb(255, 255, 255);
   }
 
   
-
   @media screen and (max-width: 700px) {
 
      #info-title{
-    font-size: 250%;
+    font-size: 330%;
     font-family: 'Prompt', sans-serif;
     font-weight: bold;
    font-style: italic;
 
   } 
+
+  .boog{
+    display: flex;
+      position: absolute;
+     clip-path: polygon(0 0, 100% 0, 100% 100%, 67% 100%, 67% 10%, 33% 10%, 33% 100%, 0 100%);
+      margin-left: 25%;
+     width: 50%;
+    height: 100vh;
+    z-index:3;
+}
 
   .tekst{ 
   position: absolute;
@@ -281,22 +331,41 @@ export default {
   color: rgb(255, 255, 255);
   z-index:4;
   }
+
+  .underlinemobile{
+   font-size: 100%;
+  }
   .p{
      overflow: hidden;
     white-space: nowrap;;
   }
 
+     .pijl{
+      margin-top: 5%;
+        margin-bottom: 2%;
+    position:absolute;
+     display: 1;
+     margin-left: -5%;
+     padding: 0%;
+     width: 5vw;
+	height: 4vh; 
+clip-path: polygon(50% 0, 100% 44%, 93% 53%, 50% 15%, 7% 53%, 0 45%);
+
+ background-color:  rgb(255, 255, 255);
+  }
+
   .enterbutton{
-  animation: fadeIn ease 2s;
-  -webkit-animation: fadeIn ease 2s;
-  -moz-animation: fadeIn ease 2s;
-  -o-animation: fadeIn ease 2s;
-  -ms-animation: fadeIn ease 2s;
+   
+  animation: fadeIn ease-in 4s;
+  -webkit-animation: fadeIn ease 4s;
+  -moz-animation: fadeIn ease 4s;
+  -o-animation: fadeIn ease 4s;
+  -ms-animation: fadeIn ease 4s;
   }
   
   @keyframes fadeIn {
       0% {opacity:0;}
-      100% {opacity:1;}
+      100% {opacity:0.70;}
       }
   }
 
@@ -304,7 +373,7 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 1s
+  transition: opacity 2s
 }
 
 .fade-enter,
