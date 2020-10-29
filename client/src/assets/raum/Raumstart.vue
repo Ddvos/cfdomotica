@@ -223,7 +223,7 @@ export default {
 .backgroundGradient {
  
   width: 100%;
-  height: -webkit-fill-available;
+  height: 100vh;
   position: absolute;
   z-index: 2; 
   
@@ -235,7 +235,7 @@ export default {
      clip-path: polygon(0 0, 100% 0, 100% 100%, 67% 100%, 67% 20%, 33% 20%, 33% 100%, 0 100%);
       margin-left: 35%;
      width: 30%;
-    height: -webkit-fill-available;
+    height: 100vh;
     z-index:3;
 }
 
@@ -317,7 +317,7 @@ clip-path: polygon(50% 0, 100% 44%, 93% 53%, 50% 15%, 7% 53%, 0 44%);
      clip-path: polygon(0 0, 100% 0, 100% 100%, 67% 100%, 67% 10%, 33% 10%, 33% 100%, 0 100%);
       margin-left: 25%;
      width: 50%;
-    height: -webkit-fill-available;
+    height: 100vh;
     z-index:3;
 }
 
@@ -325,7 +325,7 @@ clip-path: polygon(50% 0, 100% 44%, 93% 53%, 50% 15%, 7% 53%, 0 44%);
   position: absolute;
   text-align: center;
   white-space: nowrap;
-  top: 50%;
+  top: 43%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: rgb(255, 255, 255);
