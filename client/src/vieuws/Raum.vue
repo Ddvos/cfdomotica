@@ -681,7 +681,7 @@ export default {
 
   .logos{
     margin-left: 25%;
-    margin-top: 20vh;
+    margin-top: 25vh;
   }
 
   
