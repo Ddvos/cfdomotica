@@ -166,7 +166,7 @@ export default {
         if(container.clientWidth<501){
           this.mobile = true
           this.desktop = false
-          pointofview = ((100/container.clientWidth)*70) +100
+          pointofview = ((100/container.clientWidth)*40) +100
             console.log( "point: "+pointofview)
         }
         //camera
@@ -211,7 +211,15 @@ export default {
             // Remove center vertex
             //mouseGeometry.vertices.shift();
          // kleine bal
-        var mouseSmallGeometry = new this.$three.CircleGeometry( 0.1, 100 );
+         var mouseSize = 0.1 // small mouse size (white)
+         var radius =0.38  // size big baal (color default green)
+         if( this.mobile == true){
+                 mouseSize = 0.22
+                 radius =0.58
+
+         }
+         
+        var mouseSmallGeometry = new this.$three.CircleGeometry( mouseSize, 100 );
 
        
            // grond
@@ -223,7 +231,7 @@ export default {
           
           ////////////////////extra code voor grote bal////////////////////////////////////////
         var points = [];
-         var radius =0.38
+      
 
       for(let i = 0; i <= 360; i++){
         points.push(Math.sin(i*(Math.PI/180))*radius, Math.cos(i*(Math.PI/180))*radius, 0);
