@@ -692,8 +692,8 @@ export default {
      background: rgb(35,100,233);
      background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
      width: 100%;
-    height: 100vh;
-     height: calc(var(--vh, 1vh) * 100);
+ 
+     height: -webkit-fill-available;
     animation: myfirst 3s 1;
     animation-direction: alternate;
       clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
@@ -715,8 +715,8 @@ export default {
      display: 1;
      margin-left: 0%;
      width: 100%;
-	height: 100vh;
-   height: calc(var(--vh, 1vh) * 100);
+	height: -webkit-fill-available;
+
   animation: button 3s 1;
     animation-direction: alternate;
     //clip-path: polygon(98% 47.5%,    96.5% 50%,    98% 52.5%,   97.5% 52.5%,   96% 50%,   97.5% 47.5%);
@@ -737,8 +737,7 @@ export default {
      display: 1;
      margin-left: 0%;
      width: 100%;
-	height: 100vh;
-   height: calc(var(--vh, 1vh) * 100);
+	height: -webkit-fill-available;
   animation: buttonhide 2s 1;
     animation-direction: alternate;
     clip-path: polygon(53% 96%,    53% 96.5%,    50% 98%,   47% 96.5%,   47% 96%,   50% 97.5%);
@@ -758,8 +757,7 @@ export default {
        position:absolute;
        background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
        width: 100%;
-       height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
+       height: -webkit-fill-available;
        animation: overlayhide 3s ;
        animation-fill-mode: forwards;
        animation-direction: alternate;
