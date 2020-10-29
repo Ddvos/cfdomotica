@@ -223,7 +223,7 @@ export default {
 .backgroundGradient {
  
   width: 100%;
-  height: 100vh;
+  height: -webkit-fill-available;
   position: absolute;
   z-index: 2; 
   
@@ -235,7 +235,7 @@ export default {
      clip-path: polygon(0 0, 100% 0, 100% 100%, 67% 100%, 67% 20%, 33% 20%, 33% 100%, 0 100%);
       margin-left: 35%;
      width: 30%;
-    height: 100vh;
+    height: -webkit-fill-available;
     z-index:3;
 }
 
@@ -317,7 +317,7 @@ clip-path: polygon(50% 0, 100% 44%, 93% 53%, 50% 15%, 7% 53%, 0 44%);
      clip-path: polygon(0 0, 100% 0, 100% 100%, 67% 100%, 67% 10%, 33% 10%, 33% 100%, 0 100%);
       margin-left: 25%;
      width: 50%;
-    height: 100vh;
+    height: -webkit-fill-available;
     z-index:3;
 }
 

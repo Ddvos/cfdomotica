@@ -214,8 +214,8 @@ export default {
          var mouseSize = 0.1 // small mouse size (white)
          var radius =0.38  // size big baal (color default green)
          if( this.mobile == true){
-                 mouseSize = 0.22
-                 radius =0.58
+                 mouseSize = 0.19
+                 radius =0.55
 
          }
          
