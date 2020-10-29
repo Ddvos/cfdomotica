@@ -40,6 +40,7 @@ export default {
       testMesh: null, // vlak linkerkant
       groundMesh: null,
       meshPilaar: null, // kruis pilaar
+      meshPilaarOutline: null, // buitenkant pilaar
       light: null,
       mouseMesh: null,
       mouseSmallMesh: null,
@@ -554,6 +555,7 @@ export default {
          var Color3Geometry = new this.$three.Geometry();
          var Color4Geometry = new this.$three.Geometry();
          var PilaarGeometry = new this.$three.Geometry(); // wit kruis
+         
 
 
           //detection
@@ -586,12 +588,23 @@ export default {
         Color4Geometry.vertices.push(new this.$three.Vector3(cornerLeftBottom[0], cornerLeftBottom[1],  0.0));  // x,y,z  3
         Color4Geometry.vertices.push(new this.$three.Vector3(cornerLeftTop[0], cornerLeftTop[1],  0.0));  // x,y,z  4
         
-             //vlak bovenkant paal outline
+             //vlak bovenkant paal outline kruis
         PilaarGeometry.vertices.push(new this.$three.Vector3(this.x, this.y,  0.001));  // x,y,z  0  // 0 is de hoogte
         PilaarGeometry.vertices.push(new this.$three.Vector3(this.x+(this.widthPole/6), this.y+(this.widthPole/6),   0.001));  // x,y,z  1 topright
         PilaarGeometry.vertices.push(new this.$three.Vector3(this.x-(this.widthPole/6), this.y+(this.widthPole/6),   0.001));  // x,y,z  2 lefttop
         PilaarGeometry.vertices.push(new this.$three.Vector3(this.x+(this.widthPole/6), this.y-(this.widthPole/6),   0.001));  // x,y,z  3 right bottoom
         PilaarGeometry.vertices.push(new this.$three.Vector3(this.x-(this.widthPole/6), this.y-(this.widthPole/6),  0.001));  // x,y,z  4 leftbottom
+
+
+         // buitenkant pilaar outline
+        var outlinePoints = [];
+                outlinePoints.push( new this.$three.Vector3( this.x+(this.widthPole/6), this.y+(this.widthPole/6),   0.002)); // x,y,z  1 topright
+                outlinePoints.push( new this.$three.Vector3(this.x-(this.widthPole/6), this.y+(this.widthPole/6),   0.002));  // x,y,z  2 lefttop
+                outlinePoints.push( new this.$three.Vector3(this.x-(this.widthPole/6), this.y-(this.widthPole/6),  0.002));  // x,y,z  4 leftbottom
+                outlinePoints.push( new this.$three.Vector3(this.x+(this.widthPole/6), this.y-(this.widthPole/6),   0.001));  // x,y,z  3 right bottoom
+                 outlinePoints.push( new this.$three.Vector3( this.x+(this.widthPole/6), this.y+(this.widthPole/6),   0.002)); // x,y,z  1 topright
+
+         var PilaarOutlineGeometry = new this.$three.BufferGeometry().setFromPoints(  outlinePoints );
 
 
         Color1Geometry.faces.push(
@@ -867,12 +880,17 @@ export default {
           //this.mesh.rotation.x += -0.8
           //this.mesh.rotation.y += 3.1
 
-           // pilaar outline
-          var materialPilaar = new this.$three.MeshBasicMaterial({ color: '#FFFFFF',    wireframe: true, });  //vertexColors: this.$three.FaceColors, side: this.$three.DoubleSide
+           // pilaar outline witte lijnen kruis
+          var materialPilaar = new this.$three.MeshBasicMaterial({ color: '#FFFFFF',    wireframe: true,  transparent: true,  opacity: 0.25});  //vertexColors: this.$three.FaceColors, side: this.$three.DoubleSide
           this.meshPilaar = new this.$three.Mesh( PilaarGeometry, materialPilaar  );
+
+          //buitenkant pilaar
+          var materialPilaarOutline=  new this.$three.LineBasicMaterial( { color: 0xffffff } );
+          this.meshPilaarOutline = new this.$three.Line( PilaarOutlineGeometry, materialPilaarOutline  );
+
         
 
-         this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar,)
+         this.scene.add(this.mesh1[id],this.mesh2[id], this.mesh3[id], this.mesh4[id],this.meshPilaar, this.meshPilaarOutline)
       
 
     }
