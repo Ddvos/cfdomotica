@@ -67,7 +67,6 @@
     <div class="overlay" v-on:click="infobutton" >
                <div class="tekst">
                   <!-- <p> Totaal online bezoekers: {{totalClients}}</p> -->
-                  <br>
                   <h1 id="info-title"> HARMONIE</h1>
                   <p>Living apart together installation</p>
 
@@ -693,7 +692,7 @@ export default {
      background: rgb(35,100,233);
      background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
      width: 100%;
-    height: 100%;
+    height: 100vh;
     animation: myfirst 3s 1;
     animation-direction: alternate;
       clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
