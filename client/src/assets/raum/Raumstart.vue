@@ -164,13 +164,13 @@ export default {
 
          
               this.starttransition =setInterval(()=>{
-                    
+                
                 if( this.color2Position<100 && this.color2BoogPosition >1){
                     this.color2Position +=0.06
                     this.color2BoogPosition  -=0.06
 
                     if( this.color2Position>50){
-
+                      
                        setTimeout(()=>{
                           this.mouseOpBoog = true
                         }, 1500); // hide the message after 0.5 seconds

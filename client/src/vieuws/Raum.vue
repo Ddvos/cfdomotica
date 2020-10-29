@@ -21,15 +21,9 @@
     </div>
 
      <transition name="splashfade" v-on:click="enter">
-         <Raumstart class="splashscreen" @start="mainstart" v-if="splashscreen"> </Raumstart> 
+         <Raumstart class="splashscreen" @start="mainstart" @mobileoverlayhide="infobutton" v-if="splashscreen"> </Raumstart> 
    </transition>
     <div class="row" v-if="desktop" >   
-       
-        <div class="splash" v-if="splash">
-           <div class="splash">links</div>
-           <div class="col-4">Harmonie</div>
-           <div class="col-4">rechts</div>
-        </div>
 
           <!-- WebGL -->
           <div class="col-8"  ref="webGLSpeelveld" v-if="mainpage">
@@ -42,7 +36,8 @@
           <div class="col-4" id="stream" v-if="mainpage"> 
               <div class="overlay" v-on:click="infobutton">
                 <div class="tekst">
-                     <p> Totaal online bezoekers: {{totalClients}}</p>
+                     <!-- <p> Totaal online bezoekers: {{totalClients}}</p> -->
+                     <br>
                   <h1 id="info-title"> HARMONIE</h1>
                   <p>Living apart together installation</p>
 
@@ -69,7 +64,7 @@
     
    </div>
   <div v-if="mobile" > 
-    <div class="overlay" v-on:click="infobutton">
+    <div class="overlay" v-on:click="infobutton" >
                <div class="tekst">
                   <p> Totaal online bezoekers: {{totalClients}}</p>
                   <h1 id="info-title"> HARMONIE</h1>
@@ -165,7 +160,7 @@ export default {
      this.siteVisitor();  
      this.videoStream()
    
-     
+ 
     
     },
     beforeDestroy() {
@@ -194,9 +189,12 @@ export default {
         this.desktop = false
       } else{
         // console.log("device is desktop")
+       
         this.mobile = false
         this.desktop = true
       }
+
+         
 
       //console.log(this.windowWidth)
     },
@@ -251,11 +249,11 @@ export default {
      },
      mainstart: function(){
       // console.log("spalshscreen uit")
-        
+             this.infobutton();
            this.splashscreen = false
           setTimeout(function() {
         
-        }, 500); // hide the message after 0.5 seconds
+        }, 100); // hide the message after 0.5 seconds
      },
     
     mousePC: function(event){
@@ -328,7 +326,7 @@ export default {
     },
 
     infobutton: function(){
-
+      console.log("knop is gedrukt")
       //hiermee wordt de animatie voor de overlay gestart
       var  abox = document.getElementsByClassName("overlay")[0];
        abox.classList.toggle("overlayhide");
@@ -512,6 +510,7 @@ export default {
   .splashscreen{
      z-index:5;
   }
+
   #info{
     position: relative;  
   }
@@ -540,8 +539,14 @@ export default {
 
   .tekst{
     flex: 10% 0 90%;
+      text-align: left;
+        margin-top: 10%;
+    margin-left: 9%;
+     margin-right: 9%;
   }
   #info-title{
+    font-size:350%;
+     margin-bottom: -2%;
     font-family: 'Prompt', sans-serif;
     font-weight: bold;
    font-style: italic;
@@ -549,14 +554,16 @@ export default {
   } 
 
   .info-tekst{
+       padding-top: 10%;
+     font-size: 95%;
       font-family: 'Roboto', sans-serif;
-    font-weight: bold;
+   
 
   }
 
   .logos{
-   
-     margin-top: 45vh;
+   margin-left: 31%;
+     margin-top: 37vh;
   }
 
  
@@ -564,7 +571,6 @@ export default {
   .overlay{
       display: flex;
       position: relative;;
-     background: rgb(35,100,233);
      background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
      width: 100%;
     height: 100vh;
@@ -627,9 +633,8 @@ export default {
 
   .overlayhide{
        position:absolute;
-       background: rgb(35,100,233);
        background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
-       width: 105%;
+       width: 100%;
        height: 100vh;
        animation: overlayhide 3s ;
        animation-fill-mode: forwards;
@@ -637,7 +642,7 @@ export default {
   }
 
 @keyframes overlayhide { //hiermee gaat de overlay van rechts naar links en vervormt hij
-      from {right: 5%;
+      from {right: 0%;
        clip-path: polygon(0 0, 100% 0, 100% 40%, 100% 50%, 100% 60%, 100% 100%, 0 100%);
       } 
       to{right:95%;
@@ -681,7 +686,7 @@ export default {
   
 
    .overlay{
-
+      display: flex;
       position:absolute;
      background: rgb(35,100,233);
      background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
@@ -730,7 +735,7 @@ export default {
      margin-left: 0%;
      width: 100%;
 	height: 100vh;
-  animation: buttonhide 3s 1;
+  animation: buttonhide 2s 1;
     animation-direction: alternate;
     clip-path: polygon(53% 96%,    53% 96.5%,    50% 98%,   47% 96.5%,   47% 96%,   50% 97.5%);
  background-color:  rgb(255, 255, 255);

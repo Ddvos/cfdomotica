@@ -222,7 +222,7 @@ export default {
           
           ////////////////////extra code voor grote bal////////////////////////////////////////
         var points = [];
-         var radius =0.35
+         var radius =0.38
 
       for(let i = 0; i <= 360; i++){
         points.push(Math.sin(i*(Math.PI/180))*radius, Math.cos(i*(Math.PI/180))*radius, 0);
@@ -232,7 +232,7 @@ export default {
         var mouseGeometry = new LineGeometry();
         mouseGeometry.setPositions( points );
 			
-				var mouseMaterial = new LineMaterial( { color: '#80ffdd', linewidth: 0.003 } )
+				var mouseMaterial = new LineMaterial( { color: '#80ffdd', linewidth: 0.0025 } )
 
         this.mouseMesh = new Line2( mouseGeometry, mouseMaterial );
 
