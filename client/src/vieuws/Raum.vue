@@ -402,7 +402,7 @@ export default {
         socket.addEventListener('message', async (e) => {
           try {
             const msg = JSON.parse(e.data);
-              //console.log("camera and selected car are the same "+ msg.from)
+              console.log("camera and selected car are the same "+ msg.from)
                 this.Camconnected = true;
             if (msg.type === 'offer') {
               const peerConnection = new RTCPeerConnection(config);
@@ -570,7 +570,7 @@ export default {
 
   .overlay{
       display: flex;
-      position: relative;;
+      position: absolute;
      background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
      width: 100%;
     height: 100%;
@@ -654,7 +654,7 @@ export default {
     position: absolute;
      margin-left: -420px;
      height: 100vh;
-    background-color: #1e3a42;
+    background-color: rgb(0, 0, 0);
     z-index:1;
 }
 
@@ -689,7 +689,7 @@ export default {
    .overlay{
       display: flex;
       position:absolute;
-     background: rgb(35,100,233);
+     //background: rgb(35,100,233);
      background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
      width: 100%;
  
@@ -778,7 +778,7 @@ export default {
         margin-left: 0px;
        width: 100%;
        height: 30vh;
-       background-color: rgb(87, 87, 87);
+       background-color: rgb(0, 0, 0);
   }
 }
 
