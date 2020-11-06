@@ -486,6 +486,7 @@ export default {
 <style lang="scss" scoped>
 
 .background {
+  overflow: hidden;
   width: 100vw;
   height: 100vh;
   background: #1e3a42;
