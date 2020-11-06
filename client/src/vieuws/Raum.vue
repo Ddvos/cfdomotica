@@ -230,10 +230,10 @@ export default {
 
        this.raumid = raum.id;
       console.log(this.raumid)
-        //   port.send({
-        //     address: "/newID",
-        //     args:  this.raumid
-        //  });
+           port.send({
+            address: "/newID",
+            args:  this.raumid
+        });
 
      },
      someAllClients: function(clients){
@@ -241,10 +241,10 @@ export default {
        this.clientsIDArray =clients
       // console.log(this.clientsIDArray)
 
-         // port.send({
-         //  address: "/clientsID",
-        //     args:  this.clientsIDArray
-        //  });
+          port.send({
+           address: "/clientsID",
+            args:  this.clientsIDArray
+         });
 
 
      },
