@@ -86,8 +86,8 @@
         
       <!-- video livestream -->
         <div class="row" id="video" >
-             <video autoplay loop muted playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
-            <div> {{this.videocheck}}</div>
+             <video  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
+            <div v-on:click="playvideo"> {{this.videocheck}}</div>
         </div>   
       <!-- WebGL -->
         <div class="row">
@@ -343,6 +343,9 @@ export default {
          // window.controls.classList.add('hidden');
 
 
+      },
+      playvideo: function(){
+        window.v.play();
       },
        /// begin live videostream
        async videoStream(){
