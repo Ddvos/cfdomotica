@@ -86,7 +86,7 @@
         
       <!-- video livestream -->
         <div class="row" id="video" >
-             <video mute='muted'  autoplay="true" playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
+             <video playsinline autoplay loop muted id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
              {{this.videocheck}}
         </div>   
       <!-- WebGL -->
@@ -779,7 +779,7 @@ export default {
         margin-left: 0px;
        width: 100%;
        height: 30vh;
-      background-color: rgb(61, 61, 61);
+       background-color: rgb(87, 87, 87);
   }
 }
 
