@@ -418,7 +418,7 @@ window.v.play();
                 console.log('on track', e);
                 window.v.srcObject = e.streams[0];
                 window.v.muted = true;
-                window.v.play();
+                //window.v.play();
                // window.wait.classList.add('hidden');
                 //window.controls.classList.remove('hidden');
               };
