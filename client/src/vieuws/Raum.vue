@@ -86,7 +86,7 @@
         
       <!-- video livestream -->
         <div class="row" id="video" >
-             <video  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
+             <video autoplay loop muted playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
             <div v-on:click="startstream" > {{this.videocheck}}</div>
         </div>   
       <!-- WebGL -->
@@ -257,10 +257,6 @@ export default {
         
         }, 100); // hide the message after 0.5 seconds
      },
-     startstream: function(){
-       console.log("play video")
-window.v.play();
-     },
     
     mousePC: function(event){
         
@@ -418,7 +414,7 @@ window.v.play();
                 console.log('on track', e);
                 window.v.srcObject = e.streams[0];
                 window.v.muted = true;
-                //window.v.play();
+                window.v.play();
                // window.wait.classList.add('hidden');
                 //window.controls.classList.remove('hidden');
               };
