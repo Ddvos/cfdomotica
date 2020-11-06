@@ -250,6 +250,7 @@ export default {
      },
      mainstart: function(){
       // console.log("spalshscreen uit")
+      window.v.play();
              this.infobutton();
            this.splashscreen = false
           setTimeout(function() {
