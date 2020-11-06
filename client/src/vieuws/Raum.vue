@@ -86,7 +86,7 @@
         
       <!-- video livestream -->
         <div class="row" id="video" >
-             <video  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
+             <video playsinline webkit-playsinline autoplay muted loop  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
             <div v-on:click="playvideo"> {{this.videocheck}}</div>
         </div>   
       <!-- WebGL -->
