@@ -412,12 +412,13 @@ export default {
             if (msg.type === 'offer') {
               const peerConnection = new RTCPeerConnection(config);
               connections.set(msg.from, peerConnection);
-              this.videocheck = "camera is aan"
+             
               peerConnection.ontrack = (e) => {
                 console.log('on track', e);
                 window.v.srcObject = e.streams[0];
                 window.v.muted = true;
                 window.v.play();
+               this.videocheck = "camera is aan"
                // window.wait.classList.add('hidden');
                 //window.controls.classList.remove('hidden');
               };
@@ -470,12 +471,14 @@ export default {
           } catch (e) {
             console.error(e);
                  console.log("error niewe verbiding openen lukt niet")
+                  this.videocheck= "error verbinding "+e
           }
         });
 
        } catch (e) {
           console.error(e);
           console.log("error niewe verbiding openen lukt niet")
+              this.videocheck= "error verbinding " +e
           }
       }, // einde live videostream
       
