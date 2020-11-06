@@ -87,7 +87,7 @@
       <!-- video livestream -->
         <div class="row" id="video" >
              <video  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
-             {{this.videocheck}}
+            <div v-on:click="startstream" > {{this.videocheck}}</div>
         </div>   
       <!-- WebGL -->
         <div class="row">
@@ -250,12 +250,16 @@ export default {
      },
      mainstart: function(){
       // console.log("spalshscreen uit")
-      window.v.play();
+      
              this.infobutton();
            this.splashscreen = false
           setTimeout(function() {
         
         }, 100); // hide the message after 0.5 seconds
+     },
+     startstream: function(){
+       console.log("play video")
+window.v.play();
      },
     
     mousePC: function(event){

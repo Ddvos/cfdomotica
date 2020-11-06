@@ -162,9 +162,9 @@ export default {
     },
      mouseMobile: function(){
 
-         
+        
               this.starttransition =setInterval(()=>{
-                 this.mainpage = true; // tijdelijke variable
+                // this.mainpage = true; // tijdelijke variable
                 if( this.color2Position<100 && this.color2BoogPosition >1){
                     this.color2Position +=0.06
                     this.color2BoogPosition  -=0.06
@@ -176,13 +176,14 @@ export default {
                         }, 50); // hide the message after 0.5 seconds 1500
                       
                      
-                    
+                     if(this.mainpage ==false){
                         window.addEventListener("click",()=>{ 
                           
                             this.mainpage = true;
                             this.$emit('start')
-                        console.log(this.mainpage)
+                        console.log()
                         });
+                     }
                     }
                     
                   }else{
@@ -190,7 +191,7 @@ export default {
                     clearInterval( this.starttransition)
                 }
              },0.0001)       
-        
+         
 
      },
 
