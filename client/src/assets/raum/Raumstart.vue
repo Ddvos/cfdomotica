@@ -164,7 +164,7 @@ export default {
 
          
               this.starttransition =setInterval(()=>{
-                
+                 this.mainpage = true; // tijdelijke variable
                 if( this.color2Position<100 && this.color2BoogPosition >1){
                     this.color2Position +=0.06
                     this.color2BoogPosition  -=0.06
@@ -173,7 +173,7 @@ export default {
                       
                        setTimeout(()=>{
                           this.mouseOpBoog = true
-                        }, 1500); // hide the message after 0.5 seconds
+                        }, 50); // hide the message after 0.5 seconds 1500
                       
                      
                     

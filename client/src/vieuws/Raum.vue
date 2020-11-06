@@ -86,8 +86,8 @@
         
       <!-- video livestream -->
         <div class="row" id="video" >
-             <video mute='muted'  autoplay="true"  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
-      
+             <video mute='muted'  autoplay="true" playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
+             {{this.videocheck}}
         </div>   
       <!-- WebGL -->
         <div class="row">
@@ -145,7 +145,8 @@ export default {
    windowWidth: 0,
    totalClients: null,
    raumid: "3423",
-   splashscreen: true
+   splashscreen: true,
+   videocheck: "uit"
        
   }
   },
@@ -407,7 +408,7 @@ export default {
             if (msg.type === 'offer') {
               const peerConnection = new RTCPeerConnection(config);
               connections.set(msg.from, peerConnection);
-
+              this.videocheck = "camera is aan"
               peerConnection.ontrack = (e) => {
                 console.log('on track', e);
                 window.v.srcObject = e.streams[0];
