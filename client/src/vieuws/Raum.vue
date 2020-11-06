@@ -87,7 +87,7 @@
       <!-- video livestream -->
         <div class="row" id="video" >
              <video autoplay loop muted playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
-            <div v-on:click="startstream" > {{this.videocheck}}</div>
+            <div> {{this.videocheck}}</div>
         </div>   
       <!-- WebGL -->
         <div class="row">
@@ -250,7 +250,7 @@ export default {
      },
      mainstart: function(){
       // console.log("spalshscreen uit")
-      
+      window.v.play();
              this.infobutton();
            this.splashscreen = false
           setTimeout(function() {
