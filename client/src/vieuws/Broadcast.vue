@@ -52,9 +52,9 @@ export default {
           console.log(this.user)
           const config = {
             iceServers: [{
-              urls: ['turn:numb.viagenie.ca'], //'stun:stun.l.google.com:19302'
-             credential: ['muazkh'],
-             username: ['webrtc@live.com']
+              urls: ['stun:stun.l.google.com:19302'], //'stun:stun.l.google.com:19302'
+            // credential: ['muazkh'],
+            // username: ['webrtc@live.com']
 
             }]
           };
