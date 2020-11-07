@@ -355,7 +355,9 @@ export default {
 
       const config = {
         iceServers: [{
-          urls: ['stun:stun.l.google.com:19302']
+           urls: ['turn:numb.viagenie.ca'], //'stun:stun.l.google.com:19302'
+             credential: ['muazkh'],
+             username: ['webrtc@live.com']
         }]
       };
 
