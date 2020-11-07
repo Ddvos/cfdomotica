@@ -751,7 +751,7 @@ export default {
                         // y < 1 = color1, > 2 = color2
                         float colorMix = smoothstep(Xas-1.0, XhalfRight+1.0, vUv.x-positionVlak2); // example 0.0, 2.0
 
-                        gl_FragColor = vec4(mix(vlak2color1, vlak2color2, colorMix), 0.95); // of alpha voor de blur aan de uiteindes 
+                        gl_FragColor = vec4(mix(vlak2color1, vlak2color2, colorMix), 1.0); // of alpha voor de blur aan de uiteindes 
                    }
                    `,transparent: true,
               });
@@ -793,7 +793,7 @@ export default {
                         // y < 1 = color1, > 2 = color2
                         float colorMix = smoothstep(Yas-1.0, YhalfBottom+1.0, vUv.y+(width/2.0)+positionVlak3); //2.0 voor de afwijking example 0.0, 2.0, vUv.y+2.0+positionVlak3
 
-                        gl_FragColor = vec4(mix(vlak3color2, vlak3color1, colorMix), 0.95); // of alpha voor de blur aan de uiteindes 
+                        gl_FragColor = vec4(mix(vlak3color2, vlak3color1, colorMix), 1.0); // of alpha voor de blur aan de uiteindes 
                    }
                    `,transparent: true,
               });
@@ -835,7 +835,7 @@ export default {
                         // y < 1 = color1, > 2 = color2
                         float colorMix = smoothstep(Xas-1.0, XhalfLeft+1.0, vUv.x+(width/2.0)+positionVlak4); // +2.0 voor de afwijking en + de postie
 
-                        gl_FragColor = vec4(mix(vlak4color2, vlak4color1, colorMix), 0.95); // of alpha voor de blur aan de uiteindes 
+                        gl_FragColor = vec4(mix(vlak4color2, vlak4color1, colorMix), 1.0); // of alpha voor de blur aan de uiteindes 
                    }
                    `,transparent: true,
               });        
