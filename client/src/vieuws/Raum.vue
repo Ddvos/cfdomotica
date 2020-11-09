@@ -355,7 +355,7 @@ export default {
 
       const config = {
         iceServers: [{
-           urls: ['turn:178.62.209.37:3478'], //'stun:stun.l.google.com:19302'  turn:178.62.209.37:3478
+           urls: ['turn:circusfamilyprojects.nl:3478?transport=udp'], //'stun:stun.l.google.com:19302'  turn:178.62.209.37:3478
            credential: ['WS7Yq_jT'],
           username: ['Dominique']
         }]
