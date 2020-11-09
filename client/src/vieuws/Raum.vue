@@ -420,7 +420,7 @@ export default {
                 window.v.srcObject = e.streams[0];
                 window.v.muted = true;
                 window.v.play();
-               this.videocheck = "camera is aan"
+               this.videocheck = "camera is aan" + e.streams[0].active
                // window.wait.classList.add('hidden');
                 //window.controls.classList.remove('hidden');
               };
