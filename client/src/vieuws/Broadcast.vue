@@ -54,7 +54,7 @@ export default {
             iceServers: [{
               urls: ['turn:circusfamilyprojects.nl:3478'], //'stun:stun.l.google.com:19302'  turn:178.62.209.37:3478 circusfamilyprojects.nl
               credential: ['WS7Yq_jT'],
-              username: ['Dominique']
+              username: ['que']
             }]
           };
 
