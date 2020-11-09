@@ -355,9 +355,10 @@ export default {
 
       const config = {
         iceServers: [{
-           urls: ['turn:circusfamilyprojects.nl:3478'], //'stun:stun.l.google.com:19302'  turn:178.62.209.37:3478
-           credential: ['WS7Yq_jT'],
-          username: ['Domiue']
+           urls: 'turn:turn.circusfamilyprojects.nl:3478', //'stun:stun.l.google.com:19302'  turn:178.62.209.37:3478
+          username: 'Dominique',
+           credential: 'WS7Yq_jT'
+         
         }]
       };
 
@@ -414,7 +415,7 @@ export default {
             if (msg.type === 'offer') {
               const peerConnection = new RTCPeerConnection(config);
               connections.set(msg.from, peerConnection);
-
+              console.log( peerConnection)
               peerConnection.ontrack = (e) => {
                 console.log('on track', e);
                 window.v.srcObject = e.streams[0];
