@@ -146,14 +146,9 @@ let connectedClients = [];
 wsServer.on('connection', (socket,req) => {
   let peerId;
 
- 
-
   var webURL =req.url
   
   //connectedClients.push({ socket,webURL});
-
-
-   
 
 
   const onMessage = (e) => {
@@ -241,6 +236,7 @@ wsServer.on('connection', (socket,req) => {
 
     if (msg.type === 'candidate') {
       info(`ice candidate from ${msg.from} to ${msg.to}`);
+      console.log("ice candidate is connected")
       const socketTo = sockets.get(msg.to);
 
       if (!socketTo) {

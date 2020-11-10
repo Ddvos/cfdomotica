@@ -75,12 +75,13 @@
                     minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
                 </p>
+                </div>
 
                    <div class="logos">
                       <img src="../assets/raum/RAUM.svg" alt="logo Raum" height="67" width="80" />
                       <img src="../assets/raum/CIRCUS_FAMILY.svg" alt="logo Raum" height="67" width="80" />
                    </div>
-                </div>
+                
                 <div class="info-button"></div>
           </div>
 
@@ -421,7 +422,7 @@ export default {
                 window.v.srcObject = e.streams[0];
                 window.v.muted = true;
                 window.v.play();
-               this.videocheck = "camera is aan" + e.streams[0].active
+               //this.videocheck = "camera is aan" + e.streams[0].active
                // window.wait.classList.add('hidden');
                 //window.controls.classList.remove('hidden');
               };
@@ -464,10 +465,12 @@ export default {
             if (msg.type === 'candidate') {
               const connection = connections.get(msg.from);
               if (connection) {
-                console.log('Adding candidate to', msg.from);
+                console.log('Adding candidate to', msg);
                 connection.addIceCandidate(new RTCIceCandidate(
                   msg.data
                 ));
+
+                  this.videocheck = "candidate added to RTCIce" + msg.data
               }
             }
 
@@ -692,8 +695,11 @@ export default {
   }
 
   .logos{
+     position: absolute;
     margin-left: 25%;
-    margin-top: 25vh;
+   margin-top: 80vh;
+  
+     
   }
 
 
@@ -790,7 +796,7 @@ export default {
         margin-left: 0px;
        width: 100%;
        height: 30vh;
-       background-color: rgb(87, 87, 87);
+       background-color: #0d0d0d;
   }
 }
 
