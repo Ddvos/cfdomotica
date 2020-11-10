@@ -88,7 +88,7 @@
       <!-- video livestream -->
         <div class="row" id="video" >
              <video playsinline webkit-playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
-            <div v-on:click="playvideo"> {{this.videocheck}}</div>
+            <!-- <div v-on:click="playvideo"> {{this.videocheck}}</div> -->
         </div>
       <!-- WebGL -->
         <div class="row">
@@ -697,7 +697,7 @@ export default {
   .logos{
      position: absolute;
     margin-left: 25%;
-   margin-top: 80vh;
+   margin-top: 60vh;
   
      
   }
