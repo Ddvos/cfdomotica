@@ -793,10 +793,12 @@ export default {
 
   video {
       position: static;
+        object-fit: cover;
         margin-left: 0px;
-       width: 100%;
+        padding: 0px;
+       width: 100vw;
        height: 30vh;
-       background-color: #0d0d0d;
+       background-color: #0d0d0d; //#0d0d0d;
   }
 }
 
