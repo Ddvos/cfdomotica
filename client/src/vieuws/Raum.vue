@@ -697,7 +697,7 @@ export default {
   .logos{
      position: absolute;
     margin-left: 25%;
-   margin-top: 60vh;
+   margin-top: 65vh;
   
      
   }
