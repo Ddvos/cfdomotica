@@ -1,5 +1,6 @@
 const express = require('express');
-const mongodb = require('mongodb');
+//const mongodb = require('mongodb');
+const mongoose = require('mongoose');
 
 const router = express.Router();
 
@@ -29,6 +30,6 @@ router.get('/', async (req,res)=>{
     mongoose.connection.on('error',(error)=>{
         console.log('MonogDB error'+error);
     });
-    // return client.db('circusfamily').collection('posts');
+     return client;
  }
 module.exports = router;
