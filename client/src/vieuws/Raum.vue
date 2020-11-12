@@ -41,10 +41,24 @@
                   <h1 id="info-title"> HARMONIE</h1>
                   <p>Living apart together installation</p>
 
-                  <p class="info-tekst">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                  <p class="info-tekst">
+                     Het stimuleren van sociale interacties en het maken van meer intieme plekken kan een bijdrage leveren aan een minder eenzame stad.
+                     Design in de publieke ruimte prikkelt de verbeelding en nodigt op subtiele manieren uit tot ontmoeting en verbinding.Het zorgt ervoor dat je even vertraagt.
+                     <br> <br>
+                     Harmonie is een uitnodiging om een onbekende ruimte te ontdekken en open te staan voor een gedeelde ervaring en verbondenheid. Circus Family vroeg zich af: 
+                     kan deze installatie bijdragen aan interactie tussen mensen en zo een gevoel van sociale eenzaamheid verminderen? 
+                     <br> <br>
+                     De interactieve installatie bestaat uit zestien pilaren waarin licht en geluid elkaar ontmoeten. De pilaren staan op precies anderhalve meter afstand van elkaar.
+                     Het maakt niet uit van welke kant je komt aanlopen: sensoren registreren je beweging waardoor de kleuren en geluiden in de zuilen op je reageren. 
+                     Zodra de sensoren je ‘zien’, begint er als het ware een orkest te spelen. Des te meer mensen zich rondom en tussen de pilaren bewegen, des te grootser
+                     de symfonie wordt. Ga een dialoog aan met Harmonie - alleen of door anderen te verzamelen - en ervaar het effect!
+                     <br> <br>
+                     Harmonie leeft ook online en reageert in realtime op je input. 
+                     Check circusfamily.com/harmonie of scan de QR code om direct naar de online versie te gaan op je mobiel.
+                     <br> <br>
+                     Circus Family is een ontwerpstudio van makers die experimenteren met nieuwe toepassingen in motion design.
+                     Ze maken audiovisuele installaties die niet alleen esthetisch ogen, maar ook op intelligente manieren omgaan met beweging, informatie en gegevens.
+                     Meer weten over eenzaamheid in steden en bijvoorbeeld de potentie van design in de openbare ruimte? raumutrecht.nl/livingaparttogether
                 </p>
 
                 <div class="logos">
@@ -555,7 +569,7 @@ export default {
   .tekst{
     flex: 10% 0 90%;
       text-align: left;
-        margin-top: 10%;
+        margin-top: 5%;
     margin-left: 9%;
      margin-right: 9%;
   }
@@ -569,8 +583,8 @@ export default {
   }
 
   .info-tekst{
-       padding-top: 10%;
-     font-size: 95%;
+       padding-top: 5%;
+     font-size: 75%;
       font-family: 'Roboto', sans-serif;
 
 
