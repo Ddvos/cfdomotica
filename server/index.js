@@ -39,7 +39,7 @@ if(process.env.NODE_ENV === 'production'){
 const port = process.env.PORT || 5000;
 
 // database
-const mongodb_URI = 'mongodb+srv://CircusFamily:mYIz6bPl1ZRfhbtF@cluster0-7znii.mongodb.net/test?retryWrites=true&w=majority'
+const mongodb_URI = 'mongodb+srv://Circus_Family:mYIz6bPl1ZRfhbtF@circusfamily.vehzf.mongodb.net/circusfamily?retryWrites=true&w=majority' //'mongodb+srv://CircusFamily:mYIz6bPl1ZRfhbtF@cluster0-7znii.mongodb.net/test?retryWrites=true&w=majority'
 
 mongoose.connect(mongodb_URI || 'mongodb://localhost/circusfamily',{
     useNewUrlParser: true,
