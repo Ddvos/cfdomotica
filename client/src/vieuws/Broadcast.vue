@@ -106,14 +106,14 @@ export default {
 
             const mediaStream = await navigator.mediaDevices.getUserMedia({
                video: {
-                      width: {exact: 1280},
-                      height: {exact: 720},
+                      width: {exact: 1920},
+                      height: {exact: 1080},
                       frameRate: {
                                    min: 30,
                                    max: 120
                                   }
                       },
-              audio: false,
+              audio: true,
             });
 
             window.v.srcObject = mediaStream;

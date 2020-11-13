@@ -160,8 +160,8 @@ export default {
               this.starttransition =setInterval(()=>{
                     
                 if( this.color2Position<100 && this.color2BoogPosition >1){
-                    this.color2Position +=0.80
-                    this.color2BoogPosition  -=0.80
+                    this.color2Position +=0.95
+                    this.color2BoogPosition  -=0.95
 
                     if( this.color2Position>50){
                        this.mouseOpBoog = true
@@ -170,7 +170,7 @@ export default {
                   }else{
                     clearInterval( this.starttransition)
                 }
-             },300)       
+             },200)       
         
 
      },
