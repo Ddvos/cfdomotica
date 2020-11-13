@@ -699,6 +699,7 @@ export default {
     height: 59vh;
     background: #0d0d0d;
     color: white;
+      z-index:4;
   }
 
   .tekst{
@@ -716,6 +717,7 @@ export default {
 
 
    .overlay{
+       z-index:3;
       display: flex;
       position:absolute;
      //background: rgb(35,100,233);
@@ -739,7 +741,7 @@ export default {
 }
 
    .info-button{
-
+  z-index:3;
     position:absolute;
      display: 1;
      margin-left: 0%;
@@ -762,6 +764,7 @@ export default {
    }
 
      .info-button-hide{
+         z-index:3;
      position:absolute;
      display: 1;
      margin-left: 0%;
@@ -783,6 +786,7 @@ export default {
 
 
   .overlayhide{
+      z-index:3;
        position:absolute;
        background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
        width: 100%;
@@ -803,19 +807,22 @@ export default {
 
 
   video {
+        z-index:2;
       position: static;
         object-fit: cover;
         margin-left: 0px;
         padding: 0px;
        width: 100vw;
+        padding-top: 50px;
+       padding-bottom: 50px;
        height: 30vh;
        background-color: #0d0d0d; //#0d0d0d;
 
-        -moz-transform:scale(1.5);
-        -webkit-transform:scale(1.5);
-        -o-transform:scale(1.5);
-        -ms-transform:scale(1.5);
-        transform:scale(1.5);
+        -moz-transform:scale(2);
+        -webkit-transform:scale(2);
+        -o-transform:scale(2);
+        -ms-transform:scale(2);
+        transform:scale(2);
   }
 }
 
