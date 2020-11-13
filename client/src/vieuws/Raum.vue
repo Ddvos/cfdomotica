@@ -56,9 +56,6 @@
                      Harmonie leeft ook online en reageert in realtime op je input. 
                      Check circusfamily.com/harmonie of scan de QR code om direct naar de online versie te gaan op je mobiel.
                      <br> <br>
-                     Circus Family is een ontwerpstudio van makers die experimenteren met nieuwe toepassingen in motion design.
-                     Ze maken audiovisuele installaties die niet alleen esthetisch ogen, maar ook op intelligente manieren omgaan met beweging, informatie en gegevens.
-                     Meer weten over eenzaamheid in steden en bijvoorbeeld de potentie van design in de openbare ruimte? raumutrecht.nl/livingaparttogether
                 </p>
 
                 <div class="logos">
@@ -681,7 +678,7 @@ export default {
 
   video{
     position: absolute;
-     margin-left: -420px;
+     margin-left: -645px;
      height: 100vh;
     background-color: rgb(0, 0, 0);
     z-index:1;
@@ -813,6 +810,12 @@ export default {
        width: 100vw;
        height: 30vh;
        background-color: #0d0d0d; //#0d0d0d;
+
+        -moz-transform:scale(1.5);
+        -webkit-transform:scale(1.5);
+        -o-transform:scale(1.5);
+        -ms-transform:scale(1.5);
+        transform:scale(1.5);
   }
 }
 

@@ -20,6 +20,9 @@ mongoose.connection.on('error',(error)=>{
     console.log('MonogDB error'+error);
 });
 
+// chema
+
+
 mongoose.model('posts',{name: String});
 //Get Posts
 router.get('/', async (req,res)=>{
@@ -27,11 +30,16 @@ router.get('/', async (req,res)=>{
     mongoose.model('posts').find(function(err, posts){
         res.send( posts);
     });
-    
-  
 });
 
 //Add Posts
+
+router.post('/', async (req,res)=>{
+    //res.send('hello')
+    mongoose.model('posts').find(function(err, posts){
+        res.send( posts);
+    });
+});
 
 // Delete Posts
 
