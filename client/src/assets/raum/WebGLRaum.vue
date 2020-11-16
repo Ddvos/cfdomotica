@@ -20,8 +20,8 @@ var port = new osc.WebSocketPort({
 export default {
 
   props: {
-        bigBallPosition: Array,
-        smallBallPosition: Array,
+        bigBallPosition: Object,
+        smallBallPosition: Object,
         raumid: String,
      },
    
@@ -251,7 +251,8 @@ export default {
           //var mouseMaterial = new  this.$three.LineBasicMaterial( { color: '#FFFFFF', linewidth: 2.0} );
           //this.mouseMesh = new  this.$three.LineLoop( mouseGeometry, mouseMaterial );
           
-          this.mouseMesh.position.x = 8
+          this.mouseMesh.position.x = 0
+           this.mouseMesh.position.y = 0
           this.mouseMesh.position.z = 0.01  
 
           ////////////////////extra code////////////////////////////////////////
@@ -283,6 +284,7 @@ export default {
         // three.js mouseposition small ball
         if(this.$props.smallBallPosition !=null){
 
+    // console.log(this.$props.smallBallPosition.x)
            //(((this.$props.smallBallPosition.x/container.clientWidth)* 2 -1), (this.$props.smallBallPosition.y/container.clientHeight) *2-1, 0.3)
       var vectorSmall = new this.$three.Vector3(((this.$props.smallBallPosition.x/container.clientWidth)* 2 -1), (this.$props.smallBallPosition.y/container.clientHeight) *2-1 ,0.0);
                 vectorSmall.unproject( this.camera );
@@ -308,7 +310,7 @@ export default {
         //console.log(  mouseCollision.isIntersectionBox(mesh1Collision))
         //console.log(this.$props.bigBallPosition.x)
         if(this.$props.bigBallPosition !=null){ // als bigball niet 0 is
-       
+      // console.log(this.$props.bigBallPosition.x)
          if(this.collisionPole ==false){
 
 
@@ -320,6 +322,7 @@ export default {
                   var dir = vector.sub( this.camera.position ).normalize();
                   var distance = - this.camera.position.z / dir.z;
                   this.posBig = this.camera.position.clone().add( dir.multiplyScalar( distance ) );
+                 // console.log(this.posBig.x)
                   // geeft de grote ball in three.js vertraging
                   TweenMax.to(this.mouseMesh.position, 3
                   ,{

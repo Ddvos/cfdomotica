@@ -147,9 +147,9 @@ export default {
     bigBall: null,
     smallBall: null,
     clientcolor: '#f2ff00',
-    ballposition:[],
-    smalBallposition: [],
-    ballpositionmobile:[],
+    ballposition:{x: 0, y:0},
+    smalBallposition: {x: 0, y:0},
+    ballpositionmobile:null,
     mouseX: null,
     mouseY: null,
     mousecolor:[],
@@ -163,7 +163,8 @@ export default {
    totalClients: null,
    raumid: "3423",
    splashscreen: true,
-   videocheck: "uit"
+   videocheck: "uit",
+   muisxtransition: 0,
 
   }
   },
@@ -311,28 +312,29 @@ export default {
       },
       ballXYposition: function(){
 
+          // hiermee zet hij de XY waardes van de muis in het speelveld
+        if (this.splashscreen ==false){
+        this.ballposition = {x: this.$refs.ballBig.getBoundingClientRect().x, y: this.$refs.ballBig.getBoundingClientRect().y}// [this.$refs.ballBig.getBoundingClientRect().x,this.$refs.ballBig.getBoundingClientRect().y]//positie bigball
+        this.smalBallposition ={x:this.$refs.ballSmall.getBoundingClientRect().x,y:this.$refs.ballSmall.getBoundingClientRect().y}
+      
 
-        this.ballposition = this.$refs.ballBig.getBoundingClientRect()//positie bigball
-        this.smalBallposition =this.$refs.ballSmall.getBoundingClientRect()
-
-    
-
+       this.muisxtransition= this.$refs.ballSmall.getBoundingClientRect() // dit is de X en y posistie voor het uitfaden in het speeldveld
 
         const rect2 = this.$refs.webGLSpeelveld.getBoundingClientRect()  //positie webgl speelveld
         //console.log( this.ballposition)
-        const isInHoriztonalBounds = this.smalBallposition.x < rect2.x + rect2.width &&  this.smalBallposition.x -  this.smalBallposition.width > rect2.x;
-        const isInVerticalBounds = this.smalBallposition.y < rect2.y + rect2.height && this.smalBallposition.y - this.smalBallposition.height > rect2.y;
+        const isInHoriztonalBounds = this.muisxtransition.x < rect2.x + rect2.width &&  this.muisxtransition.x -  this.muisxtransition.width > rect2.x;
+        const isInVerticalBounds = this.muisxtransition.y < rect2.y + rect2.height && this.muisxtransition.y - this.muisxtransition.height > rect2.y;
         const isOverlapping = isInHoriztonalBounds && isInVerticalBounds;
 
         if(isOverlapping== true && this.splashscreen==false){ // muis gaat uit
         this.show = false
-        //console.log("muis uit")
+        console.log("muis uit")
               this.visibility = 'none'
         }else if(isOverlapping== false){ // muis gaat aan
            this.show = true
            this.visibility = 'block'
         }
-
+        }
 
       },
       enter: function() {
@@ -683,7 +685,7 @@ export default {
 
 
   video{
-  position: relative;
+  position: absolute;
      width: auto;
      margin-left: 50%;
      transform: translateX(50%);
