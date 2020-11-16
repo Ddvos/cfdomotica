@@ -137,7 +137,7 @@ export default {
           if(oscMessage.address == this.$props.raumid){
               // hierbij zet hij de kleur van de muis naar de binnengekomden waarde
             //console.log( this.mouseMesh)
-          // this.mouseMesh.material.color.set('rgb('+oscMessage.args[0]+','+oscMessage.args[1]+', '+oscMessage.args[2]+')')
+           this.mouseMesh.material.color.set('rgb('+oscMessage.args[0]+','+oscMessage.args[1]+', '+oscMessage.args[2]+')')
             // console.log("ids kloppen " this.$props.mousecolor[1])
        }
                  

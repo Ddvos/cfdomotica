@@ -66,7 +66,7 @@
 
 
               </div>
-              <video  autoplay="true"  id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
+              <video id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
 
           </div>
 
@@ -822,8 +822,8 @@ export default {
         margin-left: 0px;
         padding: 0px;
        width: 100vw;
-        padding-top: 50px;
-       padding-bottom: 50px;
+      //   padding-top: 50px;
+      //  padding-bottom: 50px;
        height: 30vh;
        background-color: #0d0d0d; //#0d0d0d;
 
