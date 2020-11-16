@@ -683,7 +683,7 @@ export default {
 
   video{
     position: absolute;
-     margin-left: -645px;
+     margin-left: -125%;
      height: 100vh;
     background-color: rgb(0, 0, 0);
     z-index:1;

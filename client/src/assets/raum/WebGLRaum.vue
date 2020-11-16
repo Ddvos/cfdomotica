@@ -47,11 +47,11 @@ export default {
       bigBall: null,
       smallBall: null,
       //colorvlakken
-      colorVlak1: ['rgb(35, 100, 233)','rgb(202, 26, 47)',0.3
+      colorVlak1: ['rgb(0, 0, 0)','rgb(0, 0, 0)',0.3
       ], // kleuren en positie van vlakken
-      colorVlak2: ['rgb(35, 100, 233)','rgb(202, 26, 47)',0.3], // kleuren en positie van vlakken
-      colorVlak3: ['rgb(35, 100, 233)','rgb(202, 26, 47)',0.3], // kleuren en positie van vlakken
-      colorVlak4: ['rgb(35, 100, 233)','rgb(202, 26, 47)',0.3], // kleuren en positie van vlakken
+      colorVlak2: ['rgb(0, 0, 0)','rgb(0, 0, 0)',0.3], // kleuren en positie van vlakken
+      colorVlak3: ['rgb(0, 0, 0)','rgb(0, 0, 0)',0.3], // kleuren en positie van vlakken
+      colorVlak4: ['rgb(0, 0, 0)','rgb(0, 0, 0)',0.3], // kleuren en positie van vlakken rgb(35, 100, 233)','rgb(202, 26, 47)',0.3
       // breedite driehoeken
       width: null,
       mousecolor:[255,125,10],
