@@ -312,10 +312,10 @@ export default {
       ballXYposition: function(){
 
 
-        this.ballposition = this.$refs.ballBig.getBoundingClientRect()  //positie bigball
-        this.smalBallposition =[this.$refs.ballSmall.getBoundingClientRect().x,this.$refs.ballSmall.getBoundingClientRect().y]
+        this.ballposition = this.$refs.ballBig.getBoundingClientRect()//positie bigball
+        this.smalBallposition =this.$refs.ballSmall.getBoundingClientRect()
 
-        
+    
 
 
         const rect2 = this.$refs.webGLSpeelveld.getBoundingClientRect()  //positie webgl speelveld
