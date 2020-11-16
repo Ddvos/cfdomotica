@@ -369,7 +369,7 @@ export default {
                if(mouseCollision.intersectsBox( this.detectionArray[i-1])  && this.sendSide[i] == false && this.sendPole[i] == false && this.OSCconnectionStatus == true ){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd &&  this.OSCconnectionStatus == true && this.sendPole[i] == false 
                 //console.log(mouseCollision.intersectsBox( this.detectionArray[i-1]))
                 
-                console.log("side"+i+" pole"+p+" active")
+               // console.log("side"+i+" pole"+p+" active")
                     port.send({
                        address: "/pole"+p+"_"+i,
                         args:  [1,this.$props.raumid]
@@ -382,7 +382,7 @@ export default {
                
                if((mouseCollision.intersectsBox( this.detectionArray[i-1]) == false) &&   this.sendSide[i] ==true &&  this.sendPole[p] ==true && this.OSCconnectionStatus == true ) {
                  //console.log(i+"wordt niet aangeraakt")
-               console.log("side"+i+" pole"+p+" dissable")
+               //console.log("side"+i+" pole"+p+" dissable")
                      port.send({
                          address: "/pole"+p+"_"+i,
                         args:  [0,this.$props.raumid]

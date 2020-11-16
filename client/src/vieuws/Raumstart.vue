@@ -18,7 +18,7 @@
     </div>
     <div v-if="mobile" > 
        <div class="tekst">
-                    <h1 id="info-title"> HARMONIE</h1>
+                    <h1 id="info-title"> Hallo</h1>
                     <p>Living apart together installation</p>
                         <p class="enterbutton" v-if="mouseOpBoog"> Enter the experience</p>
                   
@@ -157,20 +157,20 @@ export default {
      mouseMobile: function(){
 
          
-              this.starttransition =setInterval(()=>{
+            //   this.starttransition =setInterval(()=>{
                     
-                if( this.color2Position<100 && this.color2BoogPosition >1){
-                    this.color2Position +=0.95
-                    this.color2BoogPosition  -=0.95
+            //     if( this.color2Position<100 && this.color2BoogPosition >1){
+            //         this.color2Position +=0.95
+            //         this.color2BoogPosition  -=0.95
 
-                    if( this.color2Position>50){
-                       this.mouseOpBoog = true
-                    }
+            //         if( this.color2Position>50){
+            //            this.mouseOpBoog = true
+            //         }
                     
-                  }else{
-                    clearInterval( this.starttransition)
-                }
-             },200)       
+            //       }else{
+            //         clearInterval( this.starttransition)
+            //     }
+            //  },200)       
         
 
      },
@@ -250,9 +250,35 @@ export default {
 
   }
 
-  
+  /* Mobile screen  */
 
   @media screen and (max-width: 700px) {
+
+   .backgroundGradient{ 
+             width: 100%;
+              height: 100vh;
+              position: absolute;
+              z-index: 2; 
+                  -webkit-animation: AnimationName 1s ease infinite;
+    -moz-animation: AnimationName 1s ease infinite;
+    animation: AnimationName 1s ease infinite;
+     }
+
+     @-webkit-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
 
      #info-title{
     font-size: 250%;
@@ -290,6 +316,8 @@ export default {
       100% {opacity:1;}
       }
   }
+
+  
 
 
 

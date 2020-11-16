@@ -2,39 +2,43 @@
 
 
   <div class="parentBackground">
-    <div ref="mouseEvent" class="backgroundGradient" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color1+' '+color1Position+'%, '+color2+' '+color2Position+'%)' }">
+     
 
-      <div class="boog"   @mouseover="hover = true" @mouseleave="hover = false" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color2+' '+color2BoogPosition+'%, '+color1+' 120%)' }">
-      </div>  
-
-      <div class="row" v-if="desktop" > 
-        <div class="tekst">
-                      <h1 id="info-title"> HARMONIE</h1>
-                      <p>Living apart together installation</p>
-                        <transition name="fade" v-on:enter="enter">
-                          <div class="enterbutton" v-if="mouseOpBoog">
-                            <div class="pijl"></div>
-                            <br>
-                            <p class="enter"> Enter the experience</p>
-                          </div>
-                        </transition>
-        </div>
-      </div>
-      <div v-if="mobile" > 
-        <div class="tekst">
-                      <h1 id="info-title"> HARMONIE</h1>
-                      <p class="underlinemobile">Living apart together installation</p>
-                
-                          <div class="enterbutton" v-if="mouseOpBoog"> 
+      <div  v-if="desktop" > 
+        <div ref="mouseEvent" class="backgroundGradient" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color1+' '+color1Position+'%, '+color2+' '+color2Position+'%)' }">
+          <div class="boog"   @mouseover="hover = true" @mouseleave="hover = false" v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color2+' '+color2BoogPosition+'%, '+color1+' 120%)' }">
+          </div> 
+          <div class="tekst">
+                        <h1 id="info-title"> HARMONIE</h1>
+                        <p>Living apart together installation</p>
+                          <transition name="fade" v-on:enter="enter">
+                            <div class="enterbutton" v-if="mouseOpBoog">
                               <div class="pijl"></div>
                               <br>
-                              <p class="enter" > Enter the experience </p>
-                          </div>
-                    
+                              <p class="enter"> Enter the experience</p>
+                            </div>
+                          </transition>
+          </div>
         </div>
-        
+      </div>  
+      <div v-if="mobile" >
+        <div ref="mouseEvent" class="backgroundGradient"  v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color1+' '+color1Position+'%, '+color2+' '+color2Position+'%)' }">
+          <div class="boog"   @mouseover="hover = true" @mouseleave="hover = false"  v-bind:style="{ 'background-image': 'linear-gradient(0deg,'+color2+' '+color2BoogPosition+'%, '+color1+' 120%)' }">
+          </div>  
+          <div class="tekst">
+                        <h1 id="info-title"> HARMONIE</h1>
+                        <p class="underlinemobile">Living apart together installation</p>
+                  
+                            <div class="enterbutton" v-if="mouseOpBoog"> 
+                                <div class="pijl"></div>
+                                <br>
+                                <p class="enter" > Enter the experience </p>
+                            </div>
+                      
+          </div>
+        </div>
       </div>   
-    </div>   
+     
 </div>
 
 
@@ -165,32 +169,32 @@ export default {
         
               this.starttransition =setInterval(()=>{
                 // this.mainpage = true; // tijdelijke variable
-                if( this.color2Position<100 && this.color2BoogPosition >1){
-                    this.color2Position +=0.06
-                    this.color2BoogPosition  -=0.06
+                 if( this.color2Position<100 && this.color2BoogPosition >1){
+                     this.color2Position +=1
+                     this.color2BoogPosition  -=1
 
-                    if( this.color2Position>50){
+                     if( this.color2Position>50){
                       
-                       setTimeout(()=>{
-                          this.mouseOpBoog = true
-                        }, 50); // hide the message after 0.5 seconds 1500
+                          // tekst fade in
+                           this.mouseOpBoog = true
+                       
                       
                      
-                     if(this.mainpage ==false){
-                        window.addEventListener("click",()=>{ 
+                      if(this.mainpage ==false){
+                         window.addEventListener("click",()=>{ 
                           
-                            this.mainpage = true;
-                            this.$emit('start')
-                        console.log()
-                        });
+                             this.mainpage = true;
+                             this.$emit('start')
+                         console.log()
+                         });
+                      }
                      }
-                    }
                     
-                  }else{
-                  console.log("jaa")
-                    clearInterval( this.starttransition)
-                }
-             },0.0001)       
+                   }else{
+                   console.log("einde bereikt")
+                     clearInterval( this.starttransition)
+                 }
+              },40)       
          
 
      },
@@ -301,8 +305,14 @@ clip-path: polygon(50% 0, 100% 44%, 93% 53%, 50% 15%, 7% 53%, 0 44%);
  background-color:  rgb(255, 255, 255);
   }
 
-  
+  /* Mobile version  */
+
   @media screen and (max-width: 700px) {
+
+     
+
+
+
 
      #info-title{
     font-size: 330%;
