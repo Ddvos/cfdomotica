@@ -165,30 +165,21 @@ export default {
         }
     },
      mouseMobile: function(){
+       this.mouseOpBoog = true
 
+                 if(this.mainpage ==false){
+                    window.addEventListener("click",()=>{   
+                         this.mainpage = true;
+                         this.$emit('start')
+                         });
+                      }
         
               this.starttransition =setInterval(()=>{
+                  
                 // this.mainpage = true; // tijdelijke variable
                  if( this.color2Position<100 && this.color2BoogPosition >1){
                      this.color2Position +=1
                      this.color2BoogPosition  -=1
-
-                     if( this.color2Position>50){
-                      
-                          // tekst fade in
-                           this.mouseOpBoog = true
-                       
-                      
-                     
-                      if(this.mainpage ==false){
-                         window.addEventListener("click",()=>{ 
-                          
-                             this.mainpage = true;
-                             this.$emit('start')
-                         console.log()
-                         });
-                      }
-                     }
                     
                    }else{
                    console.log("einde bereikt")
@@ -367,11 +358,11 @@ clip-path: polygon(50% 0, 100% 44%, 93% 53%, 50% 15%, 7% 53%, 0 45%);
 
   .enterbutton{
    
-  animation: fadeIn ease-in 4s;
-  -webkit-animation: fadeIn ease 4s;
-  -moz-animation: fadeIn ease 4s;
-  -o-animation: fadeIn ease 4s;
-  -ms-animation: fadeIn ease 4s;
+  animation: fadeIn ease-in 3s;
+  -webkit-animation: fadeIn ease 3s;
+  -moz-animation: fadeIn ease 3s;
+  -o-animation: fadeIn ease 3s;
+  -ms-animation: fadeIn ease 3s;
   }
   
   @keyframes fadeIn {
