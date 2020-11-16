@@ -312,9 +312,10 @@ export default {
       ballXYposition: function(){
 
 
-        this.ballposition = [this.$refs.ballBig.getBoundingClientRect()] //positie bigball
-        this.smalBallposition = [this.$refs.ballSmall.getBoundingClientRect()]
+        this.ballposition = this.$refs.ballBig.getBoundingClientRect()  //positie bigball
+        this.smalBallposition =[this.$refs.ballSmall.getBoundingClientRect().x,this.$refs.ballSmall.getBoundingClientRect().y]
 
+        
 
 
         const rect2 = this.$refs.webGLSpeelveld.getBoundingClientRect()  //positie webgl speelveld
@@ -682,13 +683,14 @@ export default {
 
 
   video{
-    position: relative;
+  position: relative;
      width: auto;
      margin-left: 50%;
-     transform: translateX(-50%);
+     transform: translateX(50%);
      height: 100vh;
     background-color: rgb(0, 0, 0);
     z-index:1;
+
 }
 
 /////////////////////////////////////////////////////////

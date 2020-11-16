@@ -308,6 +308,7 @@ export default {
         //console.log(  mouseCollision.isIntersectionBox(mesh1Collision))
         //console.log(this.$props.bigBallPosition.x)
         if(this.$props.bigBallPosition !=null){ // als bigball niet 0 is
+       
          if(this.collisionPole ==false){
 
 
@@ -319,7 +320,6 @@ export default {
                   var dir = vector.sub( this.camera.position ).normalize();
                   var distance = - this.camera.position.z / dir.z;
                   this.posBig = this.camera.position.clone().add( dir.multiplyScalar( distance ) );
-                 // console.log(pos.x)
                   // geeft de grote ball in three.js vertraging
                   TweenMax.to(this.mouseMesh.position, 3
                   ,{
