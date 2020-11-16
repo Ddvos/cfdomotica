@@ -682,8 +682,10 @@ export default {
 
 
   video{
-    position: absolute;
-     margin-left: -125%;
+    position: relative;
+     width: auto;
+     margin-left: 50%;
+     transform: translateX(-50%);
      height: 100vh;
     background-color: rgb(0, 0, 0);
     z-index:1;
