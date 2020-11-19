@@ -20,10 +20,37 @@ mongoose.connection.on('error',(error)=>{
     console.log('MonogDB error'+error);
 });
 
-// chema
+// schema
+const Schema = mongoose.Schema;
+const VragenRaum = new Schema({
+    title: String,
+    body: String,
+    date:{
+        type: String,
+        default: Date.now()
+    }
+});
+
+// model
+const VragenModel = mongoose.model('BlogPost',VragenRaum);
+
+// data to save in database
+const data = {
+    title: "eerste post",
+    body: "dit is een test"
+}
+
+const newVragenModel = new VragenModel(data)  // instance of model
+
+newVragenModel.save((error)=>{
+    if(error){
+        console.log("Ooops, something happend")
+    }else{
+        console.log("Data has been saved!!")
+    }
+})
 
 
-mongoose.model('posts',{name: String});
 //Get Posts
 router.get('/', async (req,res)=>{
     //res.send('hello')
