@@ -24,7 +24,8 @@
          <Raumstart class="splashscreen" @start="mainstart" @mobileoverlayhide="infobutton" v-if="splashscreen"> </Raumstart>
    </transition>
     <div class="row" v-if="desktop" >
-
+          
+          <Vragen class="vragen" v-if="vragen"> </Vragen>
           <!-- WebGL -->
           <div class="col-8"  ref="webGLSpeelveld" v-if="mainpage">
             <div  id="speelveld">
@@ -34,6 +35,8 @@
           </div>
             <!-- video livestream -->
           <div class="col-4" id="stream" v-if="mainpage">
+
+       
               <div class="overlay" v-on:click="infobutton">
                 <div class="tekst">
                      <!-- <p> Totaal online bezoekers: {{totalClients}}</p> -->
@@ -53,8 +56,9 @@
                      Zodra de sensoren je ‘zien’, begint er als het ware een orkest te spelen. Des te meer mensen zich rondom en tussen de pilaren bewegen, des te grootser
                      de symfonie wordt. Ga een dialoog aan met Harmonie - alleen of door anderen te verzamelen - en ervaar het effect!
                      <br> <br>
+                     Mogen we je een aantal vragen stellen voor het onderzoek dat gekoppeld is aan “Harmonie”?
                 </p>
-
+                <button @click="vragen = true">Ja</button>
                 <div class="logos">
                   <img src="../assets/raum/RAUM.svg" alt="logo Raum" height="67" width="80" />
                   <img src="../assets/raum/CIRCUS_FAMILY.svg" alt="logo Raum" height="67" width="80" />
@@ -125,6 +129,7 @@
 // import pilaar from '../assets/raum/pilaar';
  import WebGLRaum from '../assets/raum/WebGLRaum';
  import Raumstart from '../assets/raum/Raumstart'
+ import Vragen from '../assets/raum/Vragen'
  import osc from "osc";
 import io from "socket.io-client";
 //const $hoverables = document.querySelectorAll('.hoverable');
@@ -165,6 +170,7 @@ export default {
    splashscreen: true,
    videocheck: "uit",
    muisxtransition: 0,
+   vragen: false,
 
   }
   },
@@ -173,6 +179,7 @@ export default {
   //'pilaar': pilaar,
   'WebGLRaum': WebGLRaum,
   'Raumstart': Raumstart,
+  'Vragen': Vragen,
 
   },
   created() {
@@ -535,6 +542,19 @@ export default {
   }
   .splashscreen{
      z-index:5;
+  }
+
+  .vragen{
+     z-index:4;
+     position:absolute;
+     display: 1;
+     width: 80vw;
+     height: 80vh;
+     margin-left:10vw;
+     margin-top:10vh;
+    background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
+    backdrop-filter: blur(3px);
+
   }
 
   #info{
