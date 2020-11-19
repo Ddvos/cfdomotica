@@ -54,7 +54,7 @@ newAntwoord.save((error)=>{
 //Get Posts
 router.get('/', async (req,res)=>{
     //res.send('hello')
-    AntwoordenRaum.finf({})
+    AntwoordenRaum.find({})
         .then((data)=>{
             //console.log('Data: ',data)
             res.json(data)

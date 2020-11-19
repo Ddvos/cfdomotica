@@ -177,7 +177,7 @@ export default {
   },
   created() {
      this.siteVisitor();
-     this.videoStream()
+     //this.videoStream()
 
 
 
@@ -268,7 +268,8 @@ export default {
      },
      mainstart: function(){
       // console.log("spalshscreen uit")
-      window.v.play();
+       this.videoStream()
+      //window.v.play();
              this.infobutton();
            this.splashscreen = false
           setTimeout(function() {
@@ -357,16 +358,6 @@ export default {
          var  knop = document.getElementsByClassName("info-button")[0];
        knop.classList.toggle("info-button-hide");
     },
-      startlivestream: function(){
-          this.videoStream()
-          window.v.play();
-         // window.controls.classList.add('hidden');
-
-
-      },
-      playvideo: function(){
-        window.v.play();
-      },
        /// begin live videostream
        async videoStream(){
 
@@ -425,12 +416,13 @@ export default {
       };
 
       try {
-       // console.log('in screen');
+      console.log('in screen');
         const socket = await getSocket(peerId, peerType);
+
         socket.addEventListener('message', async (e) => {
           try {
             const msg = JSON.parse(e.data);
-              console.log("camera and selected car are the same "+ msg.from)
+              //console.log("camera and selected car are the same "+ msg.from)
                 this.Camconnected = true;
             if (msg.type === 'offer') {
               const peerConnection = new RTCPeerConnection(config);
@@ -685,10 +677,10 @@ export default {
 
 
   video{
-  position: absolute;
+  position: relative;
      width: auto;
      margin-left: 50%;
-     transform: translateX(50%);
+     transform: translateX(-50%);
      height: 100vh;
     background-color: rgb(0, 0, 0);
     z-index:1;

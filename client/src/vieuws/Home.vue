@@ -175,7 +175,7 @@ export default {
                
         port.on("message", (oscMessage) => {
           
-             console.log(oscMessage);
+            // console.log(oscMessage);
              this.OSCMessages(oscMessage);
           
       });

@@ -106,8 +106,8 @@ export default {
 
             const mediaStream = await navigator.mediaDevices.getUserMedia({
                video: {
-                      width: {exact: 1920},
-                      height: {exact: 1080},
+                      width: {exact: 1280},
+                      height: {exact: 720},
                       frameRate: {
                                    min: 30,
                                    max: 120
@@ -183,7 +183,7 @@ export default {
             });
 
           } catch (e) {
-            console.error(e);
+            console.log("error: "+e);
           }
         },
 
