@@ -67,12 +67,13 @@ export default {
 
   data() {
   return{
-    color1: 'rgb(35,100,233)', // blauw
-    color2: 'rgba(202,26,47)', // rood
-    color1Position: 0,
-    color2Position: 0,
+    color1: 'rgb(255,255,255)', // blauw
+    color2: 'rgba(255,255,255)', // rood
+    color1Position: 1,
+    color2Position: 1,
     color1BoogPosition: 0,
     color2BoogPosition:100,
+    opacityColor:1,
     desktopXpostion: null,
     windowWidth: null,
     hover: false,
@@ -81,6 +82,7 @@ export default {
     mobile: false,
     starttransition:null,
     mainpage: false,
+
 
     
     
@@ -126,10 +128,15 @@ export default {
      OSCMessages: function(oscMessage){
 
          if(oscMessage.address == this.$props.raumid){
-          console.log(oscMessage)
-
-           this.color1 = "rgb("+oscMessage.args[0]+","+oscMessage.args[1]+","+oscMessage.args[2]+")"
-           this.color2 = "rgb("+oscMessage.args[3]+","+oscMessage.args[4]+","+oscMessage.args[5]+")"
+         // console.log(oscMessage)
+          setInterval(()=>{
+                
+                  //console.log(this.opacityColor)
+                  //this.opacityColor+=0.01
+                  this.color1 = "rgba("+oscMessage.args[0]+","+oscMessage.args[1]+","+oscMessage.args[2]+","+this.opacityColor+")"
+                  this.color2 = "rgba("+oscMessage.args[3]+","+oscMessage.args[4]+","+oscMessage.args[5]+","+this.opacityColor+")"
+                
+           },20)
          }
 
      },
@@ -189,7 +196,7 @@ export default {
                    console.log("einde bereikt")
                      clearInterval( this.starttransition)
                  }
-              },40)       
+              },10)       
          
 
      },
@@ -216,7 +223,8 @@ export default {
 <style scoped>
 .parentBackground{
     position: relative;
-    z-index: 1; 
+    z-index: 1;
+   
 
 }
 
@@ -226,6 +234,7 @@ export default {
   height: 100vh;
   position: absolute;
   z-index: 2; 
+
   
 }
 
