@@ -21,7 +21,7 @@
     </div>
 
      <transition name="splashfade" v-on:click="enter">
-         <Raumstart class="splashscreen" @start="mainstart" @mobileoverlayhide="infobutton" v-if="splashscreen"> </Raumstart>
+         <Raumstart class="splashscreen" @start="mainstart" @mobileoverlayhide="infobutton" v-if="splashscreen" v-bind:raumid="raumid"> </Raumstart>
    </transition>
     <div class="row" v-if="desktop" >
           

@@ -31,24 +31,7 @@ const VragenRaum = new Schema({
     }
 });
 
-// model
-const AntwoordenRaum = mongoose.model('BlogPost',VragenRaum);
 
-// data to save in database
-const data = {
-    title: "eerste post",
-    body: "dit is een test"
-}
-
-const newAntwoord = new AntwoordenRaum(data)  // instance of model
-
-newAntwoord.save((error)=>{
-    if(error){
-        console.log("Ooops, something happend")
-    }else{
-        console.log("Data has been saved!!")
-    }
-})
 
 
 //Get Posts
@@ -68,10 +51,25 @@ router.get('/', async (req,res)=>{
 //Add Posts
 
 router.post('/', async (req,res)=>{
-    //res.send('hello')
-    mongoose.model('posts').find(function(err, posts){
-        res.send( posts);
-    });
+
+        // model
+        const AntwoordenRaum = mongoose.model('BlogPost',VragenRaum);
+
+        // data to save in database
+        const data = {
+            title: "eerste post",
+            body: "dit is een test"
+        }
+
+        const newAntwoord = new AntwoordenRaum(data)  // instance of model
+
+        newAntwoord.save((error)=>{
+            if(error){
+                console.log("Ooops, something happend")
+            }else{
+                console.log("Data has been saved!!")
+            }
+        })
 });
 
 // Delete Posts

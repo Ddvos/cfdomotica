@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@tweenjs/tween.js": "^18.6.0",
+    "axios": "^0.21.0",
     "chart.js": "^2.9.3",
     "chartjs-plugin-streaming": "^1.8.0",
     "classlist.js": "^1.1.20150312",

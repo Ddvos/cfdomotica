@@ -59,6 +59,10 @@ import osc from "osc";
 
 
 export default {
+
+    props: {
+        raumid: String,
+     },
   
 
   data() {
@@ -121,8 +125,8 @@ export default {
 
      OSCMessages: function(oscMessage){
 
-         if(oscMessage.address == "/raumcolors" ){
-          // console.log(oscMessage)
+         if(oscMessage.address == this.$props.raumid){
+          console.log(oscMessage)
 
            this.color1 = "rgb("+oscMessage.args[0]+","+oscMessage.args[1]+","+oscMessage.args[2]+")"
            this.color2 = "rgb("+oscMessage.args[3]+","+oscMessage.args[4]+","+oscMessage.args[5]+")"

@@ -31,7 +31,7 @@
           
           <br>
 
-          <button type="submit" class="btn btn-primary mb-2">Verzend</button>
+          <button v-on:click="createVraag" class="btn btn-primary mb-2">Verzend</button>
 
       </form>
       
@@ -47,8 +47,7 @@
             
 <script>
 
-
-
+import VraagService from '../../VraagService'
 export default {
   
 
@@ -62,13 +61,9 @@ export default {
     
   }},
    created: function(){
-            
-          //console.log(message);
 
      },
   mounted: function(){
-
-   
       
   },
   computed:{
@@ -79,6 +74,10 @@ export default {
     }
   },
   methods:{
+     async createVraag(){
+
+            await VraagService.insertVraag(this.value1)
+      }
    
   },
   
