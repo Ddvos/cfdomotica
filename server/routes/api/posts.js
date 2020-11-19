@@ -32,7 +32,7 @@ const VragenRaum = new Schema({
 });
 
 // model
-const VragenModel = mongoose.model('BlogPost',VragenRaum);
+const AntwoordenRaum = mongoose.model('BlogPost',VragenRaum);
 
 // data to save in database
 const data = {
@@ -40,9 +40,9 @@ const data = {
     body: "dit is een test"
 }
 
-const newVragenModel = new VragenModel(data)  // instance of model
+const newAntwoord = new AntwoordenRaum(data)  // instance of model
 
-newVragenModel.save((error)=>{
+newAntwoord.save((error)=>{
     if(error){
         console.log("Ooops, something happend")
     }else{
@@ -54,9 +54,15 @@ newVragenModel.save((error)=>{
 //Get Posts
 router.get('/', async (req,res)=>{
     //res.send('hello')
-    mongoose.model('posts').find(function(err, posts){
-        res.send( posts);
-    });
+    AntwoordenRaum.finf({})
+        .then((data)=>{
+            //console.log('Data: ',data)
+            res.json(data)
+        })
+        .catch((error)=>{
+           // console.log('Error: ',error)
+           res.json(error)
+        })
 });
 
 //Add Posts
