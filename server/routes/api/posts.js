@@ -25,8 +25,11 @@ mongoose.connection.on('error',(error)=>{
 // schema
 const Schema = mongoose.Schema;
 const VragenRaum = new Schema({
-    title: String,
-    body: String,
+    vraag1: Number,
+    vraag2: Number,
+    vraag3: Number,
+    vraag4: Number,
+    vraag5: String,
     date:{
         type: String,
         default: Date.now()
