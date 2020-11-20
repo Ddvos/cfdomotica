@@ -50,6 +50,10 @@ mongoose.connection.on('connected',()=>{
     console.log('MonogDB is connected');
 });
 
+// convert incoming data to json
+app.use(express.json());
+app.use(express.urlencoded());
+
 //////////////////////////////////
     //timelapse upload esp32-cam
 /////////////////////////////////////

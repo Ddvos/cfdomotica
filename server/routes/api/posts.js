@@ -20,6 +20,8 @@ mongoose.connection.on('error',(error)=>{
     console.log('MonogDB error'+error);
 });
 
+
+
 // schema
 const Schema = mongoose.Schema;
 const VragenRaum = new Schema({
@@ -53,11 +55,8 @@ router.get('/', async (req,res)=>{
 
 router.post('/', async (req,res)=>{   
 
-        // data to save in database
-        const data = {
-            title: "tweede post 20-11-2020",
-            body: "dit is een test"
-        }
+        // data is incomg data from axios
+         const data = req.body;
 
         const newAntwoord = new AntwoordenRaum(data)  // instance of model
 
