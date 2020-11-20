@@ -27,7 +27,7 @@
            <span v-text="this.value4"></span>   <br> 
 
             <label class="label">Heb je nog opmerkingen of tips voor de makers?</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="value5"></textarea>
           
           <br>
 
@@ -57,6 +57,7 @@ export default {
      value2: 5,
      value3: 5,
      value4: 5,
+     value5: '',
     
     
   }},
@@ -76,7 +77,7 @@ export default {
   methods:{
      async createVraag(){
 
-            await VraagService.insertVraag(this.value1)
+            await VraagService.insertVraag(this.value1,this.value2, this.value3, this.value4 , this.value5)
       }
    
   },

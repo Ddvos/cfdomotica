@@ -99,8 +99,7 @@ export default {
 
        //als osc niet binnen is in 0.5 seconde zet default kleuren
                 setTimeout(()=>{
-                       if( this.incomingOSC == false){
-                        
+                       if( this.incomingOSC == false){ 
                           this.color1 = "rgb(35,100,233)" , // blauw
                           this.color2 = "rgb(202,26,47)" // rood
                          }
@@ -144,9 +143,6 @@ export default {
          if(oscMessage.address == this.$props.raumid){
   
                   this.incomingOSC = true
-                
-                  //console.log(this.opacityColor)
-                  //this.opacityColor+=0.01
                   this.color1 = "rgb("+oscMessage.args[0]+","+oscMessage.args[1]+","+oscMessage.args[2]+")"
                   this.color2 = "rgb("+oscMessage.args[3]+","+oscMessage.args[4]+","+oscMessage.args[5]+")"
          }       

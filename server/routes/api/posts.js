@@ -31,7 +31,8 @@ const VragenRaum = new Schema({
     }
 });
 
-
+ // model
+ const AntwoordenRaum = mongoose.model('BlogPost',VragenRaum);
 
 
 //Get Posts
@@ -50,14 +51,11 @@ router.get('/', async (req,res)=>{
 
 //Add Posts
 
-router.post('/', async (req,res)=>{
-
-        // model
-        const AntwoordenRaum = mongoose.model('BlogPost',VragenRaum);
+router.post('/', async (req,res)=>{   
 
         // data to save in database
         const data = {
-            title: "eerste post",
+            title: "tweede post 20-11-2020",
             body: "dit is een test"
         }
 
