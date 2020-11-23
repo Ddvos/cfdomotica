@@ -14,7 +14,7 @@
                           <transition name="fade" v-on:enter="enter">
                             <div class="enterbutton" v-if="mouseOpBoog">
                               <div class="pijl"></div>
-                              <br>
+                            
                               <p class="enter"> Enter the experience</p>
                             </div>
                           </transition>
@@ -293,7 +293,8 @@ export default {
 
   .enter{
    font-size: 110%;
-  margin-top: 5%;
+  margin-top: 1%;
+  padding: 0%;
     top: 110%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -303,9 +304,9 @@ export default {
   
 
    .pijl{
-      margin-top: 5%;
-        margin-bottom: 2%;
-    position:absolute;
+      margin-top: 6%;
+        margin-bottom: 1px;
+    position:relative;
      display: 1;
      margin-left: -8%;
      padding: 0%;

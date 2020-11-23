@@ -157,7 +157,7 @@ wsServer.on('connection', (socket,req) => {
 
   const onMessage = (e) => {
     connectedClients.push(e);
- 
+ console.log("client is connected")
       //var cameraURL =req.url
          // console.log(cameraURL);
       //  connectedClients.forEach((obj,i)=>{

@@ -228,8 +228,8 @@ export default {
   methods:{
     siteVisitor: function(){
 
-       raum.on("welcome",(data)=>{
-         this.siteVisitors(data);
+       raum.on("welcome",()=>{  //data kan worden toegevoegd als parameter
+         this.siteVisitors();
         })
 
          raum.on("clientList",(clients)=>{
@@ -249,9 +249,9 @@ export default {
        //raum.on("succes",(res)=> console.log(res))
      },
 
-       siteVisitors: function(data) {
+       siteVisitors: function() {
 
-      console.log(data);
+     // console.log(data);
 
        this.raumid = raum.id;
       console.log(this.raumid)
@@ -336,7 +336,7 @@ export default {
 
         if(isOverlapping== true && this.splashscreen==false){ // muis gaat uit
         this.show = false
-        console.log("muis uit")
+       // console.log("muis uit")
               this.visibility = 'none'
         }else if(isOverlapping== false){ // muis gaat aan
            this.show = true
@@ -356,7 +356,7 @@ export default {
     },
 
     infobutton: function(){
-      console.log("knop is gedrukt")
+      //console.log("knop is gedrukt")
       //hiermee wordt de animatie voor de overlay gestart
       var  abox = document.getElementsByClassName("overlay")[0];
        abox.classList.toggle("overlayhide");
@@ -422,12 +422,13 @@ export default {
             ws.addEventListener('open', onOpen);
           } catch (e) {
             reject(e);
+            console.log("error "+e)
           }
         });
       };
 
       try {
-      console.log('in screen');
+      //console.log('in screen');
         const socket = await getSocket(peerId, peerType);
 
         socket.addEventListener('message', async (e) => {
