@@ -32,6 +32,7 @@
           <br>
 
           <button v-on:click="createVraag" class="btn btn-primary mb-2">Verzend</button>
+          <p class="response">{{response}}</p>
 
       </form>
       
@@ -61,7 +62,8 @@ export default {
      value3: 5,
      value4: 5,
      value5: '',
-     response:[],
+     sendstatus: false,
+     response:''
     
     
   }},
@@ -91,14 +93,21 @@ export default {
               responseType: 'json',
           })
           .then(response=>{
-              console.log('Data is succesvol gestuurd: '+response)
-               
-              console.log("sluit formulier child")
-               this.$emit('closeForm')
+                   
+              console.log("sluit formulier child" +response)
+
+              this.response= "Bedankt voor je tijd. Je antwoorden zijn goed aangekomen!"
+
+                setTimeout(() => {
+                         this.$emit('closeForm')
+                 }, 3000); // close form after 2.5 second
+            
              
           })
           .catch(error=>{
             console.log('Error data is niet aangekomen: ',error)
+
+            this.response= "Er is helaas iets fout gegaan, probeer het nog eens."
           //  res.json(error)
           })
 
@@ -134,6 +143,10 @@ label{
 textarea{
     margin-left: 35%;
     width: 30%;
+}
+
+.response{
+    
 }
 
   /* Mobile version  */

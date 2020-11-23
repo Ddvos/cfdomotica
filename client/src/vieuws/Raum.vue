@@ -701,7 +701,7 @@ export default {
 
 
   video{
-  position: absolute;
+  position: relative;
      width: auto;
      margin-left: 50%;
      transform: translateX(-50%);
