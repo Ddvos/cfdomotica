@@ -58,58 +58,58 @@ app.use(express.urlencoded());
     //timelapse upload esp32-cam
 /////////////////////////////////////
 
-const WS_PORT  = 6083;
+// const WS_PORT  = 6083;
 
-const wsUploadServer = new WebSocket.Server({port: WS_PORT}, ()=> console.log(`WS upload Server is listening at ${WS_PORT}`));
+// const wsUploadServer = new WebSocket.Server({port: WS_PORT}, ()=> console.log(`WS upload Server is listening at ${WS_PORT}`));
 
-let connectedClientss = [];
+// let connectedClientss = [];
 
 
-wsUploadServer.on('connection', (ws, req)=>{
+// wsUploadServer.on('connection', (ws, req)=>{
 
-  //console.log(req.url);
-  //var webURL =req.url
-  connectedClientss.push( ws);
+//   //console.log(req.url);
+//   //var webURL =req.url
+//   connectedClientss.push( ws);
 
 
   
-//console.log(connectedClients);
+// //console.log(connectedClients);
 
-// connectedClients.forEach((obj,) => {
+// // connectedClients.forEach((obj,) => {
 
-//   console.log(obj.webURL);
-//  });
+// //   console.log(obj.webURL);
+// //  });
    
-  ws.on('message', data => {
-     //var cameraURL =req.url
+//   ws.on('message', data => {
+//      //var cameraURL =req.url
 
 
-     connectedClientss.forEach((ws,i)=>{
-      if(ws.readyState === ws.OPEN){
-          ws.send(data);
-      }else{
-          connectedClientss.splice(i ,1);
-      }
-     })
+//      connectedClientss.forEach((ws,i)=>{
+//       if(ws.readyState === ws.OPEN){
+//           ws.send(data);
+//       }else{
+//           connectedClientss.splice(i ,1);
+//       }
+//      })
 
 
    
-        // connectedClients.forEach((obj,i)=>{
-        //      if(obj.ws.readyState === obj.ws.OPEN){ //controleerd of er een verbinding is
-        //       if(obj.webURL == cameraURL){ // kijkt of de webURL uit de array overeen komt met de inkomende url data (camera beeld url)
-        //           obj.ws.send(data); // send img to 
+//         // connectedClients.forEach((obj,i)=>{
+//         //      if(obj.ws.readyState === obj.ws.OPEN){ //controleerd of er een verbinding is
+//         //       if(obj.webURL == cameraURL){ // kijkt of de webURL uit de array overeen komt met de inkomende url data (camera beeld url)
+//         //           obj.ws.send(data); // send img to 
 
-        //           //console.log(obj.webURL+"is gelijk aan inkomnde video: "+ cameraURL);
-        //       }
+//         //           //console.log(obj.webURL+"is gelijk aan inkomnde video: "+ cameraURL);
+//         //       }
              
-        //      }else{
-        //          connectedClients.splice(i ,1);
-        //      }
-        //  })
+//         //      }else{
+//         //          connectedClients.splice(i ,1);
+//         //      }
+//         //  })
         
-     });
+//      });
     
-});
+// });
 
 //app.get('/client',(req,res)=>res.sendFile(path.resolve(__dirname, './client.html')));
   
@@ -157,7 +157,7 @@ wsServer.on('connection', (socket,req) => {
 
   const onMessage = (e) => {
     connectedClients.push(e);
- console.log("client is connected")
+     console.log("client is connected")
       //var cameraURL =req.url
          // console.log(cameraURL);
       //  connectedClients.forEach((obj,i)=>{
@@ -191,9 +191,11 @@ wsServer.on('connection', (socket,req) => {
       }
 
       if (peerType === 'screen') {
+        
         for (let cameraId of cameras) {
           const cameraSocket = sockets.get(cameraId);
           if (cameraId == peerId.slice(0, 4)){ // als de camera id en  car id het zelfde zijn stuur dan de screenId (broadcast car)
+            console.log("camera id is het zelfde als van de livestream")
             cameraSocket.send(JSON.stringify({
               type: 'screens',
               screens: [ peerId ],
@@ -358,6 +360,10 @@ var osc = require("osc");
      var relay = new osc.Relay(udp, socketPort, {
          raw: true
      });
+});
+
+wss.on("close", function () {
+  relay.close();
 });
 
 /// conncection to own server
