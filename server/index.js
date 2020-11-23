@@ -157,7 +157,7 @@ wsServer.on('connection', (socket,req) => {
 
   const onMessage = (e) => {
     connectedClients.push(e);
-     console.log("client is connected")
+   
       //var cameraURL =req.url
          // console.log(cameraURL);
       //  connectedClients.forEach((obj,i)=>{
@@ -170,7 +170,7 @@ wsServer.on('connection', (socket,req) => {
 
          // code hierboven toegevoegd
     const msg = JSON.parse(e);
-   
+    console.log("client is connected to server: "+ msg.from)
 
     if (msg.type === 'register') {
       peerId = msg.peerId;
@@ -191,7 +191,7 @@ wsServer.on('connection', (socket,req) => {
       }
 
       if (peerType === 'screen') {
-        
+        console.log("peertype is screen")
         for (let cameraId of cameras) {
           const cameraSocket = sockets.get(cameraId);
           if (cameraId == peerId.slice(0, 4)){ // als de camera id en  car id het zelfde zijn stuur dan de screenId (broadcast car)
