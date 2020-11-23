@@ -48,8 +48,11 @@
 <script>
 
 import VraagService from '../../VraagService'
+import axios from 'axios';
+
+const url = 'http://circusfamilyprojects.nl:5000/api/posts'
 export default {
-  
+
 
   data() {
   return{
@@ -58,6 +61,7 @@ export default {
      value3: 5,
      value4: 5,
      value5: '',
+     response:[],
     
     
   }},
@@ -77,8 +81,32 @@ export default {
   methods:{
      async createVraag(){
 
-            await VraagService.insertVraag(this.value1,this.value2, this.value3, this.value4 , this.value5)
-      }
+        return axios.post(url,{
+              method: 'POST',
+              vraag1: this.value1,
+              vraag2: this.value2,
+              vraag3: this.value3,
+              vraag4: this.value4,
+              vraag5: this.value5,
+              responseType: 'json',
+          })
+          .then(response=>{
+              console.log('Data is succesvol gestuurd: '+response)
+               
+              console.log("sluit formulier child")
+               this.$emit('closeForm')
+             
+          })
+          .catch(error=>{
+            console.log('Error data is niet aangekomen: ',error)
+          //  res.json(error)
+          })
+
+      
+
+    
+           
+      },
    
   },
   

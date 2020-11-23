@@ -68,6 +68,7 @@ router.post('/', async (req,res)=>{
                 console.log("Ooops, something happend")
             }else{
                 console.log("Data has been saved!!")
+                res.status(201).send();
             }
         })
 });

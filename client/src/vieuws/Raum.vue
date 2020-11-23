@@ -25,7 +25,7 @@
    </transition>
     <div class="row" v-if="desktop" >
           
-          <Vragen class="vragen" v-if="vragen"> </Vragen>
+          <Vragen class="vragen" @closeForm="sluitFormulier" v-if="vragen"> </Vragen>
           <!-- WebGL -->
           <div class="col-8"  ref="webGLSpeelveld" v-if="mainpage">
             <div  id="speelveld">
@@ -364,7 +364,11 @@ export default {
        // hiermee wordt de animatie van de cursor gestart en gaat de knop naat links
          var  knop = document.getElementsByClassName("info-button")[0];
        knop.classList.toggle("info-button-hide");
-    },
+     },
+     sluitFormulier: function(){
+       console.log("sluit formulier parent")
+        this.vragen = false; // sluit het formulier
+     },
        /// begin live videostream
        async videoStream(){
 
