@@ -229,6 +229,8 @@ export default {
     siteVisitor: function(){
 
        raum.on("welcome",()=>{  //data kan worden toegevoegd als parameter
+        this.raumid = raum.id;
+        console.log("dit is mijn id: " +this.raumid)
          this.siteVisitors();
         })
 
@@ -251,10 +253,8 @@ export default {
 
        siteVisitors: function() {
 
-     // console.log(data);
-
-       this.raumid = raum.id;
-      console.log(this.raumid)
+     // console.log(data);   
+      //console.log(this.raumid)
            port.send({
             address: "/newID",
             args:  this.raumid
