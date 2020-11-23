@@ -428,13 +428,13 @@ export default {
       };
 
       try {
-      //console.log('in screen');
+      console.log('in screen');
         const socket = await getSocket(peerId, peerType);
 
         socket.addEventListener('message', async (e) => {
           try {
             const msg = JSON.parse(e.data);
-              //console.log("camera and selected car are the same "+ msg.from)
+              console.log("camera and selected car are the same "+ msg.from)
                 this.Camconnected = true;
             if (msg.type === 'offer') {
               const peerConnection = new RTCPeerConnection(config);
