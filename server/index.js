@@ -402,7 +402,15 @@ wss.on("error", function() {
   //socket.emit("my error", "Something bad happened!");
 });
 
+// will handell warnings
 process.on('warning', e => console.warn(e.stack))
+
+// will handell errors
+process.on('uncaughtException', function(err) { 
+  
+  // Handle the error safely 
+  console.log('Caught exception:'+err) 
+}) 
 
 /// conncection to own server
 var porttoserver = new osc.WebSocketPort({
