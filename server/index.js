@@ -357,7 +357,7 @@ var osc = require("osc");
          socket: socket
      });
 
-     console.log(socketPort)
+     //console.log(socketPort)
 
      var relay = new osc.Relay(udp, socketPort, {
          raw: true
