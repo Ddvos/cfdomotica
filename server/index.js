@@ -361,13 +361,16 @@ var osc = require("osc");
          raw: true
      });
 
+    socket.on("close", function () {
+      console.log(">>WebSocket is closed now.<<");
+      relay.close();
+     
+    });
+
     
 });
 
-wss.on("close", function () {
-  relay.close();
-  console.log("WebSocket is closed now.");
-});
+
 
 wss.onclose = function() {
   relay.close();
