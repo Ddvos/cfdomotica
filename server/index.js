@@ -387,6 +387,8 @@ wss.onerror = function(event) {
   console.error("WebSocket error observed:", event);
 };
 
+process.on('warning', e => console.warn(e.stack))
+
 /// conncection to own server
 var porttoserver = new osc.WebSocketPort({
   url: "wss://circusfamilyprojects.nl:8084" //  ws://localhost:8083 online server wss://circusfamilyprojects.nl:8084
