@@ -397,6 +397,11 @@ wss.onerror = function(event) {
   console.error("WebSocket error observed:", event);
 };
 
+wss.on("error", function() {
+  console.log(">>WebSocket connection error");
+  //socket.emit("my error", "Something bad happened!");
+});
+
 process.on('warning', e => console.warn(e.stack))
 
 /// conncection to own server
