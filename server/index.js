@@ -419,10 +419,10 @@ io.of("/raum").on("connection",(socket)=>{
        console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
 
          // maakt verbinidng met deze server en stuurt via OSC de huidige lijst met klanten naar de studio in amsterdam
-      porttoserver.send({
-        address: "/clientsID",
-        args:  clients
-      });
+      // porttoserver.send({
+      //   address: "/clientsID",
+      //   args:  clients
+      // });
       //console.log('user disconnected');
      });
 
