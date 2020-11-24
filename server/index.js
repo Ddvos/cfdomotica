@@ -368,6 +368,11 @@ wss.on("close", function () {
   relay.close();
 });
 
+wss.onclose = function() {
+  relay.close();
+  console.log("WebSocket is closed now.");
+};
+
 wss.onerror = function(event) {
   console.error("WebSocket error observed:", event);
 };
