@@ -367,27 +367,23 @@ var osc = require("osc");
          raw: true
      });
 
-     socket.onerror = function(event) {
-      console.error("WebSocket error observed:", event);
-    };
+   
 
     
 });
 
-// wss.on("close", function () {
-//   console.log(">>WebSocket is closed now.<<");
-//   relay.close();
-//   socket.close();
+wss.on("close", function () {
+  console.log(">>WebSocket is closed now.<<");
+  wss.close();
 
-// });
-
+});
 
 
-// wss.onclose = function() {
-//   socket.close();
-//   relay.close();
-//   console.log("WebSocket is closed now.");
-// };
+
+wss.onclose = function() {
+  wss.close();
+  console.log("WebSocket is closed now.");
+};
 
 wss.onerror = function(event) {
   console.error("WebSocket error observed:", event);
