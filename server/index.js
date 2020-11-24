@@ -353,12 +353,6 @@ var osc = require("osc");
 
  wss.on("connection", function (socket) {
      console.log("A Web Socket connection has been established!");
-
-     socket.on("close", function () {
-      console.log(">>WebSocket is closed now.<<");
-      socket.close();
-     
-    });
      var socketPort = new osc.WebSocketPort({
          socket: socket
      });
@@ -367,21 +361,30 @@ var osc = require("osc");
          raw: true
      });
 
-   
+    socket.on("close", function () {
+      console.log(">>WebSocket is closed now.<<");
+      socket.close();
+     
+    });
+
+    socket.on("error", function() {
+      console.log(">>WebSocket connection error");
+      //socket.emit("my error", "Something bad happened!");
+  });
 
     
 });
 
 wss.on("close", function () {
   console.log(">>WebSocket is closed now.<<");
-  wss.close();
+  socket.close();
 
 });
 
 
 
 wss.onclose = function() {
-  wss.close();
+  socket.close();
   console.log("WebSocket is closed now.");
 };
 
