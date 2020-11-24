@@ -357,12 +357,14 @@ var osc = require("osc");
          socket: socket
      });
 
+     console.log(socketPort)
+
      var relay = new osc.Relay(udp, socketPort, {
          raw: true
      });
 
     socket.on("close", function () {
-      console.log(">>WebSocket is closed now.<<");
+      console.log(">>WebSocket is closed now1.<<");
       relay.close();
       socket.close();
      
@@ -377,7 +379,7 @@ var osc = require("osc");
 });
 
 wss.on("close", function () {
-  console.log(">>WebSocket is closed now.<<");
+  console.log(">>WebSocket is closed now2.<<");
   relay.close();
   wss.close();
 
@@ -388,7 +390,7 @@ wss.on("close", function () {
 wss.onclose = function() {
   relay.close();
   wss.close();
-  console.log("WebSocket is closed now.");
+  console.log("WebSocket is closed now3.");
 };
 
 wss.onerror = function(event) {
