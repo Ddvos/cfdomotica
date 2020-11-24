@@ -356,7 +356,6 @@ var osc = require("osc");
 
      socket.on("close", function () {
       console.log(">>WebSocket is closed now.<<");
-      relay.close();
       socket.close();
      
     });
