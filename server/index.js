@@ -361,16 +361,16 @@ var osc = require("osc");
          raw: true
      });
 
-     socket.onerror = function(event) {
-      console.error("WebSocket error observed:", event);
-    };
-
-    socket.on("close", function () {
-      relay.close();
-    });
+    
 });
 
+wss.on("close", function () {
+  relay.close();
+});
 
+wss.onerror = function(event) {
+  console.error("WebSocket error observed:", event);
+};
 
 /// conncection to own server
 var porttoserver = new osc.WebSocketPort({
