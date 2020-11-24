@@ -373,11 +373,11 @@ wss.onerror = function(event) {
 };
 
 /// conncection to own server
-var porttoserver = new osc.WebSocketPort({
-  url: "wss://circusfamilyprojects.nl:8084" //  ws://localhost:8083 online server wss://circusfamilyprojects.nl:8084
-}); 
+//var porttoserver = new osc.WebSocketPort({
+//  url: "wss://circusfamilyprojects.nl:8084" //  ws://localhost:8083 online server wss://circusfamilyprojects.nl:8084
+//}); 
 
-porttoserver.open();
+//porttoserver.open();
 
 ///////////////////////////////////////
   // registratie bezoekers Raum
@@ -419,10 +419,10 @@ io.of("/raum").on("connection",(socket)=>{
        console.log(clients); // => [Anw2LatarvGVVXEIAAAD]
 
          // maakt verbinidng met deze server en stuurt via OSC de huidige lijst met klanten naar de studio in amsterdam
-      // porttoserver.send({
-      //   address: "/clientsID",
-      //   args:  clients
-      // });
+    //  porttoserver.send({
+    ///    address: "/clientsID",
+    //    args:  clients
+    //  });
       //console.log('user disconnected');
      });
 
