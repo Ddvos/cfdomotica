@@ -360,11 +360,17 @@ var osc = require("osc");
      var relay = new osc.Relay(udp, socketPort, {
          raw: true
      });
+
+     socket.onerror = function(event) {
+      console.error("WebSocket error observed:", event);
+    };
+
+    socket.on("close", function () {
+      relay.close();
+    });
 });
 
-wss.on("close", function () {
-  relay.close();
-});
+
 
 /// conncection to own server
 var porttoserver = new osc.WebSocketPort({
