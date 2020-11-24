@@ -379,7 +379,7 @@ var osc = require("osc");
 wss.on("close", function () {
   console.log(">>WebSocket is closed now.<<");
   relay.close();
-  socket.close();
+  wss.close();
 
 });
 
@@ -387,7 +387,7 @@ wss.on("close", function () {
 
 wss.onclose = function() {
   relay.close();
-  socket.close();
+  wss.close();
   console.log("WebSocket is closed now.");
 };
 
