@@ -1,5 +1,5 @@
 <template>   
- <div id="container"></div>
+ <div id="container"> </div> 
 
 </template>
 <script>
@@ -85,6 +85,7 @@ export default {
        ypostion: 0,
        line1: null,
        matLine: null,
+       mobileposition: "niks"
         
    }
   },
@@ -369,10 +370,11 @@ export default {
               for(var i = 1; i<5; i++){ // loops through every side 
                    // console.log( 'mesh'+i+'Collision')
                
-               if(mouseCollision.intersectsBox( this.detectionArray[i-1])  && this.sendSide[i] == false && this.sendPole[i] == false && this.OSCconnectionStatus == true ){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd &&  this.OSCconnectionStatus == true && this.sendPole[i] == false 
+               if(mouseCollision.intersectsBox( this.detectionArray[i-1])  && this.sendSide[i] == false && this.sendPole[p] == false && this.OSCconnectionStatus == true ){ // this.sendPole zorgt dat de waarde 1 en 0 eenmaal wordt gestuurd &&  this.OSCconnectionStatus == true && this.sendPole[i] == false 
                 //console.log(mouseCollision.intersectsBox( this.detectionArray[i-1]))
                 
-               // console.log("side"+i+" pole"+p+" active")
+                //console.log("side"+i+" pole"+p+" active")
+                //this.mobileposition = "side"+i+" pole"+p+" active"
                     port.send({
                        address: "/pole"+p+"_"+i,
                         args:  [1,this.$props.raumid]
