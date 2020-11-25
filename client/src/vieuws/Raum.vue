@@ -269,7 +269,7 @@ export default {
            port.send({
             address: "/clientsID",
              args:  this.clientsIDArray
-          });
+         });
 
 
      },
@@ -443,7 +443,7 @@ export default {
               peerConnection.ontrack = (e) => {
                 console.log('on track', e);
                 window.v.srcObject = e.streams[0];
-                window.v.muted = true;
+                window.v.muted = false;
                 window.v.play();
                //this.videocheck = "camera is aan" + e.streams[0].active
                // window.wait.classList.add('hidden');
