@@ -52,7 +52,7 @@
 import VraagService from '../../VraagService'
 import axios from 'axios';
 
-const url = 'http://circusfamilyprojects.nl:5000/api/posts'
+const url = 'https://circusfamilyprojects.nl:5010/api/posts'
 export default {
 
 
