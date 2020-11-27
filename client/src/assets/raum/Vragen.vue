@@ -220,6 +220,73 @@ textarea{
   /* Mobile version  */
 
   @media screen and (max-width: 700px) {
+    
+    h2{
+        font-size:150%;
+        text-align: left;
+        margin-left:5%;
+    }
+    p{
+      font-size:80%;
+      margin-left:5%;
+    }
+
+    label{
+      font-size:80%;
+      margin-top: 5px;
+      margin-left:5%;
+      cursor: none;
+    }
+    input{
+      margin-left:10%;
+      width: 70%;
+      cursor: none;
+    }
+    textarea{
+      margin-left:5%;
+      width: 90%
+    }
+    .verzend{
+       font-size:80%;
+      margin-left: 5%;
+      border: 1px solid rgba(46, 184, 55,1);
+      border-radius: 5px;
+      width: 80px;
+      padding: 10px 0;
+      text-align: center;
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .response {
+       font-size:65%;
+       text-align: left;
+        position:absolute;
+        margin-left:1%;
+        width: 60%;
+        display: inline-block;
+    }
+
+     .close {
+        cursor: none;
+        position:absolute;
+        margin-left:50%;
+        display: inline-block;
+        right: 25px;
+        top: 10px;
+        width: 15px;
+        height: 15px;
+        opacity: 1;
+      }
+      .close:before, .close:after {
+          position: absolute;
+          left: 15px;
+          content: ' ';
+          height: 25px;
+          width: 1.5px;
+          background-color: rgb(255, 255, 255);
+        }
+
 
   }
  

@@ -77,6 +77,9 @@
 
    </div>
   <div v-if="mobile" >
+    <div class="vragenBackground" v-if="vragen">
+        <Vragen class="vragen" @closeForm="sluitFormulier" v-if="vragen"> </Vragen>
+    </div>
     <div class="overlay" v-on:click="infobutton" >
                <div class="tekst">
                   <!-- <p> Totaal online bezoekers: {{totalClients}}</p> -->
@@ -90,12 +93,9 @@
                      Harmonie is een uitnodiging om een onbekende ruimte te ontdekken en open te staan voor een gedeelde ervaring en verbondenheid. Circus Family vroeg zich af: 
                      kan deze installatie bijdragen aan interactie tussen mensen en zo een gevoel van sociale eenzaamheid verminderen? 
                      <br> <br>
-                     De interactieve installatie bestaat uit zestien pilaren waarin licht en geluid elkaar ontmoeten. De pilaren staan op precies anderhalve meter afstand van elkaar.
-                     Het maakt niet uit van welke kant je komt aanlopen: sensoren registreren je beweging waardoor de kleuren en geluiden in de zuilen op je reageren. 
-                     Zodra de sensoren je ‘zien’, begint er als het ware een orkest te spelen. Des te meer mensen zich rondom en tussen de pilaren bewegen, des te grootser
-                     de symfonie wordt. Ga een dialoog aan met Harmonie - alleen of door anderen te verzamelen - en ervaar het effect!
-                     <br> <br>
+                     Mogen we je een aantal vragen stellen voor het onderzoek dat gekoppeld is aan “Harmonie”?
                 </p>
+                   <div class="buttonvragen" @click="vragen = true" >Deelnemen</div>
                 </div>
 
                    <div class="logos">
@@ -551,7 +551,7 @@ export default {
   }
 
   .vragenBackground{
-     z-index:4;
+     z-index:5;
      position:absolute;
      background: rgba(0,0,0,0.5);
      display: 1;
@@ -561,7 +561,7 @@ export default {
   }
 
   .vragen{
-     z-index:5;
+     z-index:6;
      position:absolute;
      display: 1;
      width: 80vw;
@@ -650,6 +650,7 @@ export default {
       display: flex;
       position: absolute;
      background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
+        backdrop-filter: blur(2px);
      width: 100%;
     height: 100%;
     animation: myfirst 3s 1;
@@ -767,6 +768,20 @@ export default {
    margin-top: 65vh;
   
      
+  }
+
+  .vragen{
+     z-index:6;
+     position:absolute;
+     display: 1;
+     width:95vw;
+     height: 95vh;
+     margin-left:2.5vw;
+     margin-top:2.5vh;
+    background: linear-gradient(0deg, rgba(35,100,233,0.8) 0%, rgba(202,26,47,0.8) 100%);
+     border-radius: 15px;
+    backdrop-filter: blur(4px);
+
   }
 
 

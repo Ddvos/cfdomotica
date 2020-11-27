@@ -366,7 +366,7 @@ clip-path: polygon(50% 0, 100% 44%, 93% 53%, 50% 15%, 7% 53%, 0 44%);
 
      .pijl{
       margin-top: 5%;
-        margin-bottom: 2%;
+        margin-bottom: 3%;
     position:absolute;
      display: 1;
      margin-left: -5%;
