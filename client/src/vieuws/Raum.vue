@@ -526,7 +526,7 @@ export default {
   overflow: hidden;
   width: 100vw;
   height: 100vh;
-  background: #313131;
+  background: #1e3a42;
   color: white;
   cursor: none;
 
