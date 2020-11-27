@@ -526,7 +526,7 @@ export default {
   overflow: hidden;
   width: 100vw;
   height: 100vh;
-  background: #1e3a42;
+  background: #25b9e2;
   color: white;
   cursor: none;
 
@@ -746,13 +746,38 @@ export default {
 
 @media screen and (max-width: 700px) {
 
+  .background {
+  overflow: hidden;
+  width: 100vw;
+  height: 100%;
+  background: #25b9e2;
+  color: white;
+  cursor: none;
+
+  .cursor {
+    pointer-events: none;
+
+    &__ball {
+      position: fixed;
+      top: 0;
+      left: 0;
+     // mix-blend-mode: difference;
+      z-index: 1000;
+
+
+      circle {
+        fill: #ffffff;
+      }
+    }
+  }
+  }
  .row,.col-8{
     margin: 0;
     padding:0;
   }
   #speelveld{
      width: 100%;
-    height: 59vh;
+    height: 60vh;
     background: #0d0d0d;
     color: white;
       z-index:3;
@@ -886,8 +911,8 @@ export default {
        width: 100vw;
       //   padding-top: 50px;
       //  padding-bottom: 50px;
-       height: 30vh;
-       background-color: #0d0d0d; //#0d0d0d;
+       height: 40vh;
+       background-color: #d61d1d; //#0d0d0d;
 
         -moz-transform:scale(2);
         -webkit-transform:scale(2);
