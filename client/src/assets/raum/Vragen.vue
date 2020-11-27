@@ -2,9 +2,10 @@
 
 
   <div class="vragenBackground">
+  <a href="#" class="close" v-on:click="closeForm"></a>
     <br> 
       <h2>Onderzoek eenzaamheid</h2>
-
+       <p>De antwoorden zijn op een schaal van 1 tot 10. Waarbij 1 negatief en 10 positief is.</p>
       <form>
           <label class="label">In hoeverre werd je nieuwsgierigheid geprikkeld door wat je ontdekt?</label>
            <br>   
@@ -31,7 +32,7 @@
           
           <br>
 
-          <button v-on:click="createVraag" class="btn btn-primary mb-2">Verzend</button>
+          <div class="verzend" v-on:click="createVraag" >Verzend</div>
           <p class="response">{{response}}</p>
 
       </form>
@@ -81,6 +82,9 @@ export default {
     }
   },
   methods:{
+    closeForm(){
+       this.$emit('closeForm')
+    },
      async createVraag(){
 
         return axios.post(url,{
@@ -132,22 +136,86 @@ export default {
 
 }
 
+p{
+  text-align: left;
+    margin-left: 35%;
+}
+
+
+form{
+    text-align: left;
+
+}
+
 span{
     margin-left: 10px;
-   
+   width: 80%
 }
 label{
     margin-top: 10px;
+    margin-left: 35%;
+    cursor: none;
+}
+input{
+      margin-left:35%;
+      width: 20%;
+      cursor: none;
 }
 
 textarea{
     margin-left: 35%;
-    width: 30%;
+    width: 30%
 }
 
-.response{
-    
+.verzend{
+     margin-left: 35%;
+		border: 1px solid rgba(46, 184, 55,1);
+    border-radius: 5px;
+		width: 95px;
+		padding: 10px 0;
+		text-align: center;
+		display: inline-block;
+     margin-right: 10px;
 }
+
+ .verzend:hover{
+     background-color: rgba(46, 184, 55,0.5)
+  }
+
+ .response {
+    position:relative;
+    margin-left:2%;
+    display: inline-block;
+ }
+
+ .close {
+  cursor: none;
+  position:absolute;
+  margin-top:0.3%;
+  margin-left:45%;
+  display: inline-block;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 1;
+}
+
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: rgb(255, 255, 255);
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
+
 
   /* Mobile version  */
 

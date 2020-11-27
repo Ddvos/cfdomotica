@@ -24,8 +24,9 @@
          <Raumstart class="splashscreen" @start="mainstart" @mobileoverlayhide="infobutton" v-if="splashscreen" v-bind:raumid="raumid"> </Raumstart>
    </transition>
     <div class="row" v-if="desktop" >
-          
+          <div class="vragenBackground" v-if="vragen">
           <Vragen class="vragen" @closeForm="sluitFormulier" v-if="vragen"> </Vragen>
+          </div>
           <!-- WebGL -->
           <div class="col-8"  ref="webGLSpeelveld" v-if="mainpage">
             <div  id="speelveld">
@@ -58,7 +59,7 @@
                      <br> <br>
                      Mogen we je een aantal vragen stellen voor het onderzoek dat gekoppeld is aan “Harmonie”?
                 </p>
-                <button @click="vragen = true">Ja</button>
+                <div class="buttonvragen" @click="vragen = true" >Deelnemen</div>
                 <div class="logos">
                   <img src="../assets/raum/RAUM.svg" alt="logo Raum" height="67" width="80" />
                   <img src="../assets/raum/CIRCUS_FAMILY.svg" alt="logo Raum" height="67" width="80" />
@@ -334,7 +335,7 @@ export default {
         const isInVerticalBounds = this.muisxtransition.y < rect2.y + rect2.height && this.muisxtransition.y - this.muisxtransition.height > rect2.y;
         const isOverlapping = isInHoriztonalBounds && isInVerticalBounds;
 
-        if(isOverlapping== true && this.splashscreen==false){ // muis gaat uit
+        if(isOverlapping== true && this.splashscreen==false && this.vragen == false){ // muis gaat uit
         this.show = false
        // console.log("muis uit")
               this.visibility = 'none'
@@ -549,16 +550,27 @@ export default {
      z-index:5;
   }
 
-  .vragen{
+  .vragenBackground{
      z-index:4;
+     position:absolute;
+     background: rgba(0,0,0,0.5);
+     display: 1;
+     width: 100vw;
+     height: 100vh;
+     backdrop-filter: blur(2px);
+  }
+
+  .vragen{
+     z-index:5;
      position:absolute;
      display: 1;
      width: 80vw;
-     height: 80vh;
+     height: 85vh;
      margin-left:10vw;
      margin-top:10vh;
-    background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
-    backdrop-filter: blur(3px);
+    background: linear-gradient(0deg, rgba(35,100,233,0.8) 0%, rgba(202,26,47,0.8) 100%);
+     border-radius: 15px;
+    backdrop-filter: blur(4px);
 
   }
 
@@ -610,6 +622,21 @@ export default {
       font-family: 'Roboto', sans-serif;
 
 
+  }
+
+   .buttonvragen{
+    font-size: 75%;
+		border: 1px solid rgba(46, 184, 55,1);
+    border-radius: 5px;
+		width: 95px;
+		padding: 10px 0;
+		text-align: center;
+		display: inline-block;
+     margin-right: 10px;
+  }
+
+    .buttonvragen:hover{
+     background-color: rgba(46, 184, 55,0.5)
   }
 
   .logos{
