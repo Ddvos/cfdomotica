@@ -1,12 +1,11 @@
 <template>
 
-<div >
+<div class="background">
 
     
     <h3>Live Video Stream (broadcast)</h3>
    
-      <video mute='true' playsinline autoplay id='v' width='50%' height='50%'></video>
-{{$route.params.id }}
+      <video mute='true' playsinline autoplay id='v'></video>
 
 </div>
   
@@ -206,8 +205,13 @@ export default {
 html {
     height: 100%;
 }
+
+.background{
+  background-color: black;
+}
 h3 {
-  margin: 40px 0 0;
+  color: white;
+  margin: 0;
 }
 ul {
   list-style-type: none;
@@ -216,6 +220,12 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
+}
+
+video{
+  width: 95vw;
+  height: 95vh;
+
 }
 
 .wrapper{
