@@ -769,13 +769,14 @@ export default {
   
      
   }
+  
 
   .vragen{
      z-index:6;
      position:absolute;
      display: 1;
      width:95vw;
-     height: 90vh;
+     height: 80vh;
      margin-left:2.5vw;
      margin-top:2.5vh;
     background: linear-gradient(0deg, rgba(35,100,233,0.8) 0%, rgba(202,26,47,0.8) 100%);

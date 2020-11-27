@@ -240,6 +240,7 @@ textarea{
     input{
       margin-left:10%;
       width: 70%;
+        z-index: 8; 
     }
     textarea{
       margin-left:5%;

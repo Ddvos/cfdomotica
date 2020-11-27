@@ -26,7 +26,7 @@
 
       <br>
       <div class="wrapper">
-        <input type="range" min="0" max="100" step="1" v-model="value" v-on:input="sendSlider" > 
+        <input type="range" min="1" max="10" step="1" v-model="value"> 
         <span v-text="total"></span>
       </div>
 
@@ -101,7 +101,7 @@ export default {
 
   data() {
   return{
-    value: 60,
+    value: 5,
     addressen:[],
     message:'',
     address:'',
@@ -226,6 +226,12 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
+
+ input{
+      margin-left:10%;
+      width: 70%;
+        z-index: 1; 
+    }
 
 .wrapper{
   padding-top: 20px;
