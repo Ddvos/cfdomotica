@@ -1,12 +1,12 @@
 <template>
 
 
-  <div class="vragenBackground">
+  <div class="vragenBackground" >
   <a href="#" class="close" v-on:click="closeForm"></a>
     <br> 
       <h2>Onderzoek eenzaamheid</h2>
        <p>De antwoorden zijn op een schaal van 1 tot 10. Waarbij 1 negatief en 10 positief is.</p>
-      <form>
+      <form id="form">
           <label class="label">In hoeverre werd je nieuwsgierigheid geprikkeld door wat je ontdekt?</label>
            <br>   
            <input type="range" min="0" max="10" step="1" v-model="value1"> 
@@ -69,6 +69,10 @@ export default {
     
   }},
    created: function(){
+
+     // create scroll bar
+     var container = this.$el.querySelector("#form");
+     container.scrollTop = container.scrollHeight;
 
      },
   mounted: function(){
@@ -220,6 +224,17 @@ textarea{
   /* Mobile version  */
 
   @media screen and (max-width: 700px) {
+
+.vragenBackground{
+    position: relative;
+    z-index: 1; 
+}
+
+#form{
+  position: absolute;
+  -webkit-overflow-scrolling: touch;
+ max-height:40%;
+}
     
     h2{
         font-size:150%;
