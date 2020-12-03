@@ -1,42 +1,45 @@
 <template>
 
 
-  <div class="vragenBackground" >
+  <div class="vragenBackground" ref="mouseEvent">
   <a href="#" class="close" v-on:click="closeForm"></a>
     <br> 
       <h2>Onderzoek eenzaamheid</h2>
        <p>De antwoorden zijn op een schaal van 1 tot 10. Waarbij 1 negatief en 10 positief is.</p>
-      <form id="form">
-          <label class="label">In hoeverre werd je nieuwsgierigheid geprikkeld door wat je ontdekt?</label>
-           <br>   
-           <input type="range" min="0" max="10" step="1" v-model="value1"> 
-           <span v-text="this.value1"></span>   <br> 
+       <div class="scroll">
+          <div class="realscroll">
+          <form id="form">
+              <label class="label">In hoeverre werd je nieuwsgierigheid geprikkeld door wat je ontdekt?</label>
+              <br>   
+              <input type="range" min="0" max="10" step="1" v-model="value1"> 
+              <span v-text="this.value1"></span>   <br> 
 
-          <label class="label">Zou je de offline omgeving / de fysieke installatie gaan bezoeken door deze online kennismaking?</label>
-           <br>   
-           <input type="range" min="0" max="10" step="1" v-model="value2"> 
-           <span v-text="this.value2"></span>   <br> 
+              <label class="label">Zou je de offline omgeving / de fysieke installatie gaan bezoeken door deze online kennismaking?</label>
+              <br>   
+              <input type="range" min="0" max="10" step="1" v-model="value2"> 
+              <span v-text="this.value2"></span>   <br> 
 
-          <label class="label">Ervaar je zelf een vorm van eenzaamheid gedurende deze Covid-19 pandemie?</label>
-           <br>   
-           <input type="range" min="0" max="10" step="1" v-model="value3"> 
-           <span v-text="this.value3"></span>   <br> 
+              <label class="label">Ervaar je zelf een vorm van eenzaamheid gedurende deze Covid-19 pandemie?</label>
+              <br>   
+              <input type="range" min="0" max="10" step="1" v-model="value3"> 
+              <span v-text="this.value3"></span>   <br> 
 
-          <label class="label">Kan je je vinden in de omschrijving en het doel van dit werk?</label>
-           <br>   
-           <input type="range" min="0" max="10" step="1" v-model="value4"> 
-           <span v-text="this.value4"></span>   <br> 
+              <label class="label">Kan je je vinden in de omschrijving en het doel van dit werk?</label>
+              <br>   
+              <input type="range" min="0" max="10" step="1" v-model="value4"> 
+              <span v-text="this.value4"></span>   <br> 
 
-            <label class="label">Heb je nog opmerkingen of tips voor de makers?</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="value5"></textarea>
-          
-          <br>
+                <label class="label">Heb je nog opmerkingen of tips voor de makers?</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="value5"></textarea>
+              
+              <br>
 
-          <div class="verzend" v-on:click="createVraag" >Verstuur</div>
-          <p class="response">{{response}}</p>
+              <div class="verzend" v-on:click="createVraag" >Verstuur</div>
+              <p class="response">{{response}}</p>
 
-      </form>
-      
+          </form>
+          </div>
+      </div>
      
 </div>
 
@@ -76,6 +79,10 @@ export default {
 
      },
   mounted: function(){
+
+     this.$refs.mouseEvent.addEventListener('touchmove',(event) =>{
+  
+        },{ });
       
   },
   computed:{
@@ -229,15 +236,32 @@ textarea{
 .vragenBackground{
     position: relative;
     z-index: 1; 
-    height: 100%;
+    height: 400px;
+}
+
+.scroll{
+     height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding-top: 50px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.realscroll{
+ position: relative;
+  height:100%; ;
+  overflow: auto;
+   z-index: 7;
 }
 
 #form{
-  height: 200px;
-  overflow-x:hidden;
+  height: 800px;
+  /* overflow-x:hidden;
   overflow-y:scroll;
-  -webkit-overflow-scrolling: touch;
-    z-index: 7; 
+  -webkit-overflow-scrolling: auto;
+    z-index: 7;  */
 }
     
     h2{

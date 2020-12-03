@@ -53,6 +53,42 @@
             </div>
       </div>
     </div>
+    <!-- test -->
+  <div class="background"  ref="mouseEvent">
+
+        <div class="cursor" >  <!--if cursor is not in webGL element mouse vissible-->
+      <div ref="ballBig" class="cursor__ball cursor__ball--big ">
+
+          <svg   height="30" width="30" display= "none" >     <!--display= "none" -->
+              <circle cx="15" cy="15" r="12" stroke-width="0"></circle>
+          </svg>
+
+      </div>
+
+      <div ref="ballSmall" class="cursor__ball cursor__ball--small">
+         <transition name="fade" v-on:enter="enter">
+          <svg  v-if="show" height="10" width="10"  v-bind:style="{ 'display': this.visibility}" >
+            <circle cx="5" cy="5" r="3" stroke-width="0"></circle>
+          </svg>
+         </transition>
+      </div>
+    </div>
+    
+      <div class="vragenBackground">
+      <div class="d3">
+        <div class="d3-1">
+          HEADER
+        </div>
+        <div class="d3-2">
+          <div class="d4">
+            <div class="d5">test</div>
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+
+<!-- einde -->
     <div class="container">
       <div class="broadcasting">
 
@@ -214,7 +250,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 h3 {
   margin: 40px 0 0;
 }
@@ -249,6 +285,76 @@ li {
   height: 80px;
   
 }
+
+@media screen and (max-width: 700px) {
+.background {
+  overflow: scroll;
+  width: 100vw;
+  height: 100vh;
+  background: #1e3a42;
+  color: white;
+  cursor: none;
+
+  .cursor {
+    pointer-events: none;
+
+    &__ball {
+      position: fixed;
+      top: 0;
+      left: 0;
+     // mix-blend-mode: difference;
+      z-index: 5;
+
+
+      circle {
+        fill: #ffffff;
+      }
+    }
+  }
+}
+ .vragenBackground{
+     z-index:5;
+     position:absolute;
+     background: rgba(0,0,0,0.5);
+     display: 1;
+     width: 100vw;
+     height: 100vh;
+     backdrop-filter: blur(2px);
+  }
+
+
+.d3 {
+   height:200px; 
+   position: relative;
+    border:2px solid red;
+}
+.d3-1 {
+   height:50px;
+}
+.d3-2{
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding-top: 50px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+.d4
+{
+  position: relative;
+  height:100%; ;
+  overflow: auto;
+}
+.d5 {
+    height:3000px
+}
+
+.d3-1{
+    border:2px solid yellow;
+}
+}
+
 
 
 

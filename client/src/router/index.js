@@ -84,6 +84,11 @@ export default new Router({
             name: '/raumstart',
             component:() => import(/* webpackChunkName: "raumstart" */ '@/vieuws/Raumstart'),
          },
+         {
+            path:'/test',
+            name: '/test',
+            component:() => import(/* webpackChunkName: "raumstart" */ '@/vieuws/test'),
+         },
        
     
         

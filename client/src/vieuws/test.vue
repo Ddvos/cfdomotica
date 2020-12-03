@@ -1,8 +1,8 @@
 <template>
-<div class="background"  ref="mouseEvent"> <!-- v-hammer:pan="onPan"  v-on:mousemove="onMouseMovePc"  -->
+    <!-- test -->
+  <div class="background"  ref="mouseEvent">
 
-
-          <div class="cursor" >  <!--if cursor is not in webGL element mouse vissible-->
+        <div class="cursor" >  <!--if cursor is not in webGL element mouse vissible-->
       <div ref="ballBig" class="cursor__ball cursor__ball--big ">
 
           <svg   height="30" width="30" display= "none" >     <!--display= "none" -->
@@ -19,18 +19,13 @@
          </transition>
       </div>
     </div>
-
-     <transition name="splashfade" v-on:click="enter">
-         <Raumstart class="splashscreen" @start="mainstart" @mobileoverlayhide="infobutton" v-if="splashscreen" v-bind:raumid="raumid"> </Raumstart>
-   </transition>
     <div class="row" v-if="desktop" >
           <div class="vragenBackground" v-if="vragen">
-          <Vragen class="vragen" @closeForm="sluitFormulier" v-if="vragen"> </Vragen>
+  
           </div>
           <!-- WebGL -->
           <div class="col-8"  ref="webGLSpeelveld" v-if="mainpage">
             <div  id="speelveld">
-                  <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition" v-bind:raumid="raumid"></WebGLRaum>
               </div>
 
           </div>
@@ -76,62 +71,32 @@
           </div>
 
    </div>
-  <div v-if="mobile" >
-    <div class="vragenBackground" ref="vraagEvent" v-if="vragen">
-         <Vragen  class="vragen" @closeForm="sluitFormulier" v-if="vragen"> </Vragen> 
-
-    </div>
-    <div class="overlay" v-on:click="infobutton" >
-               <div class="tekst">
-                  <!-- <p> Totaal online bezoekers: {{totalClients}}</p> -->
-                  <h1 id="info-title"> HARMONIE</h1>
-                  <p>Living apart together installation</p>
-
-                  <p class="info-tekst">
-                       Het stimuleren van sociale interacties en het maken van meer intieme plekken kan een bijdrage leveren aan een minder eenzame stad.
-                     Design in de publieke ruimte prikkelt de verbeelding en nodigt op subtiele manieren uit tot ontmoeting en verbinding.Het zorgt ervoor dat je even vertraagt.
-                     <br> <br>
-                     Harmonie is een uitnodiging om een onbekende ruimte te ontdekken en open te staan voor een gedeelde ervaring en verbondenheid. Circus Family vroeg zich af: 
-                     kan deze installatie bijdragen aan interactie tussen mensen en zo een gevoel van sociale eenzaamheid verminderen? 
-                     <br> <br>
-                     Mogen we je een aantal vragen stellen voor het onderzoek dat gekoppeld is aan “Harmonie”?
-                </p>
-                   <div class="buttonvragen" @click="vragen = true" >Deelnemen</div>
-                </div>
-
-                   <div class="logos">
-                      <img src="../assets/raum/RAUM.svg" alt="logo Raum" height="67" width="80" />
-                      <img src="../assets/raum/CIRCUS_FAMILY.svg" alt="logo Raum" height="67" width="80" />
-                   </div>
-                
-                <div class="info-button"></div>
-          </div>
-
-      <!-- video livestream -->
-        <div class="row" id="video" >
-             <video playsinline webkit-playsinline id='v'></video> <!--  //v-bind:style="{ 'border': '7px solid'+color1.hex+'' }" -->
-            <!-- <div v-on:click="playvideo"> {{this.videocheck}}</div> -->
+    
+      <div class="vragenBackground">
+      <div class="d3">
+        <div class="d3-1">
+          HEADER
         </div>
-      <!-- WebGL -->
-        <div class="row">
-          <div ref="webGLSpeelveld" id="speelveld">
-               <WebGLRaum  v-bind:bigBallPosition="ballposition" v-bind:smallBallPosition="smalBallposition" v-bind:raumid="raumid"></WebGLRaum>
+        <div class="d3-2">
+          <div class="d4">
+            <div class="d5">test</div>
           </div>
         </div>
+      </div>
+      </div>
+  </div>
 
-   </div>
-
-
-</div>
-
+<!-- einde -->
+  
 </template>
+
+            
 <script>
  import { TweenMax} from 'gsap'
 // import raumSVGgrid from '../assets/raum/raumSVGgrid';
 // import pilaar from '../assets/raum/pilaar';
- import WebGLRaum from '../assets/raum/WebGLRaum';
- import Raumstart from '../assets/raum/Raumstart'
- import Vragen from '../assets/raum/Vragen'
+
+
  import osc from "osc";
 import io from "socket.io-client";
 //const $hoverables = document.querySelectorAll('.hoverable');
@@ -179,9 +144,7 @@ export default {
   components: {
   // 'raumSVGgrid': raumSVGgrid,
   //'pilaar': pilaar,
-  'WebGLRaum': WebGLRaum,
-  'Raumstart': Raumstart,
-  'Vragen': Vragen,
+
 
   },
   created() {
@@ -198,15 +161,10 @@ export default {
     mounted(){
       this.$refs.mouseEvent.addEventListener('mousemove', (event)=>{this.mousePC(event)});
       this.$refs.mouseEvent.addEventListener('touchmove',(event) =>{
-         // event.preventDefault();
-  
+       
+          event.stopImmediatePropagation();
           this.mouseMobile(event)
         },{ passive: false });
-
-
-  
-         
-    
 
       this.bigBall = document.querySelector('.cursor__ball--big');
       this.smallBall = document.querySelector('.cursor__ball--small');
@@ -524,13 +482,49 @@ export default {
 
     }
 }
+
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
 
+ input{
+      margin-left:10%;
+      width: 70%;
+        z-index: 1; 
+    }
+
+.wrapper{
+  padding-top: 20px;
+}
+
+.btn-primary{
+    margin-top: 20px;
+}
+
+.color {
+  margin: auto;
+  width: 50%;
+  width: 80px;
+  background-color: rgba(71, 255, 178, 0.699);
+  height: 80px;
+  
+}
+
+@media screen and (max-width: 700px) {
 .background {
-  overflow: hidden;
-  overflow-x: hidden;
+  overflow: scroll;
   width: 100vw;
   height: 100vh;
   background: #1e3a42;
@@ -553,11 +547,8 @@ export default {
       }
     }
   }
-  .splashscreen{
-     z-index:5;
-  }
-
-  .vragenBackground{
+}
+ .vragenBackground{
      z-index:5;
      position:absolute;
      background: rgba(0,0,0,0.5);
@@ -567,344 +558,8 @@ export default {
      backdrop-filter: blur(2px);
   }
 
-  .vragen{
-     z-index:6;
-    position:absolute;
-     display: 1;
-     width: 80vw;
-     height: 85vh;
-     margin-left:10vw;
-     margin-top:10vh;
-    background: linear-gradient(0deg, rgba(35,100,233,0.8) 0%, rgba(202,26,47,0.8) 100%);
-     border-radius: 15px;
-    backdrop-filter: blur(4px);
-    
 
-  }
-
-  #info{
-    position: relative;
-  }
-  #title{
-    color: white;
-  }
-  #speelveld{
-     width: 100%;
-  height: 100vh;
-  background: #474141;
-  color: white;
-
-  }
-
-  .row,.col-8,.col-4{
-    margin: 0;
-    padding:0;
-  }
-
-  #stream{
-      position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  }
-
-  .tekst{
-    flex: 10% 0 90%;
-      text-align: left;
-        margin-top: 5%;
-    margin-left: 9%;
-     margin-right: 9%;
-  }
-  #info-title{
-    font-size:350%;
-     margin-bottom: -2%;
-    font-family: 'Prompt', sans-serif;
-    font-weight: bold;
-   font-style: italic;
-
-  }
-
-  .info-tekst{
-       padding-top: 5%;
-     font-size: 75%;
-      font-family: 'Roboto', sans-serif;
-
-
-  }
-
-   .buttonvragen{
-    font-size: 75%;
-		border: 1px solid rgba(46, 184, 55,1);
-    border-radius: 5px;
-		width: 95px;
-		padding: 10px 0;
-		text-align: center;
-		display: inline-block;
-     margin-right: 10px;
-  }
-
-    .buttonvragen:hover{
-     background-color: rgba(46, 184, 55,0.5)
-  }
-
-  .logos{
-   margin-left: 31%;
-     margin-top: 37vh;
-  }
-
-
-
-  .overlay{
-      display: flex;
-      position: absolute;
-     background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
-        backdrop-filter: blur(2px);
-     width: 100%;
-    height: 100%;
-    animation: myfirst 3s 1;
-    animation-direction: alternate;
-     clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
-    z-index:3;
-  }
-
-  @keyframes myfirst { //hiermee gaat de overlay van links naar rechts en vervormt hij
-      from {right: 100%;
-       clip-path: polygon(0 0, 95% 0, 95% 40%, 100% 50%, 95% 60%, 95% 100%, 0 100%)}
-      to{right:0%;
-         clip-path: polygon(0 0, 100% 0, 100% 40%, 100% 50%, 100% 60%, 100% 100%, 0 100%);
-      }
-
-}
-
-   .info-button{
-     position:absolute;
-     display: 1;
-     margin-left: 0%;
-     width: 100%;
-	height: 100vh;
-  animation: button 3s 1;
-    animation-direction: alternate;
-    clip-path: polygon(98% 47.5%, 96.5% 50%, 98% 52.5%, 97.5% 52.5%, 96% 50%, 97.5% 47.5%);
- background-color:  rgb(255, 255, 255);
-  }
-
-    @keyframes button { //hiermee gaat de overlay van links naar rechts en vervormt hij
-      from {
-       clip-path: polygon(96.5% 47.5%, 98% 50%, 96.5% 52.5%, 96% 52.5%, 97.5% 50%, 96% 47.5%)}
-      to{
-       clip-path: polygon(98% 47.5%, 96.5% 50%, 98% 52.5%, 97.5% 52.5%, 96% 50%, 97.5% 47.5%);
-      }
-   }
-
-    .info-button-hide{
-     position:absolute;
-     display: 1;
-     margin-left: 0%;
-     width: 100%;
-	height: 100vh;
-  animation: buttonhide 3s 1;
-    animation-direction: alternate;
-    clip-path: polygon(96.5% 47.5%, 98% 50%, 96.5% 52.5%, 96% 52.5%, 97.5% 50%, 96% 47.5%);
- background-color:  rgb(255, 255, 255);
-  }
-
-     @keyframes buttonhide { //hiermee gaat de overlay van links naar rechts en vervormt hij
-      from {
-       clip-path: polygon(98% 47.5%, 96.5% 50%, 98% 52.5%, 97.5% 52.5%, 96% 50%, 97.5% 47.5%)}
-      to{
-       clip-path: polygon(96.5% 47.5%, 98% 50%, 96.5% 52.5%, 96% 52.5%, 97.5% 50%, 96% 47.5%);
-      }
-   }
-
-
-
-  .overlayhide{
-       position:absolute;
-       background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
-       width: 100%;
-       height: 100%;
-       animation: overlayhide 3s ;
-       animation-fill-mode: forwards;
-       animation-direction: alternate;
-  }
-
-@keyframes overlayhide { //hiermee gaat de overlay van rechts naar links en vervormt hij
-      from {right: 0%;
-       clip-path: polygon(0 0, 100% 0, 100% 40%, 100% 50%, 100% 60%, 100% 100%, 0 100%);
-      }
-      to{right:95%;
-      clip-path: polygon(0 0, 95% 0, 95% 40%, 100% 50%, 95% 60%, 95% 100%, 0 100%)}
-}
-
-
-  video{
-  position: relative;
-     width: auto;
-     margin-left: 50%;
-     transform: translateX(-50%);
-     height: 100vh;
-    background-color: rgb(0, 0, 0);
-    z-index:1;
-
-}
-
-/////////////////////////////////////////////////////////
- // code bellow is for mobile
-/////////////////////////////////////////////////////////
-
-@media screen and (max-width: 700px) {
-
- .row,.col-8{
-    margin: 0;
-    padding:0;
-  }
-  #speelveld{
-     width: 100%;
-    height: 59vh;
-    background: #0d0d0d;
-    color: white;
-      z-index:3;
-  }
-
-  .tekst{
-    flex: 0% 0 100vh;
-  }
-
-  .logos{
-     position: absolute;
-    margin-left: 25%;
-   margin-top: 65vh;
-  
-     
-  }
-  
-
-  .vragen{
-     z-index:6;
-    // position:absolute;
-     display: 1;
-     width:95vw;
-     height: 80vh;
-     margin-left:2.5vw;
-     margin-top:2.5vh;
-    background: linear-gradient(0deg, rgba(35,100,233,0.8) 0%, rgba(202,26,47,0.8) 100%);
-     border-radius: 15px;
-    backdrop-filter: blur(4px);
-
-  }
-
-
-
-   .overlay{
-       z-index:4;
-      display: flex;
-      position:absolute;
-     //background: rgb(35,100,233);
-     background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
-     width: 100%;
-
-     height: -webkit-fill-available;
-    animation: myfirst 3s 1;
-    animation-direction: alternate;
-      clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
-   
-  }
-
-
-@keyframes myfirst {
-      from {bottom: 95%;
-      clip-path: polygon(0% 0%,   100% 0%,   100% 95%,   65% 95%,   50% 100%,   35% 95%,   0 95%);}
-      to{bottom:0%;
-       clip-path: polygon(0% 0%,   100% 0%,   100% 100%,   60% 100%,   50% 100%,   40% 100%,   0 100%);;
-      }
-}
-
-   .info-button{
-  z-index:4;
-    position:absolute;
-     display: 1;
-     margin-left: 0%;
-     width: 100%;
-	height: -webkit-fill-available;
-
-  animation: button 3s 1;
-    animation-direction: alternate;
-    //clip-path: polygon(98% 47.5%,    96.5% 50%,    98% 52.5%,   97.5% 52.5%,   96% 50%,   97.5% 47.5%);
-    clip-path: polygon(53% 95.5%,    53% 96%,    50% 94.5%,   47% 96%,   47% 95.5%,   50% 94%);
- background-color:  rgb(255, 255, 255);
-  }
-
-    @keyframes button { //hiermee gaat de overlay van links naar rechts en vervormt hij
-      from {
-       clip-path: polygon(53% 96%,    53% 96.5%,    50% 98%,   47% 96.5%,   47% 96%,   50% 97.5%)}
-      to{
-       clip-path: polygon(53% 95.5%,    53% 96%,    50% 94.5%,   47% 96%,   47% 95.5%,   50% 94%);
-      }
-   }
-
-     .info-button-hide{
-         z-index:4;
-     position:absolute;
-     display: 1;
-     margin-left: 0%;
-     width: 100%;
-	height: -webkit-fill-available;
-  animation: buttonhide 2s 1;
-    animation-direction: alternate;
-    clip-path: polygon(53% 96%,    53% 96.5%,    50% 98%,   47% 96.5%,   47% 96%,   50% 97.5%);
- background-color:  rgb(255, 255, 255);
-  }
-
-     @keyframes buttonhide { //hiermee gaat de overlay van onder naar boven
-      from {
-       clip-path: polygon(53% 97.5%,    53% 98%,    50% 96.5%,   47% 98%,   47% 97.5%,   50% 96%)}
-      to{
-       clip-path: polygon(53% 96%,    53% 96.5%,    50% 98%,   47% 96.5%,   47% 96%,   50% 97.5%);
-      }
-   }
-
-
-  .overlayhide{
-      z-index:4;
-       position:absolute;
-       background: linear-gradient(0deg, rgba(35,100,233,0.7) 0%, rgba(202,26,47,0.7) 100%);
-       width: 100%;
-       height: -webkit-fill-available;
-       animation: overlayhide 3s ;
-       animation-fill-mode: forwards;
-       animation-direction: alternate;
-  }
-
-@keyframes overlayhide {
-      from {bottom: 0%;
-      clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 60% 100%, 50% 100%, 40% 100%, 0 100%);}
-      to{bottom:95%;
-      clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 65% 95%, 50% 100%, 35% 95%, 0 95%);
-      }
-}
-
-
-
-  video {
-        z-index:2;
-      position: static;
-        object-fit: cover;
-        margin-left: 0px;
-        padding: 0px;
-       width: 100vw;
-      //   padding-top: 50px;
-      //  padding-bottom: 50px;
-       height: 30vh;
-       background-color: #0d0d0d; //#0d0d0d;
-
-        -moz-transform:scale(2);
-        -webkit-transform:scale(2);
-        -o-transform:scale(2);
-        -ms-transform:scale(2);
-        transform:scale(2);
-  }
-
-  .d3 {
+.d3 {
    height:200px; 
    position: relative;
     border:2px solid red;
@@ -936,32 +591,7 @@ export default {
 }
 }
 
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 1s
-}
 
-.fade-enter,
-.fade-leave-to
-/* .fade-leave-active in <2.1.8 */
-
-{
-  opacity: 0
-}
-
-.splashfade-enter-active,
-.splashfade-leave-active {
-  transition: opacity 2s
-}
-
-.splashfade-enter,
-.splashfade-leave-to
-/* .fade-leave-active in <2.1.8 */
-
-{
-  opacity: 0
-}
 
 
 </style>
