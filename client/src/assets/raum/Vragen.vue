@@ -1,8 +1,8 @@
 <template>
 
 
-  <div class="vragenBackground" ref="vraagEvent">
-  <a href="#" class="close" v-on:click="closeForm"></a>
+  <div class="vragenBackground" >
+  <div class="close"  ref="closeform" v-on:click="closeForm"></div>
     <br> 
       <h2>Onderzoek eenzaamheid</h2>
        <p>De antwoorden zijn op een schaal van 1 tot 10. Waarbij 1 negatief en 10 positief is.</p>
@@ -34,7 +34,7 @@
               
               <br>
 
-              <div class="verzend" v-on:click="createVraag" >Verstuur</div>
+              <div class="verzend" v-on:click="createVraag" >Verzend</div>
               <p class="response">{{response}}</p>
 
           </form>
@@ -74,15 +74,16 @@ export default {
    created: function(){
 
      // create scroll bar
-     var container = this.$el.querySelector("#form");
-     container.scrollTop = container.scrollHeight;
+  
 
      },
   mounted: function(){
 
-     this.$refs.vraagEvent.addEventListener('touchmove',(event) =>{
-    console.log("hello")
-        },{passive: true });
+     this.$refs.closeform.addEventListener('touchmove',() =>{
+        event.preventDefault();
+       console.log("hello")
+           this.closeForm()
+            },{passive: false });
       
   },
   computed:{
@@ -95,6 +96,7 @@ export default {
   methods:{
     closeForm(){
        this.$emit('closeForm')
+       console.log("test")
     },
      async createVraag(){
 
@@ -201,6 +203,7 @@ textarea{
  }
 
  .close {
+    z-index: 2; 
   cursor: none;
   position:absolute;
   margin-top:0.3%;
@@ -243,7 +246,7 @@ textarea{
      height: 100%;
     overflow: hidden;
     box-sizing: border-box;
-    padding-top: 50px;
+    padding-top: 120px;
     width: 100%;
     position: absolute;
     top: 0;
@@ -257,7 +260,9 @@ textarea{
 }
 
 #form{
-  height: 800px;
+   position:absolute;
+   
+  height: 500px;
   /* overflow-x:hidden;
   overflow-y:scroll;
   -webkit-overflow-scrolling: auto;
@@ -265,7 +270,7 @@ textarea{
 }
     
     h2{
-        font-size:150%;
+        font-size:130%;
         text-align: left;
         margin-left:5%;
     }
@@ -310,27 +315,21 @@ textarea{
         display: inline-block;
     }
 
-     .close {
-        cursor: none;
-        position:absolute;
-        margin-left:50%;
-        display: inline-block;
-        right: 25px;
-        top: 10px;
-        width: 15px;
-        height: 15px;
-        opacity: 1;
+    .close:before, .close:after {
+        position: absolute;
+        left: 30px;
+        top: -15px;
+        content: ' ';
+        height: 25px;
+        width: 2px;
+        background-color: rgb(255, 255, 255);
       }
-      .close:before, .close:after {
-          position: absolute;
-          left: 15px;
-          content: ' ';
-          height: 25px;
-          width: 1.5px;
-          background-color: rgb(255, 255, 255);
-        }
-
-
+      .close:before {
+        transform: rotate(45deg);
+      }
+      .close:after {
+        transform: rotate(-45deg);
+      }
   }
  
 

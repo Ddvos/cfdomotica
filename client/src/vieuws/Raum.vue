@@ -548,7 +548,7 @@ export default {
       top: 0;
       left: 0;
      // mix-blend-mode: difference;
-      z-index: 5;
+      z-index: 7;
 
 
       circle {
@@ -651,8 +651,9 @@ export default {
   }
 
   .logos{
-   margin-left: 31%;
-     margin-top: 37vh;
+     position: absolute;
+   margin-left: 25%;
+     margin-top: 5%;
   }
 
 
