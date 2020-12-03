@@ -231,10 +231,11 @@ textarea{
 }
 
 #form{
+  height: 70%;
   position: absolute;
-  -webkit-overflow-scrolling: touch;
-  overflow-y: scroll;
- max-height:40%;
+ 
+  overflow-y: auto;
+   z-index: 10; 
 }
     
     h2{
@@ -256,7 +257,7 @@ textarea{
     input{
       margin-left:10%;
       width: 70%;
-        z-index: 8; 
+     
     }
     textarea{
       margin-left:5%;
