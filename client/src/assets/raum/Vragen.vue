@@ -233,6 +233,7 @@ textarea{
 #form{
   position: absolute;
   -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
  max-height:40%;
 }
     
