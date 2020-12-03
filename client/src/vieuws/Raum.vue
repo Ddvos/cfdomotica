@@ -197,11 +197,14 @@ export default {
   },
     mounted(){
       this.$refs.mouseEvent.addEventListener('mousemove', (event)=>{this.mousePC(event)});
-      this.$refs.mouseEvent.addEventListener('touchmove',(event) =>{
-         // event.preventDefault();
-  
-          this.mouseMobile(event)
-        },{ passive: false });
+
+     
+          this.$refs.mouseEvent.addEventListener('touchmove',(event) =>{
+             if( this.vragen == false){
+              event.preventDefault();
+             }
+              this.mouseMobile(event)
+            },{ passive: false });
 
 
   
@@ -530,7 +533,6 @@ export default {
 
 .background {
   overflow: hidden;
-  overflow-x: hidden;
   width: 100vw;
   height: 100vh;
   background: #1e3a42;

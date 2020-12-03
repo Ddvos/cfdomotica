@@ -1,7 +1,7 @@
 <template>
 
 
-  <div class="vragenBackground" ref="mouseEvent">
+  <div class="vragenBackground" ref="vraagEvent">
   <a href="#" class="close" v-on:click="closeForm"></a>
     <br> 
       <h2>Onderzoek eenzaamheid</h2>
@@ -80,9 +80,9 @@ export default {
      },
   mounted: function(){
 
-     this.$refs.mouseEvent.addEventListener('touchmove',(event) =>{
-  
-        },{ });
+     this.$refs.vraagEvent.addEventListener('touchmove',(event) =>{
+    console.log("hello")
+        },{passive: true });
       
   },
   computed:{
