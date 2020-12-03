@@ -32,7 +32,7 @@
           
           <br>
 
-          <div class="verzend" v-on:click="createVraag" >Verzend</div>
+          <div class="verzend" v-on:click="createVraag" >Verstuur</div>
           <p class="response">{{response}}</p>
 
       </form>
