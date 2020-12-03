@@ -137,6 +137,7 @@ export default {
 .vragenBackground{
     position: relative;
     z-index: 1; 
+    height: 100%;
 
 }
 
@@ -228,14 +229,15 @@ textarea{
 .vragenBackground{
     position: relative;
     z-index: 1; 
+    height: 100%;
 }
 
 #form{
-  height: 70%;
-  position: absolute;
- 
-  overflow-y: auto;
-   z-index: 10; 
+  height: 200px;
+  overflow-x:hidden;
+  overflow-y:scroll;
+  -webkit-overflow-scrolling: touch;
+    z-index: 7; 
 }
     
     h2{
@@ -252,7 +254,7 @@ textarea{
       font-size:80%;
       margin-top: 5px;
       margin-left:5%;
-      cursor: none;
+     
     }
     input{
       margin-left:10%;

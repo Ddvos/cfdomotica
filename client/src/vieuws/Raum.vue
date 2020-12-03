@@ -523,7 +523,7 @@ export default {
 <style lang="scss" scoped>
 
 .background {
-  overflow: hidden;
+  overflow: scroll;
   width: 100vw;
   height: 100vh;
   background: #1e3a42;
@@ -538,7 +538,7 @@ export default {
       top: 0;
       left: 0;
      // mix-blend-mode: difference;
-      z-index: 1000;
+      z-index: 5;
 
 
       circle {
@@ -571,6 +571,7 @@ export default {
     background: linear-gradient(0deg, rgba(35,100,233,0.8) 0%, rgba(202,26,47,0.8) 100%);
      border-radius: 15px;
     backdrop-filter: blur(4px);
+    
 
   }
 
