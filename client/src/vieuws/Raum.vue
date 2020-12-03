@@ -533,8 +533,9 @@ export default {
 
 .background {
   overflow: hidden;
+  position: absolute;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background: #1e3a42;
   color: white;
   cursor: none;
