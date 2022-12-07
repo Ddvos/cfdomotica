@@ -10,10 +10,10 @@
   "author": "Circus Family - Dominique de Vos",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "chart.js": "^2.9.3",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "file-saver": "^2.0.2",
     "jquery": "^3.5.0",
     "lottie-vuejs": "^0.3.7",
