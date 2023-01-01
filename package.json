@@ -20,7 +20,7 @@
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.6",
     "osc": "^2.4.0",
-    "sass-loader": "^8.0.2",
+    "sass-loader": "^13.2.0",
     "socket.io": "^2.3.0",
     "uws": "^100.0.1",
     "v-dragged": "0.0.5",
